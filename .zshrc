@@ -72,32 +72,4 @@ alias npx='. ~/.nvm/loadnvm.sh; node "$@"'
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 #[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Load pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-
-# Load Azure cli
-export PATH=$PATH:/home/naman/bin
-# source $HOME/lib/azure-cli/az.completion
-export DOTNET_ROOT=$HOME/.dotnet
-export PATH=$PATH:$HOME/.dotnet:$HOME/.dotnet/tools
-
-# Load flutter
-export PATH=$HOME/development/flutter/bin:$PATH
-
-# Load Gcloud SDK
-## Disabled due to 'complete command not found error'
-# [ ! -d $HOME/Applications/google-cloud-sdk/path.zsh.inc ] && . $HOME/Applications/google-cloud-sdk/path.zsh.inc
-# Load Gcloud Completions
-# [ ! -d $HOME/Applications/google-cloud-sdk/completion.zsh.inc ] && . $HOME/Applications/google-cloud-sdk/completion.zsh.inc
-
-# Load SSH Agent
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
-
-# Load kubectl plugin manager
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-
-# Load vcpkg path
-VCPKG_ROOT=$HOME/Applications/vcpkg
 
