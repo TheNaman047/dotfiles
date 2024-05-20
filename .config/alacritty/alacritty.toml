@@ -27,7 +27,7 @@ history = 10000
 
 [shell]
 args = ["-l", "-c", "tmux attach || tmux"]
-program = "/bin/zsh"
+program = "zsh"
 
 [window]
 decorations = "Full"
