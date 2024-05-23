@@ -15,17 +15,17 @@ blinking = "Never"
 shape = "Beam"
 
 [font]
-size = 10
+size = 9
 
 [font.normal]
-family = "DankMono Nerd Font"
+family = "FiraCode Nerd Font"
 # style = "Italic"
 
 [font.offset]
 y = 0
 
 [font.glyph_offset]
-y = 1
+y = 0
 
 [scrolling]
 history = 10000
@@ -38,14 +38,6 @@ program = "zsh"
 decorations = "Full"
 dynamic_padding = true
 opacity = 1
-
-[window.dimensions]
-columns = 120
-lines = 40
-
-[window.padding]
-x = 0
-y = 0
 
 [[keyboard.bindings]]
 action = "Paste"
