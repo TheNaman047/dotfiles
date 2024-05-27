@@ -1,0 +1,49 @@
+local lsp_servers = { "lua_ls", "rust_analyzer", "tsserver" }
+
+-- Define a function to set up the keymaps
+local function on_attach(client, bufnr)
+  -- Helper function to set keymaps
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local opts = { noremap = true, silent = true }
+
+  -- Define keymaps using <Cmd>lua
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<Cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<leader>rn', '<Cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<leader>ca', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', ']d', '<Cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '[d', '<Cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', 'gl', '<Cmd>lua vim.diagnostic.open_float()<CR>', opts)
+end
+
+return {
+  {
+    "williamboman/mason.nvim",
+    config = function ()
+      require("mason").setup()
+    end
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    config = function ()
+      require("mason-lspconfig").setup({
+        ensure_installed = lsp_servers,
+      })
+    end
+  },
+  {
+    "neovim/nvim-lspconfig",
+    config = function ()
+      local config = require("lspconfig")
+      for _, lsp in ipairs(lsp_servers) do
+        config[lsp].setup({
+          on_attach = on_attach
+        })
+      end
+    end
+  }
+}
