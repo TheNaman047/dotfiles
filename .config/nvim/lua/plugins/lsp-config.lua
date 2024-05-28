@@ -1,3 +1,4 @@
+-- Language Servers
 local lsp_servers = { "lua_ls", "rust_analyzer", "tsserver" }
 
 -- Define a function to set up the keymaps
@@ -45,5 +46,25 @@ return {
         })
       end
     end
-  }
+  },
+  {
+		'nvimtools/none-ls.nvim',
+    config = function ()
+      local null_ls = require('null-ls')
+
+      null_ls.setup({
+        sources = {
+          -- Formatting
+          null_ls.builtins.formatting.stylua,
+          null_ls.builtins.formatting.prettierd,
+          null_ls.builtins.formatting.black,
+
+          -- Diagnostics
+          null_ls.builtins.diagnostics.eslint_d,
+          null_ls.builtins.diagnostics.pylint,
+        }
+      })
+      vim.keymap.set('n', '<A-F>', "<Cmd>lua vim.lsp.buf.format()<CR>", opts)
+    end
+	}
 }
