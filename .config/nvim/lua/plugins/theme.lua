@@ -1,4 +1,4 @@
-return{
+return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -9,7 +9,7 @@ return{
     end,
   },
   {
-    'stevearc/dressing.nvim',
+    "stevearc/dressing.nvim",
     lazy = true,
     init = function()
       ---@diagnostic disable-next-line: duplicate-set-field
@@ -23,5 +23,5 @@ return{
         return vim.ui.input(...)
       end
     end,
-  }
+  },
 }
