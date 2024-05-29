@@ -72,7 +72,7 @@ return {
           null_ls.builtins.diagnostics.pylint,
         },
       })
-      vim.keymap.set("n", "<A-F>", "<Cmd>lua vim.lsp.buf.format()<CR>", opts)
+      vim.keymap.set("n", "fd", "<Cmd>lua vim.lsp.buf.format()<CR>", opts)
     end,
   },
 }
