@@ -13,6 +13,9 @@ vim.cmd("set relativenumber")
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- Set 24bit color
+vim.opt.termguicolors = true
+
 -- Navigate between splits
 -- Use ctrl-[hjkl] to select the active split!
 vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", opts)

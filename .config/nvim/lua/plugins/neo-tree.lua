@@ -1,3 +1,7 @@
+
+-- Set common opts
+local opts = { noremap = true, silent = true }
+
 return {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
@@ -27,7 +31,7 @@ return {
   },
   config = function()
     -- Set open and close key maps
-    vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left<CR>", {})
+    vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left<CR>", opts)
     -- If you want icons for diagnostic errors, you'll need to define them somewhere:
     vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
     vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })

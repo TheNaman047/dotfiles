@@ -16,5 +16,5 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
 -- Load custom prompts
-require("configs.prompts")
+-- require("configs.prompts")
 
