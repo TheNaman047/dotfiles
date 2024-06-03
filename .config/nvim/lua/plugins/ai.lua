@@ -65,7 +65,7 @@ return {
 		opts = {
 			-- your configuration overrides
 			model = "llama3",
-			url = "https://api-ollama-local.thenaman047.dev",
+			url = "http://localhost:11434",
 			-- View the actual default prompts in ./lua/ollama/prompts.lua
 			prompts = {
 				Sample_Prompt = {
