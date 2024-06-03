@@ -8,6 +8,7 @@ vim.cmd("set softtabstop=2")
 vim.cmd("set shiftwidth=2")
 vim.cmd("set number")
 vim.cmd("set relativenumber")
+vim.cmd("set hidden")
 
 -- Set leader
 vim.g.mapleader = " "
@@ -24,4 +25,7 @@ vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", opts)
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", opts)
 
 -- Toggle relative line numbering
-vim.keymap.set("n", "<leader>r", ":set relativenumber!<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>r", ":set relativenumber!<CR>", opts)
+
+-- Set Esc key to leave terminal mode
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", opts)

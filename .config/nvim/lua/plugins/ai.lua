@@ -64,7 +64,7 @@ return {
 		---@type Ollama.Config
 		opts = {
 			-- your configuration overrides
-			model = "codellama:7b-code",
+			model = "llama3",
 			url = "https://api-ollama-local.thenaman047.dev",
 			-- View the actual default prompts in ./lua/ollama/prompts.lua
 			prompts = {

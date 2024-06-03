@@ -20,7 +20,11 @@ return {
 		})
 		local opts = { noremap = true, silent = true }
 		-- Bufferline cycle through buffers
-		vim.api.nvim_set_keymap("n", "bp", ":lua require'bufferline'.cycle(1)<CR>", opts)
-		vim.api.nvim_set_keymap("n", "bn", ":lua require'bufferline'.cycle(-1)<CR>", opts)
+		vim.api.nvim_set_keymap("n", "gbp", ":lua require'bufferline'.cycle(1)<CR>", opts)
+		vim.api.nvim_set_keymap("n", "gbn", ":lua require'bufferline'.cycle(-1)<CR>", opts)
+		-- Bufferline close buffer
+		vim.api.nvim_set_keymap("n", "gbd", ":bd<CR>", opts)
+		-- Bufferline save buffer
+		vim.api.nvim_set_keymap("n", "gbs", ":w<CR>", opts)
 	end,
 }
