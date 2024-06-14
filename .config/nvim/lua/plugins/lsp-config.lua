@@ -85,7 +85,7 @@ return {
           null_ls.builtins.formatting.black,
 
           -- Diagnostics
-          null_ls.builtins.diagnostics.eslint_lsp,
+          -- null_ls.builtins.diagnostics.eslint_lsp,
           null_ls.builtins.diagnostics.pylint,
         },
       })

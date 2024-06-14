@@ -10,3 +10,6 @@
 [submodule ".config/tmux/plugins/tpm"]
 	path = .config/tmux/plugins/tpm
 	url = git@github.com:tmux-plugins/tpm.git
+[submodule ".config/tmux/plugins/tokyo-night-tmux"]
+	path = .config/tmux/plugins/tokyo-night-tmux
+	url = git@github.com:janoamaral/tokyo-night-tmux.git
