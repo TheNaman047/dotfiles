@@ -64,7 +64,8 @@ return {
         sources = {
           -- Formatting
           null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.biome.with({
+          null_ls.builtins.formatting.prettierd,
+          --[[ null_ls.builtins.formatting.biome.with({
             filetypes = {
               "javascript",
               "javascriptreact",
@@ -81,7 +82,7 @@ return {
               "--skip-errors",
               "--stdin-file-path=$FILENAME",
             },
-          }),
+          }), ]]
           null_ls.builtins.formatting.black,
 
           -- Diagnostics
