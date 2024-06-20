@@ -111,10 +111,17 @@ return {
 					enabled = false,
 				},
 			},
-      window = {
-        width = 30,
-      },
+			window = {
+				width = 30,
+			},
 			filesystem = {
+				filtered_items = {
+					visible = true,
+					show_hidden_count = true,
+					hide_dotfiles = false,
+					hide_gitignored = false,
+				},
+
 				follow_current_file = {
 					enabled = false, -- This will find and focus the file in the active buffer every time
 					--               -- the current file is changed while the tree is open.
