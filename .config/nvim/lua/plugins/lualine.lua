@@ -1,3 +1,6 @@
+-- load ollama status functions
+local ollama_config = require("configs.ollama-status")
+
 -- Bubbles config for lualine
 -- Author: lokesh-krishna
 -- MIT license, see LICENSE for more details.
@@ -31,8 +34,6 @@ local bubbles_theme = {
   },
 }
 
--- load ollama status functions
-local ollama_config = require("configs.ollama")
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -50,7 +51,7 @@ return {
         lualine_c = {
           "%=", --[[ add your center compoentnts here in place of this comment ]]
         },
-        lualine_x = { ollama_config.get_condition, ollama_config.get_status_icon },
+        lualine_x = { ollama_config.get_status_icon },
         lualine_y = { "filetype", "progress" },
         lualine_z = {
           { "location", separator = { right = "" }, left_padding = 2 },

@@ -1,39 +1,7 @@
-return {
-	--[[ {
-		"David-Kunz/gen.nvim",
-		opts = {
-			model = "codellama:7b-code", -- The default model to use.
-			host = "api-ollama-local.thenaman047.dev", -- The host running the Ollama service.
-			port = "", -- The port on which the Ollama service is listening.
-			quit_map = "q", -- set keymap for close the response window
-			retry_map = "<c-r>", -- set keymap to re-send the current prompt
-			-- Function to initialize Ollama
-			command = function(options)
-				local body = { model = options.model, stream = true }
-				local command = "curl --silent --no-buffer -X POST http://" .. options.host
-				if options.port ~= nil and options.port ~= "" then
-					command = command .. ":" .. options.port
-				end
+-- load ollama status functions
+local ollama_prompts = require("configs.ollama-prompts")
 
-				command = command .. "/api/chat -d $body"
-        require('notify')(command)
-				return command
-			end,
-			-- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
-			-- This can also be a command string.
-			-- The executed command must return a JSON object with { response, context }
-			-- (context property is optional).
-			-- list_models = '<omitted lua function>', -- Retrieves a list of model names
-			display_mode = "split", -- The display mode. Can be "float" or "split".
-			show_prompt = true, -- Shows the prompt submitted to Ollama.
-			show_model = true, -- Displays which model you are using at the beginning of your chat session.
-			no_auto_close = false, -- Never closes the window automatically.
-			debug = false, -- Prints errors and the command which is run.
-		},
-		config = function()
-			vim.keymap.set({ "n", "v" }, "<leader>o", ":Gen<CR>")
-		end,
-	}, ]]
+return {
 	{
 		"nomnivore/ollama.nvim",
 		dependencies = {
@@ -54,8 +22,8 @@ return {
 
 			-- Sample keybind for direct prompting. Note that the <c-u> is important for selections to work properly.
 			{
-				"<leader>og",
-				":<c-u>lua require('ollama').prompt('Generate_Code')<cr>",
+				"<leader>oa",
+				":<c-u>lua require('ollama').prompt('Ask_About_Code')<cr>",
 				desc = "ollama Generate Code",
 				mode = { "n", "v" },
 			},
@@ -67,14 +35,7 @@ return {
 			model = "llama3",
 			url = "http://localhost:11434",
 			-- View the actual default prompts in ./lua/ollama/prompts.lua
-			prompts = {
-				Sample_Prompt = {
-					prompt = "This is a sample prompt that receives $input and $sel(ection), among others.",
-					input_label = "> ",
-					model = "mistral",
-					action = "display",
-				},
-			},
+			prompts = ollama_prompts.prompts,
 		},
 	},
 }

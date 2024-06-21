@@ -30,6 +30,7 @@ return {
 	},
 	config = function()
 		-- Set open and close key maps
+		-- vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left<CR>", opts)
 		vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left<CR>", opts)
 		-- If you want icons for diagnostic errors, you'll need to define them somewhere:
 		vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
