@@ -1,11 +1,50 @@
 return {
 	{
 		"moll/vim-bbye",
+		event = "VeryLazy",
 	},
 	{
 		"akinsho/bufferline.nvim",
 		version = "*",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
+		event = "VeryLazy",
+		keys = {
+			{
+				"gjn",
+				":lua require'bufferline'.cycle(1)<CR>",
+				silent = true,
+				noremap = true,
+				desc = "Bufferline cycle through buffers right",
+			},
+			{
+				"gjp",
+				":lua require'bufferline'.cycle(-1)<CR>",
+				silent = true,
+				noremap = true,
+				desc = "Bufferline cycle through buffers left",
+			},
+			{
+				"gjd",
+				":Bdelete<CR>",
+				silent = true,
+				noremap = true,
+				desc = "Bufferline close tab",
+			},
+			{
+				"gjx",
+				":bd<CR>",
+				silent = true,
+				noremap = true,
+				desc = "Bufferline close buffer",
+			},
+			{
+				"gjs",
+				":w<CR>",
+				silent = true,
+				noremap = true,
+				desc = "Bufferline save buffer",
+			},
+		},
 		config = function()
 			require("bufferline").setup({
 				options = {
@@ -27,16 +66,6 @@ return {
 					},
 				},
 			})
-			local opts = { noremap = true, silent = true }
-			-- Bufferline cycle through buffers
-			vim.api.nvim_set_keymap("n", "gjn", ":lua require'bufferline'.cycle(1)<CR>", opts)
-			vim.api.nvim_set_keymap("n", "gjp", ":lua require'bufferline'.cycle(-1)<CR>", opts)
-			-- Bufferline close tab
-			vim.api.nvim_set_keymap("n", "gjd", ":Bdelete<CR>", opts)
-			-- Bufferline close buffer
-			vim.api.nvim_set_keymap("n", "gjx", ":bd<CR>", opts)
-			-- Bufferline save buffer
-			vim.api.nvim_set_keymap("n", "gjs", ":w<CR>", opts)
 		end,
 	},
 }

@@ -4,6 +4,7 @@ local ollama_prompts = require("configs.ollama-prompts")
 return {
 	{
 		"nomnivore/ollama.nvim",
+		event = "VeryLazy",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},

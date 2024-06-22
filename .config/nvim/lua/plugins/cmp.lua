@@ -1,9 +1,11 @@
 return {
 	{
 		"hrsh7th/cmp-nvim-lsp",
+		event = "VeryLazy",
 	},
 	{
 		"hrsh7th/cmp-buffer",
+		event = "VeryLazy",
 	},
 	{
 		"L3MON4D3/LuaSnip",
@@ -11,9 +13,11 @@ return {
 			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets",
 		},
+		event = "VeryLazy",
 	},
 	{
 		"hrsh7th/nvim-cmp",
+		event = "VeryLazy",
 		config = function()
 			-- Set up nvim-cmp.
 			local cmp = require("cmp")
