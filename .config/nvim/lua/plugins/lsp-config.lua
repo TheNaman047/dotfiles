@@ -65,24 +65,6 @@ return {
           -- Formatting
           null_ls.builtins.formatting.stylua,
           null_ls.builtins.formatting.prettierd,
-          --[[ null_ls.builtins.formatting.biome.with({
-            filetypes = {
-              "javascript",
-              "javascriptreact",
-              "json",
-              "jsonc",
-              "typescript",
-              "typescriptreact",
-            },
-            args = {
-              "check",
-              "--apply-unsafe",
-              "--formatter-enabled=true",
-              "--organize-imports-enabled=true",
-              "--skip-errors",
-              "--stdin-file-path=$FILENAME",
-            },
-          }), ]]
           null_ls.builtins.formatting.black,
 
           -- Diagnostics
