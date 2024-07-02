@@ -35,7 +35,7 @@ args = ["-l", "-c", "tmux attach || tmux"]
 program = "zsh"
 
 [window]
-decorations = "Full"
+decorations = "Buttonless"
 dynamic_padding = true
 opacity = 1
 
