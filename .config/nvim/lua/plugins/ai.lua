@@ -1,5 +1,5 @@
 -- load ollama status functions
-local ollama_prompts = require("configs.ollama-prompts")
+local ollama_prompts = require("config.ollama-prompts")
 
 return {
 	{
@@ -34,9 +34,44 @@ return {
 		opts = {
 			-- your configuration overrides
 			model = "llama3",
-			url = "http://localhost:11434",
+			url = "https://api-ollama-local.thenaman047.dev",
 			-- View the actual default prompts in ./lua/ollama/prompts.lua
 			prompts = ollama_prompts.prompts,
+		},
+	},
+	{
+		"David-Kunz/gen.nvim",
+		opts = {
+			model = "codestral-latest", -- The default model to use.
+			-- host = "api-ollama-local.thenaman047.dev", -- The host running the Ollama service.
+			host = "codestral.mistral.ai", -- The host running the Ollama service.
+			port = "", -- The port on which the Ollama service is listening.
+			command = function(options)
+				local body = { model = options.model, stream = true }
+				-- local endpoint = "curl --silent --no-buffer -X POST https://" .. options.host .. "/api/chat -d $body"
+				local endpoint = "curl --silent --no-buffer --header 'Authorization: Bearer wEhqpNThFsssFUOjtVLqTpvvpPHGvce4' -X POST https://"
+					.. options.host
+					.. "/v1/chat/completions -d $body"
+				return endpoint
+			end,
+			-- The command for the Ollama service. You can use placeholders $prompt, $model and $body (shellescaped).
+			-- This can also be a command string.
+			-- The executed command must return a JSON object with { response, context }
+			-- (context property is optional).
+			-- list_models = '<omitted lua function>', -- Retrieves a list of model names
+			display_mode = "split", -- The display mode. Can be "float" or "split" or "horizontal-split".
+			show_prompt = true, -- Shows the prompt submitted to Ollama.
+			show_model = true, -- Displays which model you are using at the beginning of your chat session.
+			no_auto_close = false, -- Never closes the window automatically.
+			debug = true, -- Prints errors and the command which is run.
+		},
+		keys = {
+			{
+				"<leader>ge",
+				":Gen<CR>",
+				desc = "gen prompt",
+				mode = { "n", "v" },
+			},
 		},
 	},
 }

@@ -34,6 +34,10 @@ return {
 		config = function()
 			require("toggleterm").setup({
 				open_mapping = [[<c-\>]],
+				direction = "vertical",
+				size = function()
+					return vim.o.columns * 0.2
+				end,
 			})
 
 			-- Create new Terminals

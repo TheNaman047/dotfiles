@@ -1,5 +1,5 @@
 -- load ollama status functions
-local ollama_config = require("configs.ollama-status")
+local ollama_config = require("config.ollama-status")
 
 -- Bubbles config for lualine
 -- Author: lokesh-krishna
