@@ -11,19 +11,19 @@ return {
 		event = "VeryLazy",
 		opts = {
 			mappings = {
-				add = "gsa",
+				add = "gsl",
 				delete = "gsd",
 				find = "gsf",
 				find_left = "gsF",
-				highlwght = "gsh",
+				highlight = "gsh",
 				replace = "gsr",
-				update_n_lwnes = "gsn",
+				update_n_lines = "gsn",
 			},
 		},
 	},
 	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
 		opts = {
 			disable_filetype = { "TelescopePrompt", "spectre_panel" },
 		},

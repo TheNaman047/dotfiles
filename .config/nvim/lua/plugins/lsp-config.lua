@@ -1,5 +1,5 @@
 -- Language Servers
-local lsp_servers = { "lua_ls", "rust_analyzer", "tsserver" }
+local lsp_servers = { "lua_ls", "rust_analyzer", "tsserver", "jsonls", "docker_compose_language_service", "dockerls" }
 -- Set common opts
 local opts = { noremap = true, silent = true }
 
@@ -15,7 +15,7 @@ local function on_attach(client, bufnr)
   buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
   buf_set_keymap("n", "gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>", opts)
   buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-  buf_set_keymap("n", "<C-k>", "<Cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+  buf_set_keymap("n", "<C-s>", "<Cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
   vim.keymap.set("n", "gr", function()
     require("telescope.builtin").lsp_references()
   end, opts)
