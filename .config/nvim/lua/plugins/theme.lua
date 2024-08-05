@@ -1,23 +1,23 @@
 return {
-  -- {
-  -- 	"catppuccin/nvim",
-  -- 	name = "catppuccin",
-  -- 	lazy = false,
-  -- 	priority = 1000,
-  -- 	config = function()
-  -- 		vim.cmd([[colorscheme catppuccin]])
-  -- 	end,
-  -- },
   {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    config = function()
-      require("rose-pine").setup({
-        dim_inactive_windows = true,
-      })
-      vim.cmd([[colorscheme rose-pine]])
-    end,
+  	"catppuccin/nvim",
+  	name = "catppuccin",
+  	lazy = false,
+  	priority = 1000,
+  	config = function()
+  		vim.cmd([[colorscheme catppuccin]])
+  	end,
   },
+  -- {
+  --   "rose-pine/neovim",
+  --   name = "rose-pine",
+  --   config = function()
+  --     require("rose-pine").setup({
+  --       dim_inactive_windows = true,
+  --     })
+  --     vim.cmd([[colorscheme rose-pine]])
+  --   end,
+  -- },
   -- {
   -- 	"jdsimcoe/hyper.vim",
   -- 	name = "hyper",

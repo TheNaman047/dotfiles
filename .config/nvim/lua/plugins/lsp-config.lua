@@ -1,5 +1,5 @@
 -- Language Servers
-local lsp_servers = { "lua_ls", "rust_analyzer", "tsserver", "jsonls", "docker_compose_language_service", "dockerls" }
+local lsp_servers = { "lua_ls", "rust_analyzer", "tsserver", "jsonls", "docker_compose_language_service", "dockerls", "pyright" }
 -- Set common opts
 local opts = { noremap = true, silent = true }
 
@@ -73,6 +73,7 @@ return {
         },
       })
       vim.keymap.set("n", "fd", "<Cmd>lua vim.lsp.buf.format()<CR>", opts)
+      vim.keymap.set("n", "fe", "<Cmd>lua vim.diagnostic.open_float()<CR>", opts)
     end,
   },
 }
