@@ -53,3 +53,6 @@ vim.keymap.set("n", "gjx", ":bd<CR>", MergeTables(opts, { desc = "Bufferline clo
 
 -- Bufferline save buffer
 vim.keymap.set("n", "gjs", ":w<CR>", MergeTables(opts, { desc = "Bufferline save buffer" }))
+
+-- Generate uuid at cursor
+vim.keymap.set('n', 'guu', ":r !uuidgen<CR>", MergeTables(opts, {desc = "Generate uuid at cursor"}))
