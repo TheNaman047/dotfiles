@@ -23,6 +23,8 @@ vim.cmd("set relativenumber")
 vim.cmd("set hidden")
 vim.cmd("set noshowmode")
 vim.cmd("set scrolloff=1")
+vim.cmd("set ignorecase")
+vim.cmd("set smartcase")
 
 -- Set leader
 vim.g.mapleader = " "
