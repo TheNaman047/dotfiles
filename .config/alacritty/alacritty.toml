@@ -15,10 +15,10 @@ blinking = "Never"
 shape = "Beam"
 
 [font]
-size = 9
+size = 14
 
 [font.normal]
-family = "FiraCode Nerd Font"
+family = "DankMono Nerd Font"
 # style = "Italic"
 
 [font.offset]
@@ -37,7 +37,7 @@ program = "zsh"
 [window]
 decorations = "Buttonless"
 dynamic_padding = true
-opacity = 1
+opacity = 0.9
 
 [[keyboard.bindings]]
 action = "Paste"
