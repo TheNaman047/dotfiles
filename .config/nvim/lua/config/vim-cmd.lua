@@ -25,6 +25,7 @@ vim.cmd("set noshowmode")
 vim.cmd("set scrolloff=1")
 vim.cmd("set ignorecase")
 vim.cmd("set smartcase")
+vim.cmd("set autoread")
 
 -- Set leader
 vim.g.mapleader = " "
