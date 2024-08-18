@@ -31,7 +31,7 @@ then
 fi
 # Load completions
 autoload -U compinit && compinit
-zinit  cdreplay -q
+zinit cdreplay -q
 
 # Key Bindings
 bindkey -e
