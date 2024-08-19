@@ -1,6 +1,6 @@
 -- Language Servers
 local lsp_servers = {
-  "html",
+	"html",
 	"cssls",
 	"lua_ls",
 	"rust_analyzer",
@@ -55,6 +55,9 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
+		dependencies = {
+			"hrsh7th/cmp-nvim-lsp",
+		},
 		config = function()
 			local config = require("lspconfig")
 			-- Adding capabilities from 'cmp_nvim_lsp'
