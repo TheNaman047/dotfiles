@@ -118,10 +118,10 @@ return {
 			},
 			filesystem = {
 				filtered_items = {
-					visible = true,
+					visible = false,
 					show_hidden_count = true,
 					hide_dotfiles = false,
-					hide_gitignored = false,
+					hide_gitignored = true,
 				},
 
 				follow_current_file = {
