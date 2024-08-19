@@ -1,0 +1,92 @@
+{
+	"Print to console": {
+		"prefix": "con",
+		"body": [
+			"console.log(\"$1\", $2);",
+			"$0"
+		],
+		"description": "Log output to console"
+	},
+	"Simple for loop": {
+		"prefix": "for",
+		"body": [
+			"for (var ${1:i} = $2; ${1:i} < $3; ${1:i}++) {",
+			"    $0",
+			"}"
+		],
+		"description": "Basic FOR loop"
+	},
+	"Simple function snippet": {
+		"prefix": "fun",
+		"body": [
+			"function $1($2) {",
+			"    $0",
+			"}"
+		],
+		"description": "Simple function creation"
+	},
+	"Promise Snippet": {
+		"prefix": "pro",
+		"body": [
+			"new Promise((resolve, reject) => {",
+			"    $0",
+			"})"
+		],
+		"description": "Promise Snippet"
+	},
+	"Promise Then Snippet": {
+		"prefix": "the",
+		"body": [
+			".then(response => {",
+			"    $0",
+			"})"
+		],
+		"description": "Promise Then Snippet"
+	},
+	"Promise Catch Snippet": {
+		"prefix": "cat",
+		"body": [
+			".catch(error => {",
+			"    $0",
+			"})"
+		],
+		"description": "Promise Catch Snippet"
+	},
+	"Promise All Snippet": {
+		"prefix": "proa",
+		"body": [
+			"Promise.all([",
+			"    $0",
+			"])"
+		],
+		"description": "Promise all Snippet"
+	},
+	"Express router base Snippet": {
+		"prefix": "routeEx",
+		"body": [
+			"const express = require('express'),",
+			"    router = express.Router()",
+			"",
+			"router.$1('/$2', $0)",
+			"",
+			"module.exports = router;"
+		],
+		"description": "Express router base Snippet"
+	},
+	"Module Exports Snippet": {
+		"prefix": "modEx",
+		"body": [
+			"module.exports = {",
+			"    $0",
+			"}"
+		],
+		"description": "Module Exports Snippet"
+	},
+	"Module Require Snippet": {
+		"prefix": "modReq",
+		"body": [
+			"$1 = require('$0')"
+		],
+		"description": "Module Require Snippet"
+	}
+}
