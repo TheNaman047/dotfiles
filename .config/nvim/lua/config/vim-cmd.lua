@@ -1,13 +1,13 @@
 -- Function to merge two tables
 function MergeTables(t1, t2)
-  local merged = {}
-  for k, v in pairs(t1) do
-    merged[k] = v
-  end
-  for k, v in pairs(t2) do
-    merged[k] = v
-  end
-  return merged
+	local merged = {}
+	for k, v in pairs(t1) do
+		merged[k] = v
+	end
+	for k, v in pairs(t2) do
+		merged[k] = v
+	end
+	return merged
 end
 
 -- Set common opts
@@ -49,13 +49,13 @@ vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", opts)
 
 -- Set buffer keymaps
 -- Bufferline close tab
-vim.keymap.set("n", "gjd", ":Bdelete<CR>", MergeTables(opts, { desc = "Bufferline close tab" }))
+-- vim.keymap.set("n", "gjd", ":Bdelete<CR>", MergeTables(opts, { desc = "Bufferline close tab" }))
 
 -- Bufferline close buffer
-vim.keymap.set("n", "gjx", ":bd<CR>", MergeTables(opts, { desc = "Bufferline close buffer" }))
+-- vim.keymap.set("n", "gjx", ":bd<CR>", MergeTables(opts, { desc = "Bufferline close buffer" }))
 
 -- Bufferline save buffer
-vim.keymap.set("n", "gjs", ":w<CR>", MergeTables(opts, { desc = "Bufferline save buffer" }))
+-- vim.keymap.set("n", "gjs", ":w<CR>", MergeTables(opts, { desc = "Bufferline save buffer" }))
 
 -- Generate uuid at cursor
-vim.keymap.set('n', 'guu', ":r !uuidgen<CR>", MergeTables(opts, {desc = "Generate uuid at cursor"}))
+vim.keymap.set("n", "guu", ":r !uuidgen<CR>", MergeTables(opts, { desc = "Generate uuid at cursor" }))
