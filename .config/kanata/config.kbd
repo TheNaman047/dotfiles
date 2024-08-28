@@ -1,11 +1,15 @@
 ;; Kanata configuration for caps to ecs+ctrl
 
 (defsrc
-  caps 
+  caps
+)
+
+(defcfg
+  process-unmapped-keys yes
 )
 
 (defalias
-  escctrl (tap-hold 100 100 esc lctrl)
+  escctrl (tap-hold-press 0 10000 esc lctrl)
 )
 
 (deflayer base
