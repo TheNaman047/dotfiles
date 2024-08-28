@@ -49,10 +49,10 @@ vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", opts)
 
 -- Set buffer keymaps
 -- Bufferline close tab
--- vim.keymap.set("n", "gjd", ":Bdelete<CR>", MergeTables(opts, { desc = "Bufferline close tab" }))
+vim.keymap.set("n", "gjd", ":Bdelete<CR>", MergeTables(opts, { desc = "Bufferline close tab" }))
 
 -- Bufferline close buffer
--- vim.keymap.set("n", "gjx", ":bd<CR>", MergeTables(opts, { desc = "Bufferline close buffer" }))
+vim.keymap.set("n", "gjx", ":bd<CR>", MergeTables(opts, { desc = "Bufferline close buffer" }))
 
 -- Bufferline save buffer
 -- vim.keymap.set("n", "gjs", ":w<CR>", MergeTables(opts, { desc = "Bufferline save buffer" }))
