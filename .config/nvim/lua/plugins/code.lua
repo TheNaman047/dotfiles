@@ -7,21 +7,6 @@ return {
 		event = "VeryLazy",
 	},
 	{
-		"echasnovski/mini.surround",
-		event = "VeryLazy",
-		opts = {
-			mappings = {
-				add = "gsl",
-				delete = "gsd",
-				find = "gsf",
-				find_left = "gsF",
-				highlight = "gsh",
-				replace = "gsr",
-				update_n_lines = "gsn",
-			},
-		},
-	},
-	{
     "windwp/nvim-autopairs",
     event = "InsertEnter",
 		opts = {
