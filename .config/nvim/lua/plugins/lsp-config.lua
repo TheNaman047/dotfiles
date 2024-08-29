@@ -4,7 +4,7 @@ local lsp_servers = {
 	"cssls",
 	"lua_ls",
 	"rust_analyzer",
-	"tsserver",
+	-- "tsserver",
 	"jsonls",
 	"docker_compose_language_service",
 	"dockerls",
@@ -90,5 +90,11 @@ return {
 			vim.keymap.set("n", "fd", "<Cmd>lua vim.lsp.buf.format()<CR>", opts)
 			vim.keymap.set("n", "fe", "<Cmd>lua vim.diagnostic.open_float()<CR>", opts)
 		end,
+	},
+	{
+		"pmizio/typescript-tools.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		event = "BufRead",
+		opts = {},
 	},
 }
