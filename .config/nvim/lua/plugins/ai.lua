@@ -98,6 +98,7 @@ local cmp_ai = {
 
 local supermaven_config = {
 	"supermaven-inc/supermaven-nvim",
+  event = "VeryLazy",
 	config = function()
 		require("supermaven-nvim").setup({})
 	end,
