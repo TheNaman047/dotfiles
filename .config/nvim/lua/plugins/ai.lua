@@ -96,8 +96,16 @@ local cmp_ai = {
 	end,
 }
 
+local supermaven_config = {
+	"supermaven-inc/supermaven-nvim",
+	config = function()
+		require("supermaven-nvim").setup({})
+	end,
+}
+
 return {
 	ollama_config,
 	gen_nvim_config,
 	-- cmp_ai,
+	supermaven_config,
 }
