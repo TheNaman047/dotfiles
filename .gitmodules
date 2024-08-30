@@ -13,3 +13,6 @@
 [submodule ".config/tmux/plugins/tokyo-night-tmux"]
 	path = .config/tmux/plugins/tokyo-night-tmux
 	url = git@github.com:janoamaral/tokyo-night-tmux.git
+[submodule ".config/tmux/plugins/vim-tmux-navigator"]
+	path = .config/tmux/plugins/vim-tmux-navigator
+	url = git@github.com:christoomey/vim-tmux-navigator.git
