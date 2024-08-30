@@ -78,7 +78,7 @@ return {
 			require("noice").setup({
 				-- add any options here
 				cmdline = {
-					enabled = true,
+					enabled = false,
 				},
 				messages = {
 					enabled = false,
