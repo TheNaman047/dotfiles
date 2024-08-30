@@ -26,6 +26,7 @@ vim.cmd("set scrolloff=1")
 vim.cmd("set ignorecase")
 vim.cmd("set smartcase")
 vim.cmd("set autoread")
+vim.cmd("set autowriteall")
 vim.cmd("set cursorline")
 
 -- Set leader
