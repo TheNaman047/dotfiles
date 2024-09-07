@@ -108,5 +108,5 @@ return {
 	ollama_config,
 	gen_nvim_config,
 	-- cmp_ai,
-	supermaven_config,
+	-- supermaven_config,
 }
