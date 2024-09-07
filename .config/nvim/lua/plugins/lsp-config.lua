@@ -4,7 +4,7 @@ local lsp_servers = {
 	"cssls",
 	"lua_ls",
 	"rust_analyzer",
-	-- "tsserver",
+	"tsserver",
 	"jsonls",
 	"docker_compose_language_service",
 	"dockerls",
