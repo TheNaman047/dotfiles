@@ -25,7 +25,6 @@ function CloseTerm()
   vim.api.nvim_win_close(vim.api.nvim_get_current_win(), false)
 end
 
-vim.api.nvim_set_keymap("n", "<leader>tt", ":call ToggleTerm() <CR>", opts)
 return {
   {
     "akinsho/toggleterm.nvim",
@@ -38,9 +37,11 @@ return {
       })
 
       -- Create new Terminals
-      vim.api.nvim_set_keymap("n", "<leader>tt", "<cmd>lua NewTerm()<cr>", opts)
+      vim.api.nvim_set_keymap("n", "<leader>tn", "<cmd>lua NewTerm()<cr>", opts)
       -- Close current Terminal
       vim.api.nvim_set_keymap("n", "<leader>tk", "<cmd>lua CloseTerm()<cr>", opts)
+      -- Toggle current Terminal Visibility
+      vim.api.nvim_set_keymap("n", "<leader>tt", ":ToggleTerm<cr>", opts)
 
       -- Open Lazygit
       local Terminal = require("toggleterm.terminal").Terminal
