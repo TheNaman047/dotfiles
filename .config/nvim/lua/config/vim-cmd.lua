@@ -28,7 +28,6 @@ vim.cmd("set smartcase")
 vim.cmd("set autoread")
 vim.cmd("set autowriteall")
 vim.cmd("set cursorline")
-vim.cmd("set clipboard=unnamedplus")
 
 -- Set leader
 vim.g.mapleader = " "
