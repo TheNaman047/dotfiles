@@ -1,13 +1,13 @@
--- Function to merge two tables
+
 function MergeTables(t1, t2)
-	local merged = {}
-	for k, v in pairs(t1) do
-		merged[k] = v
-	end
-	for k, v in pairs(t2) do
-		merged[k] = v
-	end
-	return merged
+  local merged = {}
+  for k, v in pairs(t1) do
+    merged[k] = v
+  end
+  for k, v in pairs(t2) do
+    merged[k] = v
+  end
+  return merged
 end
 
 -- Set common opts
@@ -28,6 +28,7 @@ vim.cmd("set smartcase")
 vim.cmd("set autoread")
 vim.cmd("set autowriteall")
 vim.cmd("set cursorline")
+vim.cmd("set clipboard=unnamedplus")
 
 -- Set leader
 vim.g.mapleader = " "
@@ -61,3 +62,11 @@ vim.keymap.set("n", "gjx", ":bd<CR>", MergeTables(opts, { desc = "Bufferline clo
 
 -- Generate uuid at cursor
 vim.keymap.set("n", "guu", ":r !uuidgen<CR>", MergeTables(opts, { desc = "Generate uuid at cursor" }))
+
+-- Split resize maps
+-- Vertical resize
+vim.keymap.set("n", "<C-W>,", "<C-W>10<", opts)
+vim.keymap.set("n", "<C-W>.", "<C-W>10>", opts)
+-- Horizontal resize
+vim.keymap.set("n", "<C-W>-", "<C-W>5-", opts) -- Decrease height
+vim.keymap.set("n", "<C-W>=", "<C-W>5+", opts) -- Increase height
