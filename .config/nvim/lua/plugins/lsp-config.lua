@@ -11,6 +11,13 @@ local lsp_servers = {
 	"tailwindcss",
 	"yamlls",
 }
+local custom_lsp_servers = {
+	"denols",
+	"ts_ls",
+}
+-- Concatenate the tables
+local all_lsp_servers = vim.list_extend(lsp_servers, custom_lsp_servers)
+
 -- Set common opts
 local opts = { noremap = true, silent = true }
 
@@ -48,7 +55,7 @@ return {
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = lsp_servers,
+				ensure_installed = all_lsp_servers,
 			})
 		end,
 	},
