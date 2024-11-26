@@ -15,11 +15,11 @@ blinking = "Never"
 shape = "Beam"
 
 [font]
-size = 10
+size = 8
 
 [font.normal]
-family = "JetBrainsMonoNL Nerd Font Mono"
-# style = "Italic"
+family = "Victor Mono Medium"
+style = "Italic"
 
 [font.offset]
 y = 0
