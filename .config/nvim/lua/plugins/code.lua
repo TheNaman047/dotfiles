@@ -7,18 +7,18 @@ return {
 		event = "VeryLazy",
 	},
 	{
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
 		opts = {
 			disable_filetype = { "TelescopePrompt", "spectre_panel" },
 		},
 		config = function()
 			-- setup nvim-autopairs
-			require("nvim-autopairs").setup()
+			require("nvim-autopairs").setup({ map_cr = true })
 			-- insert `(` after select function or method item
-			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-			local cmp = require("cmp")
-			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+			-- local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+			-- local cmp = require("cmp")
+			-- cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 		end,
 	},
 }
