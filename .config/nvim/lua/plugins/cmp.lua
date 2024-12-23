@@ -20,7 +20,8 @@ local blink_cmp = {
       dependencies = {
         "rafamadriz/friendly-snippets",
       },
-      lazy = true
+      version = "v2.*",
+      lazy = true,
     },
   },
   config = function()
@@ -34,19 +35,18 @@ local blink_cmp = {
       -- https://www.lazyvim.org/extras/coding/luasnip#blinkcmp-optional
       snippets = {
         expand = function(snippet)
-          luasnip.lsp_expand(snippet)
+          require("luasnip").lsp_expand(snippet)
         end,
         active = function(filter)
           if filter and filter.direction then
-            return luasnip.jumpable(filter.direction)
+            return require("luasnip").jumpable(filter.direction)
           end
-          return luasnip.in_snippet()
+          return require("luasnip").in_snippet()
         end,
         jump = function(direction)
-          luasnip.jump(direction)
+          require("luasnip").jump(direction)
         end,
-      },
-      -- 'default' for mappings similar to built-in completion
+      }, -- 'default' for mappings similar to built-in completion
       -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
       -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
       -- See the full "keymap" documentation for information on defining your own keymap.
@@ -104,17 +104,6 @@ local blink_cmp = {
             enabled = true,
             module = "blink.cmp.sources.snippets",
             score_offset = 90, -- the higher the number, the higher the priority
-          },
-          lsp = {
-            name = "lsp",
-            enabled = true,
-            module = "blink.cmp.sources.lsp",
-            -- kind = "LSP",
-            -- When linking markdown notes, I would get snippets and text in the
-            -- suggestions, I want those to show only if there are no LSP
-            -- suggestions
-            fallbacks = { "snippets", "luasnip", "buffer" },
-            score_offset = 85, -- the higher the number, the higher the priority
           },
           path = {
             name = "Path",
