@@ -17,12 +17,6 @@ local vimTmuxNavigator = {
 	},
 }
 
-local lspKind = {
-	"onsails/lspkind.nvim",
-	event = "VeryLazy",
-}
-
 return {
 	vimTmuxNavigator,
-	lspKind,
 }
