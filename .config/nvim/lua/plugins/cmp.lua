@@ -22,35 +22,12 @@ local blink_cmp = {
 	},
 	config = function()
 		local config = require("blink.cmp")
-		-- local luasnip = require("luasnip")
-		-- Load user defined snippets
-		-- require("luasnip.loaders.from_vscode").load({ paths = { "~/.config/nvim/lua/config/snippets" } })
 		config.setup({
-			-- This comes from the luasnip extra, if you don't add it, won't be able to
-			-- jump forward or backward in luasnip snippets
-			-- https://www.lazyvim.org/extras/coding/luasnip#blinkcmp-optional
-			-- snippets = {
-			-- 	expand = function(snippet)
-			-- 		luasnip.lsp_expand(snippet)
-			-- 	end,
-			-- 	active = function(filter)
-			-- 		if filter and filter.direction then
-			-- 			return luasnip.jumpable(filter.direction)
-			-- 		end
-			-- 		return luasnip.in_snippet()
-			-- 	end,
-			-- 	jump = function(direction)
-			-- 		luasnip.jump(direction)
-			-- 	end,
-			-- }, -- 'default' for mappings similar to built-in completion
-			-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
-			-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
-			-- See the full "keymap" documentation for information on defining your own keymap.
 			keymap = {
 				preset = "super-tab",
-        cmdline = {
-          preset = "enter"
-        }
+				cmdline = {
+					preset = "enter",
+				},
 			},
 			completion = {
 				menu = {
@@ -83,27 +60,17 @@ local blink_cmp = {
 					show_in_snippet = false,
 				},
 			},
+			fuzzy = {
+				use_frecency = true,
+				use_proximity = true,
+			},
 			signature = { enabled = false, window = { border = "single" } },
 
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer", "luasnip", "dadbod" },
+				default = { "lsp", "path", "snippets", "buffer", "dadbod" },
 				providers = {
-					luasnip = {
-						name = "luasnip",
-						enabled = true,
-						module = "blink.cmp.sources.luasnip",
-						min_keyword_length = 2,
-						fallbacks = { "snippets" },
-						score_offset = 95, -- the higher the number, the higher the priority
-					},
-					snippets = {
-						name = "snippets",
-						enabled = true,
-						module = "blink.cmp.sources.snippets",
-						score_offset = 90, -- the higher the number, the higher the priority
-					},
 					path = {
 						name = "Path",
 						module = "blink.cmp.sources.path",
@@ -126,13 +93,23 @@ local blink_cmp = {
 					dadbod = {
 						name = "Dadbod",
 						module = "vim_dadbod_completion.blink",
+						fallbacks = { "buffer" },
 						score_offset = 85, -- the higher the number, the higher the priority
 					},
 					buffer = {
 						name = "Buffer",
 						module = "blink.cmp.sources.buffer",
 						min_keyword_length = 2,
-						score_offset = 80,
+						score_offset = 90,
+					},
+					snippets = {
+						name = "snippets",
+						enabled = true,
+						module = "blink.cmp.sources.snippets",
+						score_offset = 80, -- the higher the number, the higher the priority
+						opts = {
+							friendly_snippets = true,
+						},
 					},
 				},
 			},

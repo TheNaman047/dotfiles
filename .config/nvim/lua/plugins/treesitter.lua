@@ -17,6 +17,7 @@ return {
 				"json",
 				"python",
 				"rust",
+				"sql",
 				"tsx",
 				"yaml",
 				"css",
