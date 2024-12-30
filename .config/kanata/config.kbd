@@ -24,7 +24,7 @@
 
 (defalias
   escctrl (tap-hold-press 0 10000 esc lctrl)
-  motion (tap-hold-press 200 200 lalt (layer-toggle motion))
+  motion (tap-hold-release-keys 0 1000 lalt (layer-toggle motion) (tab))
   a (tap-hold $tap-time $hold-time a lmet)
   s (tap-hold $tap-time $hold-time s lalt)
   d (tap-hold $tap-time $hold-time d lsft)
