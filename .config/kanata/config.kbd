@@ -5,7 +5,7 @@
 )
 
 (defsrc
-  caps a s d f j k l ;
+  caps lalt a s d f j k l ; h 
 )
 
 (defvar
@@ -13,9 +13,18 @@
   hold-time 200
 )
 
+(deflayer base
+  @escctrl @motion @a @s @d @f @j @k @l @; _
+)
+
+(deflayer motion
+  _ _ _ _ _ _ down up right _ left
+)
+
 
 (defalias
   escctrl (tap-hold-press 0 10000 esc lctrl)
+  motion (tap-hold-press 200 200 lalt (layer-toggle motion))
   a (tap-hold $tap-time $hold-time a lmet)
   s (tap-hold $tap-time $hold-time s lalt)
   d (tap-hold $tap-time $hold-time d lsft)
@@ -26,6 +35,3 @@
   ; (tap-hold $tap-time $hold-time ; rmet)
 )
 
-(deflayer base
-  @escctrl @a @s @d @f @j @k @l @;
-)
