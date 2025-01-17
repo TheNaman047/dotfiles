@@ -94,19 +94,16 @@ local blink_cmp = {
 						name = "Dadbod",
 						module = "vim_dadbod_completion.blink",
 						fallbacks = { "buffer" },
-						score_offset = 85, -- the higher the number, the higher the priority
 					},
 					buffer = {
 						name = "Buffer",
 						module = "blink.cmp.sources.buffer",
 						min_keyword_length = 2,
-						score_offset = 90,
 					},
 					snippets = {
 						name = "snippets",
 						enabled = true,
 						module = "blink.cmp.sources.snippets",
-						score_offset = 80, -- the higher the number, the higher the priority
 						opts = {
 							friendly_snippets = true,
 						},
