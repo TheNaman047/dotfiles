@@ -54,7 +54,7 @@ local blink_cmp = {
 					auto_show_delay_ms = 500,
 				},
 				list = {
-					selection = "manual",
+					selection = { auto_insert = true },
 				},
 				trigger = {
 					show_in_snippet = false,
@@ -69,7 +69,16 @@ local blink_cmp = {
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
 			sources = {
-				default = { "lsp", "path", "snippets", "buffer", "dadbod" },
+				default = {
+					"lsp",
+					"path",
+					"snippets",
+					"buffer",
+					"dadbod",
+					"avante_commands",
+					"avante_mentions",
+					"avante_files",
+				},
 				providers = {
 					path = {
 						name = "Path",
@@ -107,6 +116,24 @@ local blink_cmp = {
 						opts = {
 							friendly_snippets = true,
 						},
+					},
+					avante_commands = {
+						name = "avante_commands",
+						module = "blink.compat.source",
+						score_offset = 90, -- show at a higher priority than lsp
+						opts = {},
+					},
+					avante_files = {
+						name = "avante_files",
+						module = "blink.compat.source",
+						score_offset = 100, -- show at a higher priority than lsp
+						opts = {},
+					},
+					avante_mentions = {
+						name = "avante_mentions",
+						module = "blink.compat.source",
+						score_offset = 1000, -- show at a higher priority than lsp
+						opts = {},
 					},
 				},
 			},
