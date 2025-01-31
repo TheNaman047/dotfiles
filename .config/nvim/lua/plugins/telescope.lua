@@ -18,7 +18,7 @@ return {
 				},
 			})
 			telescope.load_extension("fzf")
-			telescope.load_extension("remote-sshfs")
+			-- telescope.load_extension("remote-sshfs")
 
 			-- Setup keymaps
 			local builtin = require("telescope.builtin")
