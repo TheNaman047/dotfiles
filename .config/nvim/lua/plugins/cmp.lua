@@ -54,7 +54,7 @@ local blink_cmp = {
 					auto_show_delay_ms = 500,
 				},
 				list = {
-					selection = { auto_insert = true },
+					selection = { auto_insert = true, preselect = false },
 				},
 				trigger = {
 					show_in_snippet = false,
