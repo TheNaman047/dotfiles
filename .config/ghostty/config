@@ -1,0 +1,23 @@
+font-family = "Victor Mono"
+font-family-bold = "Victor Mono"
+font-family-italic = "Victor Mono"
+font-size = 13
+font-style = "Semibold Italic"
+font-style-bold = "Bold"
+font-style-italic = "Italic"
+font-style-bold-italic = "Bold Italic"
+
+font-thicken = true
+font-thicken-strength = 150
+
+theme = tokyonight_night
+background-opacity = 0.95
+background-blur = true
+window-decoration = auto
+macos-titlebar-style = hidden
+window-colorspace = display-p3
+
+command = zsh -l -c "tmux attach || tmux"
+confirm-close-surface = false
+
+mouse-hide-while-typing = true
