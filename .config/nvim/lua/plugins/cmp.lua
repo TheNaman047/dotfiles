@@ -1,6 +1,6 @@
 local blink_cmp = {
   "saghen/blink.cmp",
-  version = "*",
+  version = "1.*",
   opts = {},
   opts_extend = { "sources.default" },
   lazy = true,

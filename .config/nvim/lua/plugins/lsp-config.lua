@@ -14,6 +14,7 @@ local lsp_servers = {
 }
 local custom_lsp_servers = {
 	"denols",
+	"ts_ls",
 }
 -- Concatenate the tables
 local all_lsp_servers = vim.list_extend(lsp_servers, custom_lsp_servers)
@@ -82,6 +83,35 @@ return {
 				capabilities = capabilities,
 				on_attach = on_attach,
 			})
+			-- Setup for pyright
+			config.pyright.setup({
+				settings = {
+					python = {
+						pythonPath = vim.fn.exepath("pip"),
+					},
+				},
+				capabilities = capabilities,
+				on_attach = on_attach,
+			})
+			-- Setup for ts_ls and vue
+			local mason_registry = require("mason-registry")
+			local vue_language_server = mason_registry.get_package("vue-language-server"):get_install_path()
+				.. "/node_modules/@vue/language-server"
+
+			config.ts_ls.setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+				init_options = {
+					plugins = {
+						{
+							name = "@vue/typescript-plugin",
+							location = vue_language_server,
+							languages = { "vue" },
+						},
+					},
+				},
+				filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+			})
 		end,
 	},
 	{
@@ -103,36 +133,6 @@ return {
 			})
 			vim.keymap.set("n", "fd", "<Cmd>lua vim.lsp.buf.format()<CR>", opts)
 			vim.keymap.set("n", "fe", "<Cmd>lua vim.diagnostic.open_float()<CR>", opts)
-		end,
-	},
-	{
-		"pmizio/typescript-tools.nvim",
-		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		opts = {},
-		ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
-		config = function()
-			require("typescript-tools").setup({
-				on_attach = function(client, bufnr)
-					client.server_capabilities.documentFormattingProvider = false
-					client.server_capabilities.documentRangeFormattingProvider = false
-				end,
-				filetypes = {
-					"javascript",
-					"javascriptreact",
-					"typescript",
-					"typescriptreact",
-					"vue",
-				},
-				settings = {
-					tsserver_plugins = {
-						"@vue/typescript-plugin",
-					},
-					jsx_close_tag = {
-						enable = true,
-						filetypes = { "javascriptreact", "typescriptreact" },
-					},
-				},
-			})
 		end,
 	},
 }
