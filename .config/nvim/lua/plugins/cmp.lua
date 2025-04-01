@@ -24,36 +24,19 @@ local blink_cmp = {
     local config = require("blink.cmp")
     config.setup({
       cmdline = {
-				keymap = {
-					preset = "enter",
-				},
+        enabled = true,
+        keymap = {
+          preset = "cmdline",
+        },
+        completion = { menu = { auto_show = true } },
       },
       keymap = {
         preset = "super-tab",
       },
       completion = {
-        menu = {
-          -- nvim-cmp style menu
-          draw = {
-            columns = {
-              { "label",     "label_description", gap = 1 },
-              { "kind_icon", "kind",              gap = 1 },
-            },
-            components = {
-              kind_icon = {
-                ellipsis = true,
-                text = function(ctx)
-                  return require("lspkind").symbolic(ctx.kind, {
-                    mode = "symbol",
-                  })
-                end,
-              },
-            },
-          },
-        },
         documentation = {
           auto_show = true,
-          auto_show_delay_ms = 500,
+          auto_show_delay_ms = 300,
         },
         list = {
           selection = { auto_insert = true, preselect = false },
