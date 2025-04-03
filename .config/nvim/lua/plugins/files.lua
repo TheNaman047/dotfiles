@@ -1,5 +1,4 @@
--- Set common opts
-local opts = { noremap = true, silent = true }
+local Utils = require("../utils/functions")
 
 local neo_tree = {
 	"nvim-neo-tree/neo-tree.nvim",
@@ -199,8 +198,8 @@ local oil = {
 				border = "rounded",
 			},
 			-- Keymaps
-			vim.keymap.set("n", "-", "<CMD>Oil<CR>", opts),
-			vim.keymap.set("n", "<leader>-", require("oil").toggle_float, opts),
+			vim.keymap.set("n", "-", "<CMD>Oil<CR>", Utils.opts),
+			vim.keymap.set("n", "<leader>-", require("oil").toggle_float, Utils.opts),
 		})
 	end,
 }

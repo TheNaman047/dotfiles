@@ -1,3 +1,4 @@
+local Utils = require ("../utils/functions")
 -- Language Servers
 local lsp_servers = {
 	"html",
@@ -17,7 +18,9 @@ local custom_lsp_servers = {
 	"ts_ls",
 }
 -- Concatenate the tables
-local all_lsp_servers = vim.list_extend(lsp_servers, custom_lsp_servers)
+local all_lsp_servers = {}
+vim.list_extend(all_lsp_servers, lsp_servers)
+vim.list_extend(all_lsp_servers, custom_lsp_servers)
 
 -- Set common opts
 local opts = { noremap = true, silent = true }
@@ -30,19 +33,19 @@ local function on_attach(client, bufnr)
 	end
 
 	-- Define keymaps using <Cmd>lua
-	buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	buf_set_keymap("n", "gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	buf_set_keymap("n", "<C-s>", "<Cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", Utils.opts)
+	buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", Utils.opts)
+	buf_set_keymap("n", "gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>", Utils.opts)
+	buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", Utils.opts)
+	buf_set_keymap("n", "<C-s>", "<Cmd>lua vim.lsp.buf.signature_help()<CR>", Utils.opts)
 	vim.keymap.set("n", "gr", function()
 		require("telescope.builtin").lsp_references()
-	end, opts)
-	buf_set_keymap("n", "<leader>rn", "<Cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	buf_set_keymap("n", "<leader>ca", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-	buf_set_keymap("n", "]d", "<Cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-	buf_set_keymap("n", "[d", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-	buf_set_keymap("n", "gl", "<Cmd>lua vim.diagnostic.open_float()<CR>", opts)
+	end, Utils.opts)
+	buf_set_keymap("n", "<leader>rn", "<Cmd>lua vim.lsp.buf.rename()<CR>", Utils.opts)
+	buf_set_keymap("n", "<leader>ca", "<Cmd>lua vim.lsp.buf.code_action()<CR>", Utils.opts)
+	buf_set_keymap("n", "]d", "<Cmd>lua vim.diagnostic.goto_next()<CR>", Utils.opts)
+	buf_set_keymap("n", "[d", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", Utils.opts)
+	buf_set_keymap("n", "gl", "<Cmd>lua vim.diagnostic.open_float()<CR>", Utils.opts)
 end
 
 return {
@@ -117,22 +120,7 @@ return {
 	{
 		"nvimtools/none-ls.nvim",
 		config = function()
-			local null_ls = require("null-ls")
-
-			null_ls.setup({
-				sources = {
-					-- Formatting
-					null_ls.builtins.formatting.stylua,
-					null_ls.builtins.formatting.prettierd,
-					null_ls.builtins.formatting.black,
-
-					-- Diagnostics
-					-- null_ls.builtins.diagnostics.eslint_lsp,
-					null_ls.builtins.diagnostics.pylint,
-				},
-			})
-			vim.keymap.set("n", "fd", "<Cmd>lua vim.lsp.buf.format()<CR>", opts)
-			vim.keymap.set("n", "fe", "<Cmd>lua vim.diagnostic.open_float()<CR>", opts)
+			vim.keymap.set("n", "fe", "<Cmd>lua vim.diagnostic.open_float()<CR>", Utils.opts)
 		end,
 	},
 }

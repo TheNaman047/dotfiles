@@ -1,17 +1,4 @@
-
-function MergeTables(t1, t2)
-  local merged = {}
-  for k, v in pairs(t1) do
-    merged[k] = v
-  end
-  for k, v in pairs(t2) do
-    merged[k] = v
-  end
-  return merged
-end
-
--- Set common opts
-local opts = { noremap = true, silent = true }
+local Utils = require ("../utils/functions")
 
 -- Set good to have options
 vim.cmd("set expandtab")
@@ -38,34 +25,34 @@ vim.opt.termguicolors = true
 
 -- Navigate between splits
 -- Use ctrl-[hjkl] to select the active split!
-vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", opts)
-vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", opts)
-vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", opts)
-vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", opts)
+vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", Utils.opts)
+vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", Utils.opts)
+vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", Utils.opts)
+vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", Utils.opts)
 
 -- Toggle relative line numbering
-vim.keymap.set("n", "<leader>r", ":set relativenumber!<CR>", opts)
+vim.keymap.set("n", "<leader>r", ":set relativenumber!<CR>", Utils.opts)
 
 -- Set Esc key to leave terminal mode
-vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", opts)
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", Utils.opts)
 
 -- Set buffer keymaps
 -- Bufferline close tab
-vim.keymap.set("n", "gjd", ":Bdelete<CR>", MergeTables(opts, { desc = "Bufferline close tab" }))
+vim.keymap.set("n", "gjd", ":Bdelete<CR>", Utils.MergeTables(Utils.opts, { desc = "Bufferline close tab" }))
 
 -- Bufferline close buffer
-vim.keymap.set("n", "gjx", ":bd<CR>", MergeTables(opts, { desc = "Bufferline close buffer" }))
+vim.keymap.set("n", "gjx", ":bd<CR>", Utils.MergeTables(Utils.opts, { desc = "Bufferline close buffer" }))
 
 -- Bufferline save buffer
--- vim.keymap.set("n", "gjs", ":w<CR>", MergeTables(opts, { desc = "Bufferline save buffer" }))
+-- vim.keymap.set("n", "gjs", ":w<CR>", Utils.MergeTables(Utils.opts, { desc = "Bufferline save buffer" }))
 
 -- Generate uuid at cursor
-vim.keymap.set("n", "guu", ":r !uuidgen<CR>", MergeTables(opts, { desc = "Generate uuid at cursor" }))
+vim.keymap.set("n", "guu", ":r !uuidgen<CR>", Utils.MergeTables(Utils.opts, { desc = "Generate uuid at cursor" }))
 
 -- Split resize maps
 -- Vertical resize
-vim.keymap.set("n", "<C-W>,", "<C-W>10<", opts)
-vim.keymap.set("n", "<C-W>.", "<C-W>10>", opts)
+vim.keymap.set("n", "<C-W>,", "<C-W>10<", Utils.opts)
+vim.keymap.set("n", "<C-W>.", "<C-W>10>", Utils.opts)
 -- Horizontal resize
-vim.keymap.set("n", "<C-W>-", "<C-W>5-", opts) -- Decrease height
-vim.keymap.set("n", "<C-W>=", "<C-W>5+", opts) -- Increase height
+vim.keymap.set("n", "<C-W>-", "<C-W>5-", Utils.opts) -- Decrease height
+vim.keymap.set("n", "<C-W>=", "<C-W>5+", Utils.opts) -- Increase height

@@ -1,5 +1,4 @@
--- Set common opts
-local opts = { noremap = true, silent = true }
+local Utils = require("../utils/functions")
 
 -- Counts the number of terminals that exist
 function CountTerms()
@@ -35,11 +34,11 @@ return {
 			config.setup({})
 
 			-- Create new Terminals
-			vim.api.nvim_set_keymap("n", "<leader>tn", "<cmd>lua NewTerm()<cr>", opts)
+			vim.api.nvim_set_keymap("n", "<leader>tn", "<cmd>lua NewTerm()<cr>", Utils.opts)
 			-- Close current Terminal
-			vim.api.nvim_set_keymap("n", "<leader>tk", "<cmd>lua CloseTerm()<cr>", opts)
+			vim.api.nvim_set_keymap("n", "<leader>tk", "<cmd>lua CloseTerm()<cr>", Utils.opts)
 			-- Toggle current Terminal Visibility
-			vim.api.nvim_set_keymap("n", "<leader>tt", ":ToggleTerm<cr>", opts)
+			vim.api.nvim_set_keymap("n", "<leader>tt", ":ToggleTerm<cr>", Utils.opts)
 
 			-- Open Lazygit
 			local Terminal = require("toggleterm.terminal").Terminal
@@ -57,7 +56,7 @@ return {
 				lazygit:toggle()
 			end
 
-			vim.api.nvim_set_keymap("n", "<leader>l", "<cmd>lua ToggleLazygit()<cr>", opts)
+			vim.api.nvim_set_keymap("n", "<leader>l", "<cmd>lua ToggleLazygit()<cr>", Utils.opts)
 		end,
 	},
 }
