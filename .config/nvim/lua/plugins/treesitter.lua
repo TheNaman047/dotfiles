@@ -16,6 +16,7 @@ return {
 				"bash",
 				"json",
 				"python",
+        "toml",
 				"rust",
 				"sql",
 				"tsx",
