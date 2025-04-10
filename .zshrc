@@ -1,3 +1,4 @@
+# zmodload zsh/zprof  ## Uncomment this & the last line to enable zsh-profiling
 # Set the directory we want to store zinit and plugins
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 
@@ -22,6 +23,7 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
+zinit light "dominik-schwabe/zsh-fnm"
 
 # Check for macos for configuring brew
 if type brew &>/dev/null
@@ -30,6 +32,7 @@ then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
 # Load completions
+# zinit cclear
 autoload -Uz compinit
 for dump in ~/.zcompdump(N.mh+24); do
   compinit
@@ -71,6 +74,7 @@ alias lg='lazygit'
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
-# Load fnm
-eval "$(fnm env --use-on-cd --shell zsh)"
 
+# Lazy Load miniconda
+source $HOME/.config/miniconda/.zsh_lazyload_conda.sh
+# zprof
