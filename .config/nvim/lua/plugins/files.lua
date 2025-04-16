@@ -166,7 +166,7 @@ local oil = {
 				["<C-s>"] = { "actions.select", opts = { vertical = true } },
 				["<C-h>"] = { "actions.select", opts = { horizontal = true } },
 				["<C-t>"] = { "actions.select", opts = { tab = true } },
-				["<C-r>"] = "actions.preview",
+				["<C-r>"] = { "actions.preview", opts = { split = "botright" } },
 				["gq"] = { "actions.close", mode = "n" },
 				["<C-l>"] = "actions.refresh",
 				["-"] = { "actions.parent", mode = "n" },
@@ -180,6 +180,10 @@ local oil = {
 			},
 			-- Set to false to disable all of the above keymaps
 			use_default_keymaps = false,
+			view_options = {
+				-- Show files and directories that start with "."
+				show_hidden = true,
+			},
 			-- Configuration for the floating window in oil.open_float
 			float = {
 				max_width = 150,
