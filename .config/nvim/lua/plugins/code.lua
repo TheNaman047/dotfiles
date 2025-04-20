@@ -54,4 +54,4 @@ local conform = {
 	},
 }
 
-return { comment, autopairs, conform }
+return { comment, autopairs }

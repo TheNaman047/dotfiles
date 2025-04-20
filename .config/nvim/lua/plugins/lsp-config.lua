@@ -8,8 +8,9 @@ local lsp_servers = {
   "jsonls",
   "docker_compose_language_service",
   "dockerls",
-  "basedpyright",
+  "pylsp",
   "tailwindcss",
+  "ruff",
   "yamlls",
   volar = { "vue" },
 }
@@ -21,9 +22,6 @@ local custom_lsp_servers = {
 local all_lsp_servers = {}
 vim.list_extend(all_lsp_servers, lsp_servers)
 vim.list_extend(all_lsp_servers, custom_lsp_servers)
-
--- Set common opts
-local opts = { noremap = true, silent = true }
 
 -- Define a function to set up the keymaps
 local function on_attach(client, bufnr)
@@ -86,36 +84,24 @@ return {
         capabilities = capabilities,
         on_attach = on_attach,
       })
-      -- Setup for basedpyright
-      config.basedpyright.setup({
-        before_init = function(_, c)
-          if not c.settings then
-            c.settings = {}
-          end
-          if not c.settings.python then
-            c.settings.python = {}
-          end
-          c.settings.python.pythonPath = vim.fn.exepath("python")
-        end,
+
+      config.pylsp.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
         settings = {
-          basedpyright = {
-            analysis = {
-              typeCheckingMode = "basic",
-              autoImportCompletions = true,
-              diagnosticSeverityOverrides = {
-                reportUnusedImport = "information",
-                reportUnusedFunction = "information",
-                reportUnusedVariable = "information",
-                reportGeneralTypeIssues = "none",
-                reportOptionalMemberAccess = "none",
-                reportOptionalSubscript = "none",
-                reportPrivateImportUsage = "none",
-              },
+          pylsp = {
+            plugins = {
+              pyflakes = { enabled = false },
+              pycodestyle = { enabled = false },
+              autopep8 = { enabled = false },
+              yapf = { enabled = false },
+              mccabe = { enabled = false },
+              pylsp_mypy = { enabled = false },
+              pylsp_black = { enabled = false },
+              pylsp_isort = { enabled = false },
             },
           },
         },
-        capabilities = capabilities,
-        on_attach = on_attach,
       })
       -- Setup for ts_ls and vue
       local mason_registry = require("mason-registry")
@@ -140,15 +126,31 @@ return {
   },
   {
     "nvimtools/none-ls.nvim",
+    dependencies = {
+      "nvimtools/none-ls-extras.nvim",
+      "jay-babu/mason-null-ls.nvim",
+    },
     config = function()
-      local config = require("null-ls")
-      config.setup({
+      local mason_null_ls_config = require("mason-null-ls")
+      local null_ls_config = require("null-ls")
+      mason_null_ls_config.setup({
+        ensure_installed = {
+          "ruff",
+          "prettier",
+          "shfmt",
+        },
+        automatic_installation = true,
+      })
+      null_ls_config.setup({
         sources = {
-          config.builtins.formatting.black,
-          config.builtins.formatting.isort
-        }
+          require("none-ls.formatting.ruff").with({ extra_args = { "--extend-select", "I" } }),
+          require("none-ls.formatting.ruff_format"),
+          null_ls_config.builtins.formatting.prettier.with({ filetypes = { "json", "yaml", "markdown" } }),
+          null_ls_config.builtins.formatting.shfmt.with({ args = { "-i", "4" } }),
+        },
       })
       vim.keymap.set("n", "fe", "<Cmd>lua vim.diagnostic.open_float()<CR>", Utils.opts)
+      vim.keymap.set("n", "fd", "<Cmd>lua vim.lsp.buf.format()<CR>", Utils.opts)
     end,
   },
 }
