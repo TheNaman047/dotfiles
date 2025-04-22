@@ -102,7 +102,7 @@ local supermaven_config = {
 local avante_config = {
 	"yetone/avante.nvim",
 	event = "VeryLazy",
-	lazy = false,
+	lazy = true,
 	version = false, -- set this if you want to always pull the latest change
 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 	build = "make",
@@ -143,19 +143,48 @@ local avante_config = {
 		local config = require("avante")
 		config.setup({
 			provider = "claude",
+			cursor_applying_provider = "groq",
+			fallback_provider = "groq",
 			claude = {
 				endpoint = "https://api.anthropic.com",
 				model = "claude-3-7-sonnet-20250219",
 				temperature = 0,
-				max_tokens = 4096,
+				max_tokens = 20480,
 				disable_tools = true,
+				timeout = 120,
 			},
 			behaviour = {
 				auto_suggestions = false, -- Experimental stage
 				auto_set_highlight_group = true,
 				auto_set_keymaps = true,
 				auto_apply_diff_after_generation = false,
-				support_paste_from_clipboard = false,
+				support_paste_from_clipboard = true,
+				jump_result_buffer_on_finish = true,
+				enable_cursor_planning_mode = true,
+			},
+			vendors = {
+				groq = {
+					__inherited_from = "openai",
+					api_key_name = "GROQ_API_KEY",
+					endpoint = "https://api.groq.com/openai/v1/",
+					model = "llama-3.3-70b-versatile",
+					max_completion_tokens = 32768,
+					timeout = 60, -- Added timeout
+				},
+			},
+			windows = {
+				edit = {
+					start_insert = true, -- Start insert mode when opening the edit window
+				},
+				chat = {
+					width = 0.7, -- Added width configuration
+					height = 0.8, -- Added height configuration
+				},
+			},
+			selector = {
+				---@alias avante.SelectorProvider "native" | "fzf_lua" | "mini_pick" | "snacks" | "telescope" | fun(selector: avante.ui.Selector): nil
+				provider = "telescope",
+				provider_opts = {},
 			},
 			mappings = {
 				diff = {
@@ -188,7 +217,16 @@ local avante_config = {
 					reverse_switch_windows = "<S-Tab>",
 				},
 			},
-			hints = { enabled = true },
+			hints = {
+				enabled = true,
+				position = "inline", -- Added position setting
+			},
+			-- Added keymaps section for custom commands
+			keymaps = {
+				["<leader>ai"] = { cmd = "AvanteToggle", desc = "Toggle Avante" },
+				["<leader>ac"] = { cmd = "AvanteChat", desc = "Avante Chat" },
+				["<leader>ae"] = { cmd = "AvanteEdit", desc = "Avante Edit" },
+			},
 		})
 	end,
 }
