@@ -9,8 +9,9 @@ local lsp_servers = {
   "docker_compose_language_service",
   "dockerls",
   "pylsp",
-  "tailwindcss",
+  "pyright",
   "ruff",
+  "tailwindcss",
   "yamlls",
   volar = { "vue" },
 }
@@ -85,6 +86,7 @@ return {
         on_attach = on_attach,
       })
 
+      -- Setup for python
       config.pylsp.setup({
         capabilities = capabilities,
         on_attach = on_attach,
@@ -103,6 +105,21 @@ return {
           },
         },
       })
+      config.pyright.setup({
+        settings = {
+          pyright = {
+            -- Using Ruff's import organizer
+            disableOrganizeImports = true,
+          },
+          python = {
+            analysis = {
+              -- Ignore all files for analysis to exclusively use Ruff for linting
+              ignore = { '*' },
+            },
+          },
+        },
+      })
+
       -- Setup for ts_ls and vue
       local mason_registry = require("mason-registry")
       local vue_language_server = mason_registry.get_package("vue-language-server"):get_install_path()
@@ -128,19 +145,9 @@ return {
     "nvimtools/none-ls.nvim",
     dependencies = {
       "nvimtools/none-ls-extras.nvim",
-      "jay-babu/mason-null-ls.nvim",
     },
     config = function()
-      local mason_null_ls_config = require("mason-null-ls")
       local null_ls_config = require("null-ls")
-      mason_null_ls_config.setup({
-        ensure_installed = {
-          "ruff",
-          "prettier",
-          "shfmt",
-        },
-        automatic_installation = true,
-      })
       null_ls_config.setup({
         sources = {
           require("none-ls.formatting.ruff").with({ extra_args = { "--extend-select", "I" } }),
@@ -154,7 +161,8 @@ return {
               "javascriptreact",
               "typescript",
               "typescriptreact",
-              "vue" }
+              "vue"
+            }
           }),
           null_ls_config.builtins.formatting.shfmt.with({ args = { "-i", "4" } }),
         },
