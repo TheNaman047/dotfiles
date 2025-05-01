@@ -145,7 +145,17 @@ return {
         sources = {
           require("none-ls.formatting.ruff").with({ extra_args = { "--extend-select", "I" } }),
           require("none-ls.formatting.ruff_format"),
-          null_ls_config.builtins.formatting.prettier.with({ filetypes = { "json", "yaml", "markdown" } }),
+          null_ls_config.builtins.formatting.prettier.with({
+            filetypes = {
+              "json",
+              "yaml",
+              "markdown",
+              "javascript",
+              "javascriptreact",
+              "typescript",
+              "typescriptreact",
+              "vue" }
+          }),
           null_ls_config.builtins.formatting.shfmt.with({ args = { "-i", "4" } }),
         },
       })
