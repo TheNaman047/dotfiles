@@ -9,7 +9,7 @@ local lsp_servers = {
   "docker_compose_language_service",
   "dockerls",
   "pylsp",
-  "pyright",
+  -- "pyright",
   "ruff",
   "tailwindcss",
   "yamlls",
@@ -37,14 +37,14 @@ local function on_attach(client, bufnr)
   buf_set_keymap("n", "gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>", Utils.opts)
   buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", Utils.opts)
   buf_set_keymap("n", "<C-s>", "<Cmd>lua vim.lsp.buf.signature_help()<CR>", Utils.opts)
-  vim.keymap.set("n", "gr", function()
-    require("telescope.builtin").lsp_references()
-  end, Utils.opts)
+  buf_set_keymap("n", "gr", "<cmd>Telescope lsp_references<CR>", Utils.opts)
   buf_set_keymap("n", "<leader>rn", "<Cmd>lua vim.lsp.buf.rename()<CR>", Utils.opts)
   buf_set_keymap("n", "<leader>ca", "<Cmd>lua vim.lsp.buf.code_action()<CR>", Utils.opts)
+  buf_set_keymap("n", "<leader>ds", "<cmd>Telescope lsp_document_symbols<CR>", Utils.opts)
+  buf_set_keymap("n", "<leader>ws", "<cmd>Telescope lsp_workspace_symbols<CR>", Utils.opts)
   buf_set_keymap("n", "]d", "<Cmd>lua vim.diagnostic.goto_next()<CR>", Utils.opts)
   buf_set_keymap("n", "[d", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", Utils.opts)
-  buf_set_keymap("n", "gl", "<Cmd>lua vim.diagnostic.open_float()<CR>", Utils.opts)
+  buf_set_keymap("n", "gl", "<cmd>Telescope diagnostics bufnr=0<CR>", Utils.opts)
 end
 
 return {
@@ -105,7 +105,7 @@ return {
           },
         },
       })
-      config.pyright.setup({
+      --[[ config.pyright.setup({
         settings = {
           pyright = {
             -- Using Ruff's import organizer
@@ -118,7 +118,7 @@ return {
             },
           },
         },
-      })
+      }) ]]
 
       -- Setup for ts_ls and vue
       local mason_registry = require("mason-registry")

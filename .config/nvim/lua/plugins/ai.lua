@@ -103,7 +103,7 @@ local avante_config = {
 	"yetone/avante.nvim",
 	event = "VeryLazy",
 	lazy = true,
-	version = false, -- set this if you want to always pull the latest change
+  version = "v0.0.23",
 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 	build = "make",
 	dependencies = {
@@ -149,7 +149,7 @@ local avante_config = {
 				endpoint = "https://api.anthropic.com",
 				model = "claude-3-7-sonnet-20250219",
 				temperature = 0,
-				max_tokens = 20480,
+				max_tokens = 4096,
 				disable_tools = true,
 				timeout = 120,
 			},
