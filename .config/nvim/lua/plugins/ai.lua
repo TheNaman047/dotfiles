@@ -226,6 +226,7 @@ local avante_config = {
 				["<leader>ai"] = { cmd = "AvanteToggle", desc = "Toggle Avante" },
 				["<leader>ac"] = { cmd = "AvanteChat", desc = "Avante Chat" },
 				["<leader>ae"] = { cmd = "AvanteEdit", desc = "Avante Edit" },
+				["<leader>ah"] = { cmd = "AvanteHistory", desc = "Avante History" },
 			},
 		})
 	end,
