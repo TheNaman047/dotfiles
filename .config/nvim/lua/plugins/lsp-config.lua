@@ -59,6 +59,7 @@ return {
     config = function()
       require("mason-lspconfig").setup({
         ensure_installed = all_lsp_servers,
+        automatic_enable = true,
       })
     end,
   },
@@ -72,7 +73,7 @@ return {
       -- Adding capabilities from 'cmp_nvim_lsp'
       local capabilities = require("blink.cmp").get_lsp_capabilities()
       for _, lsp in ipairs(lsp_servers) do
-        config[lsp].setup({
+        vim.lsp.config(lsp, {
           on_attach = on_attach,
           capabilities = capabilities,
           opts = lsp_servers[lsp] or {},
@@ -80,16 +81,12 @@ return {
       end
 
       -- Setup for deno
-      config.denols.setup({
+      vim.lsp.config('denols', {
         root_dir = config.util.root_pattern("deno.json", "deno.jsonc"),
-        capabilities = capabilities,
-        on_attach = on_attach,
       })
 
       -- Setup for python
-      config.pylsp.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
+      vim.lsp.config('pylsp', {
         settings = {
           pylsp = {
             plugins = {
@@ -105,34 +102,19 @@ return {
           },
         },
       })
-      --[[ config.pyright.setup({
-        settings = {
-          pyright = {
-            -- Using Ruff's import organizer
-            disableOrganizeImports = true,
-          },
-          python = {
-            analysis = {
-              -- Ignore all files for analysis to exclusively use Ruff for linting
-              ignore = { '*' },
-            },
-          },
-        },
-      }) ]]
 
       -- Setup for ts_ls and vue
-      local mason_registry = require("mason-registry")
-      local vue_language_server = mason_registry.get_package("vue-language-server"):get_install_path()
-          .. "/node_modules/@vue/language-server"
+      -- Ensure 'vue-language-server' is installed via Mason (e.g. add "volar" above)
+      -- Then find the Volar plugin path manually:
+      local vue_ls_share = vim.fn.expand("$MASON/share/vue-language-server")
+      local vue_plugin_path = vue_ls_share .. "/node_modules/@vue/language-server"
 
-      config.ts_ls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
+      vim.lsp.config('ts_ls', {
         init_options = {
           plugins = {
             {
               name = "@vue/typescript-plugin",
-              location = vue_language_server,
+              location = vue_plugin_path,
               languages = { "vue" },
             },
           },
