@@ -9,12 +9,12 @@ local lsp_servers = {
   "docker_compose_language_service",
   "dockerls",
   "pylsp",
-  -- "pyright",
   "ruff",
   "tailwindcss",
   "yamlls",
   volar = { "vue" },
 }
+
 local custom_lsp_servers = {
   "denols",
   "ts_ls",
@@ -73,7 +73,7 @@ return {
       -- Adding capabilities from 'cmp_nvim_lsp'
       local capabilities = require("blink.cmp").get_lsp_capabilities()
       for _, lsp in ipairs(lsp_servers) do
-        vim.lsp.config(lsp, {
+        config[lsp].setup({
           on_attach = on_attach,
           capabilities = capabilities,
           opts = lsp_servers[lsp] or {},
@@ -81,12 +81,16 @@ return {
       end
 
       -- Setup for deno
-      vim.lsp.config('denols', {
+      config.denols.setup({
+        on_attach = on_attach,
+        capabilities = capabilities
+      })
+      config.denols.setup({
         root_dir = config.util.root_pattern("deno.json", "deno.jsonc"),
       })
 
       -- Setup for python
-      vim.lsp.config('pylsp', {
+      config.pylsp.setup({
         settings = {
           pylsp = {
             plugins = {
@@ -109,6 +113,10 @@ return {
       local vue_ls_share = vim.fn.expand("$MASON/share/vue-language-server")
       local vue_plugin_path = vue_ls_share .. "/node_modules/@vue/language-server"
 
+      config.ts_ls.setup({
+        on_attach = on_attach,
+        capabilities = capabilities
+      })
       vim.lsp.config('ts_ls', {
         init_options = {
           plugins = {
