@@ -11,6 +11,7 @@ local lsp_servers = {
   "pylsp",
   "ruff",
   "tailwindcss",
+  "terraformls",
   "yamlls",
   volar = { "vue" },
 }
@@ -83,9 +84,7 @@ return {
       -- Setup for deno
       config.denols.setup({
         on_attach = on_attach,
-        capabilities = capabilities
-      })
-      config.denols.setup({
+        capabilities = capabilities,
         root_dir = config.util.root_pattern("deno.json", "deno.jsonc"),
       })
 
@@ -155,6 +154,8 @@ return {
             }
           }),
           null_ls_config.builtins.formatting.shfmt.with({ args = { "-i", "4" } }),
+          null_ls_config.builtins.formatting.terraform_fmt,
+          null_ls_config.builtins.diagnostics.terraform_validate
         },
       })
       vim.keymap.set("n", "fe", "<Cmd>lua vim.diagnostic.open_float()<CR>", Utils.opts)
