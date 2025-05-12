@@ -109,7 +109,7 @@ return {
       -- Setup for ts_ls and vue
       -- Ensure 'vue-language-server' is installed via Mason (e.g. add "volar" above)
       -- Then find the Volar plugin path manually:
-      local vue_ls_share = vim.fn.expand("$MASON/share/vue-language-server")
+      local vue_ls_share = vim.fn.expand("$MASON/packages/vue-language-server")
       local vue_plugin_path = vue_ls_share .. "/node_modules/@vue/language-server"
 
       config.ts_ls.setup({
@@ -117,6 +117,7 @@ return {
         capabilities = capabilities
       })
       vim.lsp.config('ts_ls', {
+        filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
         init_options = {
           plugins = {
             {
@@ -126,7 +127,6 @@ return {
             },
           },
         },
-        filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
       })
     end,
   },
