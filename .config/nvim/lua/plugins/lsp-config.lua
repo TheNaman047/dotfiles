@@ -117,16 +117,16 @@ return {
         capabilities = capabilities
       })
       vim.lsp.config('ts_ls', {
-        filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
         init_options = {
           plugins = {
             {
-              name = "@vue/typescript-plugin",
-              location = vue_plugin_path,
-              languages = { "vue" },
+              name = '@vue/typescript-plugin',
+              location = vim.fn.expand("$MASON/packages/vue-language-server/node_modules/@vue/language-server"),
+              languages = { 'vue' },
             },
           },
         },
+        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'svelte' },
       })
     end,
   },
