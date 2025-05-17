@@ -52,8 +52,8 @@ vim.keymap.set("n", "guu", ":r !uuidgen<CR>", Utils.MergeTables(Utils.opts, { de
 
 -- Split resize maps
 -- Vertical resize
-vim.keymap.set("n", "<C-Left>", "<C-W>15<", Utils.opts)
-vim.keymap.set("n", "<C-Right>", "<C-W>15>", Utils.opts)
+vim.keymap.set("n", "<S-Left>", "<C-W>15<", Utils.opts)
+vim.keymap.set("n", "<S-Right>", "<C-W>15>", Utils.opts)
 -- Horizontal resize
-vim.keymap.set("n", "<C-Down>", "<C-W>10-", Utils.opts) -- Decrease height
-vim.keymap.set("n", "<C-Up>", "<C-W>10+", Utils.opts) -- Increase height
+vim.keymap.set("n", "<S-Down>", "<C-W>10-", Utils.opts) -- Decrease height
+vim.keymap.set("n", "<S-Up>", "<C-W>10+", Utils.opts) -- Increase height
