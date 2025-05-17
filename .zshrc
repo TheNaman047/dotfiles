@@ -48,6 +48,7 @@ complete -o nospace -C /usr/bin/terraform terraform
 bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
+bindkey -r '^L'
 
 # History Config
 HISTSIZE=10000

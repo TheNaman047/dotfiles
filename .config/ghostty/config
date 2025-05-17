@@ -28,8 +28,10 @@ mouse-hide-while-typing = true
 keybind = ctrl+plus=unbind
 keybind = ctrl+minus=unbind
 keybind = ctrl+equal=unbind
+keybind = ctrl+comma=unbind
 
 ## Bind
 keybind = ctrl+alt+plus=increase_font_size:1
 keybind = ctrl+alt+equal=increase_font_size:1
 keybind = ctrl+alt+minus=decrease_font_size:1
+keybind = ctrl+alt+comma=open_config
