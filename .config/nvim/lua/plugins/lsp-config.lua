@@ -50,19 +50,27 @@ end
 
 return {
   {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup()
-    end,
+    "mason-org/mason.nvim",
+    build = ":MasonUpdate",
+    cmd = {
+      "Mason",
+      "MasonInstall",
+      "MasonUninstall",
+      "MasonUninstallAll",
+      "MasonLog",
+    }
   },
   {
-    "williamboman/mason-lspconfig.nvim",
-    config = function()
-      require("mason-lspconfig").setup({
-        ensure_installed = all_lsp_servers,
-        automatic_enable = true,
-      })
-    end,
+    "mason-org/mason-lspconfig.nvim",
+    event = "BufReadPost",
+    dependencies = {
+      "mason-org/mason.nvim",
+      "neovim/nvim-lspconfig",
+    },
+    opts = {
+      ensure_installed = all_lsp_servers,
+      automatic_installation = true,
+    },
   },
   {
     "neovim/nvim-lspconfig",
