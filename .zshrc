@@ -40,6 +40,10 @@ done
 compinit -C
 zinit cdreplay -q
 
+# Load bash completions for tools like terraform
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/bin/terraform terraform
+
 # Key Bindings
 bindkey -e
 bindkey '^p' history-search-backward
@@ -76,5 +80,6 @@ eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
 # Lazy Load miniconda
-source $HOME/.config/miniconda/.zsh_lazyload_conda.sh
+# source $HOME/.config/miniconda/.zsh_lazyload_conda.sh
 # zprof
+
