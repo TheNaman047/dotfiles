@@ -27,22 +27,11 @@ local lsp_servers = {
   tailwindcss = {},
   terraformls = {},
   yamlls = {},
-  volar = { "vue" },
-  ts_ls = {
-    init_options = {
-      plugins = {
-        {
-          name = '@vue/typescript-plugin',
-          location = vim.fn.expand("$MASON/packages/vue-language-server/node_modules/@vue/language-server"),
-          languages = { 'vue' },
-        },
-      },
-    },
-    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'svelte' },
-  },
+  volar = {},
+  ts_ls = {},
 }
 
--- Update to use mason-tool for auto-installation 
+-- Update to use mason-tool for auto-installation
 local formatters = {
   prettier = {},
   prettierd = {},
@@ -103,6 +92,19 @@ local mason_lsp_config = {
       vim.lsp.config(server, config)
       vim.lsp.enable(server)
     end
+
+    vim.lsp.config('ts_ls', {
+      init_options = {
+        plugins = {
+          {
+            name = '@vue/typescript-plugin',
+            location = vim.fn.expand("$MASON/packages/vue-language-server/node_modules/@vue/language-server"),
+            languages = { 'vue' },
+          },
+        },
+      },
+      filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'svelte' },
+    })
   end
 }
 
