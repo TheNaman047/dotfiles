@@ -27,9 +27,6 @@ local lsp_servers = {
   tailwindcss = {},
   terraformls = {},
   yamlls = {},
-  prettier = {},
-  prettierd = {},
-  shfmt = {},
   volar = { "vue" },
   ts_ls = {
     init_options = {
@@ -43,6 +40,13 @@ local lsp_servers = {
     },
     filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'svelte' },
   },
+}
+
+-- Update to use mason-tool for auto-installation 
+local formatters = {
+  prettier = {},
+  prettierd = {},
+  shfmt = {},
 }
 
 -- Define a function to set up the keymaps
@@ -70,7 +74,6 @@ end
 
 local mason = {
   "mason-org/mason.nvim",
-  build = ":MasonUpdate",
   cmd = {
     "Mason",
     "MasonInstall",
@@ -87,15 +90,14 @@ local mason_lsp_config = {
     "mason-org/mason.nvim",
     "neovim/nvim-lspconfig",
   },
-  opts = {
-    ensure_installed = vim.tbl_keys(lsp_servers),
-    automatic_installation = true,
-  },
-  config = function()
+  config = function(_, opts)
     local mason = require('mason')
     local mason_lsp_config = require('mason-lspconfig')
     mason.setup({})
-    mason_lsp_config.setup({})
+    mason_lsp_config.setup({
+      ensure_installed = vim.tbl_keys(lsp_servers),
+      automatic_installation = true,
+    })
 
     for server, config in pairs(lsp_servers) do
       vim.lsp.config(server, config)
