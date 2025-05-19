@@ -1,28 +1,7 @@
 local blink_cmp = {
   "saghen/blink.cmp",
   version = "1.*",
-  opts = {},
-  opts_extend = { "sources.default" },
-  lazy = true,
-  dependencies = {
-    "onsails/lspkind.nvim",
-    {
-      "saghen/blink.compat",
-      -- use the latest release, via version = '*', if you also use the latest release for blink.cmp
-      version = "*",
-      -- lazy.nvim will automatically load the plugin when it's required by blink.cmp
-      lazy = true,
-      -- make sure to set opts so that lazy.nvim calls blink.compat's setup
-      opts = {},
-    },
-    {
-      "rafamadriz/friendly-snippets",
-      lazy = true,
-    },
-  },
-  config = function()
-    local config = require("blink.cmp")
-    config.setup({
+  opts = {
       cmdline = {
         enabled = true,
         keymap = {
@@ -122,8 +101,25 @@ local blink_cmp = {
           },
         },
       },
-    })
-  end,
+    },
+  opts_extend = { "sources.default" },
+  event = "InsertEnter",
+  dependencies = {
+    "onsails/lspkind.nvim",
+    {
+      "saghen/blink.compat",
+      -- use the latest release, via version = '*', if you also use the latest release for blink.cmp
+      version = "*",
+      -- lazy.nvim will automatically load the plugin when it's required by blink.cmp
+      lazy = true,
+      -- make sure to set opts so that lazy.nvim calls blink.compat's setup
+      opts = {},
+    },
+    {
+      "rafamadriz/friendly-snippets",
+      lazy = true,
+    },
+  },
 }
 
 return {

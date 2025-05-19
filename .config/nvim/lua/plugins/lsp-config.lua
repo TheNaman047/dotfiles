@@ -1,29 +1,49 @@
 local Utils = require("../utils/functions")
--- Language Servers
-local lsp_servers = {
-  "html",
-  "cssls",
-  "lua_ls",
-  "rust_analyzer",
-  "jsonls",
-  "docker_compose_language_service",
-  "dockerls",
-  "pylsp",
-  "ruff",
-  "tailwindcss",
-  "terraformls",
-  "yamlls",
-  volar = { "vue" },
-}
 
-local custom_lsp_servers = {
-  "denols",
-  "ts_ls",
+local lsp_servers = {
+  html = {},
+  cssls = {},
+  lua_ls = {},
+  jsonls = {},
+  docker_compose_language_service = {},
+  dockerls = {},
+  pylsp = {
+    settings = {
+      pylsp = {
+        plugins = {
+          pyflakes = { enabled = false },
+          pycodestyle = { enabled = false },
+          autopep8 = { enabled = false },
+          yapf = { enabled = false },
+          mccabe = { enabled = false },
+          pylsp_mypy = { enabled = false },
+          pylsp_black = { enabled = false },
+          pylsp_isort = { enabled = false },
+        },
+      },
+    },
+  },
+  ruff = {},
+  tailwindcss = {},
+  terraformls = {},
+  yamlls = {},
+  prettier = {},
+  prettierd = {},
+  shfmt = {},
+  volar = { "vue" },
+  ts_ls = {
+    init_options = {
+      plugins = {
+        {
+          name = '@vue/typescript-plugin',
+          location = vim.fn.expand("$MASON/packages/vue-language-server/node_modules/@vue/language-server"),
+          languages = { 'vue' },
+        },
+      },
+    },
+    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'svelte' },
+  },
 }
--- Concatenate the tables
-local all_lsp_servers = {}
-vim.list_extend(all_lsp_servers, lsp_servers)
-vim.list_extend(all_lsp_servers, custom_lsp_servers)
 
 -- Define a function to set up the keymaps
 local function on_attach(client, bufnr)
@@ -48,126 +68,89 @@ local function on_attach(client, bufnr)
   buf_set_keymap("n", "gl", "<cmd>Telescope diagnostics bufnr=0<CR>", Utils.opts)
 end
 
-return {
-  {
-    "mason-org/mason.nvim",
-    build = ":MasonUpdate",
-    cmd = {
-      "Mason",
-      "MasonInstall",
-      "MasonUninstall",
-      "MasonUninstallAll",
-      "MasonLog",
-    }
-  },
-  {
-    "mason-org/mason-lspconfig.nvim",
-    event = "BufReadPost",
-    dependencies = {
-      "mason-org/mason.nvim",
-      "neovim/nvim-lspconfig",
-    },
-    opts = {
-      ensure_installed = all_lsp_servers,
-      automatic_installation = true,
-    },
-  },
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "saghen/blink.cmp",
-    },
-    config = function()
-      local config = require("lspconfig")
-      -- Adding capabilities from 'cmp_nvim_lsp'
-      local capabilities = require("blink.cmp").get_lsp_capabilities()
-      for _, lsp in ipairs(lsp_servers) do
-        config[lsp].setup({
-          on_attach = on_attach,
-          capabilities = capabilities,
-          opts = lsp_servers[lsp] or {},
-        })
-      end
-
-      -- Setup for deno
-      config.denols.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        root_dir = config.util.root_pattern("deno.json", "deno.jsonc"),
-      })
-
-      -- Setup for python
-      config.pylsp.setup({
-        settings = {
-          pylsp = {
-            plugins = {
-              pyflakes = { enabled = false },
-              pycodestyle = { enabled = false },
-              autopep8 = { enabled = false },
-              yapf = { enabled = false },
-              mccabe = { enabled = false },
-              pylsp_mypy = { enabled = false },
-              pylsp_black = { enabled = false },
-              pylsp_isort = { enabled = false },
-            },
-          },
-        },
-      })
-
-      -- Setup for ts_ls and vue
-      -- Ensure 'vue-language-server' is installed via Mason (e.g. add "volar" above)
-      -- Then find the Volar plugin path manually:
-      local vue_ls_share = vim.fn.expand("$MASON/packages/vue-language-server")
-      local vue_plugin_path = vue_ls_share .. "/node_modules/@vue/language-server"
-
-      config.ts_ls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities
-      })
-      vim.lsp.config('ts_ls', {
-        init_options = {
-          plugins = {
-            {
-              name = '@vue/typescript-plugin',
-              location = vim.fn.expand("$MASON/packages/vue-language-server/node_modules/@vue/language-server"),
-              languages = { 'vue' },
-            },
-          },
-        },
-        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'svelte' },
-      })
-    end,
-  },
-  {
-    "nvimtools/none-ls.nvim",
-    dependencies = {
-      "nvimtools/none-ls-extras.nvim",
-    },
-    config = function()
-      local null_ls_config = require("null-ls")
-      null_ls_config.setup({
-        sources = {
-          require("none-ls.formatting.ruff").with({ extra_args = { "--extend-select", "I" } }),
-          require("none-ls.formatting.ruff_format"),
-          null_ls_config.builtins.formatting.prettier.with({
-            filetypes = {
-              "json",
-              "yaml",
-              "markdown",
-              "javascript",
-              "javascriptreact",
-              "typescript",
-              "typescriptreact",
-              "vue"
-            }
-          }),
-          null_ls_config.builtins.formatting.shfmt.with({ args = { "-i", "4" } }),
-          null_ls_config.builtins.formatting.terraform_fmt,
-          null_ls_config.builtins.diagnostics.terraform_validate
-        },
-      })
-      vim.keymap.set("n", "fe", "<Cmd>lua vim.diagnostic.open_float()<CR>", Utils.opts)
-      vim.keymap.set("n", "fd", "<Cmd>lua vim.lsp.buf.format()<CR>", Utils.opts)
-    end,
+local mason = {
+  "mason-org/mason.nvim",
+  build = ":MasonUpdate",
+  cmd = {
+    "Mason",
+    "MasonInstall",
+    "MasonUninstall",
+    "MasonUninstallAll",
+    "MasonLog",
   },
 }
+
+local mason_lsp_config = {
+  "mason-org/mason-lspconfig.nvim",
+  event = "BufReadPost",
+  dependencies = {
+    "mason-org/mason.nvim",
+    "neovim/nvim-lspconfig",
+  },
+  opts = {
+    ensure_installed = vim.tbl_keys(lsp_servers),
+    automatic_installation = true,
+  },
+  config = function()
+    local mason = require('mason')
+    local mason_lsp_config = require('mason-lspconfig')
+    mason.setup({})
+    mason_lsp_config.setup({})
+
+    for server, config in pairs(lsp_servers) do
+      vim.lsp.config(server, config)
+      vim.lsp.enable(server)
+    end
+  end
+}
+
+local none_ls_config = {
+  "nvimtools/none-ls.nvim",
+  dependencies = {
+    "nvimtools/none-ls-extras.nvim",
+  },
+  config = function()
+    local null_ls_config = require("null-ls")
+    null_ls_config.setup({
+      sources = {
+        require("none-ls.formatting.ruff").with({ extra_args = { "--extend-select", "I" } }),
+        require("none-ls.formatting.ruff_format"),
+        null_ls_config.builtins.code_actions.gitsigns,
+        null_ls_config.builtins.formatting.prettier.with({
+          filetypes = {
+            "json",
+            "yaml",
+            "markdown",
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
+            "vue"
+          }
+        }),
+        null_ls_config.builtins.formatting.shfmt.with({ args = { "-i", "4" } }),
+        null_ls_config.builtins.formatting.terraform_fmt,
+        null_ls_config.builtins.diagnostics.terraform_validate
+      },
+    })
+    vim.keymap.set("n", "fe", "<Cmd>lua vim.diagnostic.open_float()<CR>", Utils.opts)
+    vim.keymap.set("n", "fd", "<Cmd>lua vim.lsp.buf.format()<CR>", Utils.opts)
+  end,
+}
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(ev)
+    local bufnr = ev.buf
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
+    if client then
+      on_attach(client, bufnr)
+    end
+
+    if client:supports_method "textDocument/inlayHint" then
+      vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+    end
+  end,
+})
+
+return { mason, mason_lsp_config, none_ls_config }
