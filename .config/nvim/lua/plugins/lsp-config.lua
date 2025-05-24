@@ -27,7 +27,6 @@ local lsp_servers = {
   tailwindcss = {},
   terraformls = {},
   yamlls = {},
-  volar = {},
   ts_ls = {},
 }
 
