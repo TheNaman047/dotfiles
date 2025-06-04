@@ -62,3 +62,11 @@ vim.keymap.set("n", "<S-Up>", "<C-W>10+", Utils.opts)   -- Increase height
 vim.keymap.set({ "n", "v" }, "<leader>ai", "<cmd>CodeCompanionActions<cr>", Utils.opts)
 vim.keymap.set({ "n", "v" }, "<leader>at", "<cmd>CodeCompanionChat Toggle<cr>", Utils.opts)
 vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", Utils.opts)
+
+-- Claude code keymaps
+vim.keymap.set('n', '<leader>cc', '<cmd>ClaudeCode<CR>', { desc = 'Toggle Claude Code' })
+
+-- Oil Keymaps
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", Utils.opts)
+vim.keymap.set("n", "<leader>-", "<CMD>Oil --float<CR>", Utils.opts)
+-- vim.keymap.set("n", "<leader>-", require("oil").toggle_float, Utils.opts)

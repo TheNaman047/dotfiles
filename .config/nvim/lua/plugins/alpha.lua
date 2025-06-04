@@ -5,12 +5,12 @@ return {
   opts = function()
     local dashboard = require("alpha.themes.dashboard")
     local logo = [[
-    ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
-    ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
-    ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
-    ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
-    ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
-    ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
+  ████████╗██╗  ██╗███████╗███╗   ██╗ █████╗ ███╗   ███╗ █████╗ ███╗   ██╗ ██████╗ ██╗  ██╗███████╗
+  ╚══██╔══╝██║  ██║██╔════╝████╗  ██║██╔══██╗████╗ ████║██╔══██╗████╗  ██║██╔═████╗██║  ██║╚══════██║
+     ██║   ███████║█████╗  ██╔██╗ ██║███████║██╔████╔██║███████║██╔██╗ ██║██║██╔██║███████║    ██╔╝
+     ██║   ██╔══██║██╔══╝  ██║╚██╗██║██╔══██║██║╚██╔╝██║██╔══██║██║╚██╗██║████╔╝██║╚════██║   ██╔╝ 
+     ██║   ██║  ██║███████╗██║ ╚████║██║  ██║██║ ╚═╝ ██║██║  ██║██║ ╚████║╚██████╔╝     ██║   ██║  
+     ╚═╝   ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝      ╚═╝   ╚═╝  
 
     ]]
 
@@ -19,7 +19,7 @@ return {
       dashboard.button("f", " " .. " Find file", function() require("telescope.builtin").find_files() end),
       dashboard.button("n", " " .. " New file", ":ene <BAR> startinsert <CR>"),
       dashboard.button("r", " " .. " Recent files", function() require("telescope.builtin").oldfiles() end),
-      dashboard.button("g", " " .. " Find text", function() require("telescope.builtin").live_grep() end),
+      dashboard.button("s", " " .. " Find text", function() require("telescope.builtin").live_grep() end),
       dashboard.button("c", " " .. " Config", ":e ~/.config/nvim/ <CR>"),
       dashboard.button("l", "� " .. " Lazy", ":Lazy<CR>"),
       dashboard.button("q", " " .. " Quit", ":qa<CR>"),

@@ -2,104 +2,6 @@ local Utils = require("../utils/functions")
 -- load ollama status functions
 local ollama_prompts = require("config.ollama-prompts")
 
-local ollama_url = "https://api-ollama-local.thenaman047.dev"
-local ollama_model = "llama3"
-
-local ollama_config = {
-  "nomnivore/ollama.nvim",
-  event = "VeryLazy",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-  },
-  cmd = { "Ollama", "OllamaModel", "OllamaServe", "OllamaServeStop" },
-  keys = {
-    {
-      "<leader>oo",
-      ":<c-u>lua require('ollama').prompt()<cr>",
-      desc = "ollama prompt",
-      mode = { "n", "v" },
-    },
-    {
-      "<leader>oa",
-      ":<c-u>lua require('ollama').prompt('Ask_About_Code')<cr>",
-      desc = "ollama Generate Code",
-      mode = { "n", "v" },
-    },
-  },
-  opts = {
-    model = ollama_model,
-    url = ollama_url,
-    prompts = ollama_prompts.prompts,
-  },
-}
-
--- Load mistral's codestral model via gen.nvim
-local M = {}
-M.mistral = {
-  host = "codestral.mistral.ai",
-  host_url = "https://codestral.mistral.ai/v1/chat/completions",
-  model = "codestral-latest",
-  api_key = function()
-    return os.getenv("MISTRAL_API_KEY")
-  end,
-}
-
-local gen_nvim_config = {
-  "David-Kunz/gen.nvim",
-  opts = {
-    model = M.mistral.model,
-    command = "curl --silent --no-buffer --header 'Authorization: Bearer "
-        .. M.mistral.api_key()
-        .. "' -X POST "
-        .. M.mistral.host_url
-        .. " --header 'Content-Type: application/json'"
-        .. " -d $body",
-    display_mode = "split",
-    show_prompt = true,
-    show_model = true,
-    no_auto_close = false,
-    debug = false,
-  },
-  keys = {
-    {
-      "<leader>ge",
-      ":Gen<CR>",
-      desc = "gen prompt",
-      mode = { "n", "v" },
-    },
-  },
-}
-
-local cmp_ai = {
-  "tzachar/cmp-ai",
-  dependencies = "nvim-lua/plenary.nvim",
-  config = function()
-    local cmp_ai = require("cmp_ai.config")
-
-    cmp_ai:setup({
-      max_lines = 1000,
-      provider = "Codestral",
-      provider_options = {
-        model = gen_nvim_model,
-      },
-      notify = true,
-      notify_callback = function(msg)
-        print(msg)
-        vim.notify(msg)
-      end,
-      run_on_every_keystroke = false,
-    })
-  end,
-}
-
-local supermaven_config = {
-  "supermaven-inc/supermaven-nvim",
-  event = "VeryLazy",
-  config = function()
-    require("supermaven-nvim").setup({})
-  end,
-}
-
 local avante_config = {
   "yetone/avante.nvim",
   event = "VeryLazy",
@@ -176,15 +78,14 @@ local avante_config = {
       },
       windows = {
         edit = {
-          start_insert = true, -- Start insert mode when opening the edit window
+          start_insert = true,
         },
         chat = {
-          width = 0.7,  -- Added width configuration
-          height = 0.8, -- Added height configuration
+          width = 0.7,
+          height = 0.8,
         },
       },
       selector = {
-        ---@alias avante.SelectorProvider "native" | "fzf_lua" | "mini_pick" | "snacks" | "telescope" | fun(selector: avante.ui.Selector): nil
         provider = "telescope",
         provider_opts = {},
       },
@@ -198,32 +99,7 @@ local avante_config = {
           next = "<leader>]x",
           prev = "<leader>[x",
         },
-        suggestion = {
-          accept = "<M-l>",
-          next = "<M-]>",
-          prev = "<M-[>",
-          dismiss = "<C-]>",
-        },
-        jump = {
-          next = "]]",
-          prev = "[[",
-        },
-        submit = {
-          normal = "<CR>",
-          insert = "<C-s>",
-        },
-        sidebar = {
-          apply_all = "A",
-          apply_cursor = "a",
-          switch_windows = "<Tab>",
-          reverse_switch_windows = "<S-Tab>",
-        },
       },
-      hints = {
-        enabled = true,
-        position = "inline", -- Added position setting
-      },
-      -- Added keymaps section for custom commands
       keymaps = {
         ["<leader>ai"] = { cmd = "AvanteToggle", desc = "Toggle Avante" },
         ["<leader>ac"] = { cmd = "AvanteChat", desc = "Avante Chat" },
@@ -289,15 +165,24 @@ local code_companion_config = {
         },
       },
     })
-
   end,
 }
 
+local claude_code_config = {
+  "greggh/claude-code.nvim",
+  cmd = {
+    "ClaudeCode",
+  },
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+  },
+  config = function()
+    require("claude-code").setup()
+  end
+}
+
 return {
-  -- ollama_config,
-  -- gen_nvim_config,
-  -- cmp_ai,
-  -- supermaven_config,
   -- avante_config,
-  code_companion_config
+  code_companion_config,
+  claude_code_config
 }
