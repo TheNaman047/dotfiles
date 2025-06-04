@@ -1,4 +1,4 @@
-local Utils = require ("../utils/functions")
+local Utils = require("../utils/functions")
 
 -- Set good to have options
 vim.cmd("set expandtab")
@@ -56,4 +56,9 @@ vim.keymap.set("n", "<S-Left>", "<C-W>15<", Utils.opts)
 vim.keymap.set("n", "<S-Right>", "<C-W>15>", Utils.opts)
 -- Horizontal resize
 vim.keymap.set("n", "<S-Down>", "<C-W>10-", Utils.opts) -- Decrease height
-vim.keymap.set("n", "<S-Up>", "<C-W>10+", Utils.opts) -- Increase height
+vim.keymap.set("n", "<S-Up>", "<C-W>10+", Utils.opts)   -- Increase height
+
+-- Code Companion keymaps
+vim.keymap.set({ "n", "v" }, "<leader>ai", "<cmd>CodeCompanionActions<cr>", Utils.opts)
+vim.keymap.set({ "n", "v" }, "<leader>at", "<cmd>CodeCompanionChat Toggle<cr>", Utils.opts)
+vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", Utils.opts)
