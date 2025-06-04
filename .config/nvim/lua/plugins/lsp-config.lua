@@ -109,6 +109,7 @@ local mason_lsp_config = {
 
 local none_ls_config = {
   "nvimtools/none-ls.nvim",
+  event = "BufReadPost",
   dependencies = {
     "nvimtools/none-ls-extras.nvim",
   },

@@ -1,9 +1,9 @@
 local comment = {
 	"numToStr/Comment.nvim",
+  event = "BufReadPost",
 	config = function()
 		require("Comment").setup()
 	end,
-	event = "VeryLazy",
 }
 
 local autopairs = {
