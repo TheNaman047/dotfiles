@@ -76,6 +76,11 @@ alias vim='nvim'
 alias c='clear'
 alias lg='lazygit'
 
+# Key Maps
+# Enable Ctrl+arrow key bindings for word jumping
+bindkey '^[[1;5C' forward-word     # Ctrl+right arrow
+bindkey '^[[1;5D' backward-word    # Ctrl+left arrow
+
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
@@ -83,4 +88,12 @@ eval "$(zoxide init --cmd cd zsh)"
 # Lazy Load miniconda
 # source $HOME/.config/miniconda/.zsh_lazyload_conda.sh
 # zprof
+
+# fnm
+FNM_PATH="/home/naman47/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="/home/naman47/.local/share/fnm:$PATH"
+  eval "`fnm env`"
+fi
+
 
