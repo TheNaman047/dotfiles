@@ -115,11 +115,13 @@ local code_companion_config = {
   opts = {},
   cmd = {
     "CodeCompanionActions",
-    "CodeCompanionChat"
+    "CodeCompanionChat",
+    "CodeCompanionHistory"
   },
   dependencies = {
     "nvim-treesitter/nvim-treesitter",
     "echasnovski/mini.diff",
+    "ravitemer/codecompanion-history.nvim",
     { "nvim-lua/plenary.nvim", branch = "master" },
     {
       "MeanderingProgrammer/render-markdown.nvim",
@@ -165,6 +167,8 @@ local code_companion_config = {
           adapter = "anthropic",
         },
       },
+      extensions = {
+        history = { enabled = true } }
     })
   end,
 }

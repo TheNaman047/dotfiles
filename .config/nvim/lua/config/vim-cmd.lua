@@ -61,6 +61,7 @@ vim.keymap.set("n", "<S-Up>", "<C-W>10+", Utils.opts)   -- Increase height
 -- Code Companion keymaps
 vim.keymap.set({ "n", "v" }, "<leader>ai", "<cmd>CodeCompanionActions<cr>", Utils.opts)
 vim.keymap.set({ "n", "v" }, "<leader>at", "<cmd>CodeCompanionChat Toggle<cr>", Utils.opts)
+vim.keymap.set({ "n", "v" }, "<leader>ah", "<cmd>CodeCompanionHistory<cr>", Utils.opts)
 vim.keymap.set("v", "ga", "<cmd>CodeCompanionChat Add<cr>", Utils.opts)
 
 -- Claude code keymaps
