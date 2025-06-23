@@ -26,7 +26,9 @@ return {
         "html",
         "dockerfile",
         "terraform",
-        "hcl"
+        "hcl",
+        "markdown",
+        "markdown_inline"
       },
       sync_install = false,
       highlight = { enable = true },

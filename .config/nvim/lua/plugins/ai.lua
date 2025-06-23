@@ -148,6 +148,13 @@ local code_companion_config = {
       source = diff.gen_source.none(),
     })
     code_companion.setup({
+      display = {
+        chat = {
+          window = {
+            width = 0.4,
+          }
+        }
+      },
       strategies = {
         chat = {
           adapter = "anthropic",
@@ -160,7 +167,6 @@ local code_companion_config = {
             close = {
               modes = { n = "<C-c>", i = "<C-c>" },
             },
-            -- Add further custom keymaps here
           },
         },
         inline = {
@@ -168,7 +174,8 @@ local code_companion_config = {
         },
       },
       extensions = {
-        history = { enabled = true } }
+        history = { enabled = true }
+      }
     })
   end,
 }
