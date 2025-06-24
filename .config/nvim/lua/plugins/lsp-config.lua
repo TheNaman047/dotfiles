@@ -73,7 +73,7 @@ local mason = {
 
 local mason_lsp_config = {
   "mason-org/mason-lspconfig.nvim",
-  event = "BufReadPost",
+  event = "VeryLazy", -- Changed from BufReadPost to VeryLazy
   dependencies = {
     "mason-org/mason.nvim",
     "neovim/nvim-lspconfig",
@@ -109,7 +109,7 @@ local mason_lsp_config = {
 
 local none_ls_config = {
   "nvimtools/none-ls.nvim",
-  event = "BufReadPost",
+  event = "VeryLazy", -- Changed from BufReadPost to VeryLazy
   dependencies = {
     "nvimtools/none-ls-extras.nvim",
   },
@@ -142,7 +142,7 @@ local none_ls_config = {
   end,
 }
 
-vim.api.nvim_create_autocmd("LspAttach", {
+--[[ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
     local bufnr = ev.buf
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
@@ -155,6 +155,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     end
   end,
-})
+}) ]]
 
 return { mason, mason_lsp_config, none_ls_config }
