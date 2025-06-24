@@ -88,6 +88,7 @@ local mason_lsp_config = {
     })
 
     for server, config in pairs(lsp_servers) do
+      config.on_attach = on_attach
       vim.lsp.config(server, config)
       vim.lsp.enable(server)
     end
