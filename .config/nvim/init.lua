@@ -34,10 +34,117 @@ vim.pack.add({
   { src = "https://github.com/echasnovski/mini.pick" },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
   { src = "https://github.com/echasnovski/mini.pairs" },
+  { src = "https://github.com/kristijanhusak/vim-dadbod-ui" },
+  { src = "https://github.com/tpope/vim-dadbod" },
+  { src = "https://github.com/christoomey/vim-tmux-navigator" },
+  { src = "https://github.com/ibhagwan/smartyank.nvim" },
 })
 
+-- Setup plugins
+require "oil".setup({
+  win_options = {
+    signcolumn = "yes:2",
+  },
+  delete_to_trash = true,
+  view_options = {
+    show_hidden = true,
+  },
+  keymaps = {
+    ["<C-t>"] = { "actions.select", opts = { tab = true } },
+    ["<C-r>"] = { "actions.preview", opts = { split = "botright" } },
+    ["<C-p>"] = false,
+    ["g."] = { "actions.toggle_hidden", mode = "n" },
+  },
+})
+require "mini.pick".setup({ options = { use_cache = true } })
+require "mini.pairs".setup()
+require "smartyank".setup()
+-- Setup terminal module
+local terminal = require("term")
+terminal.setup()
+-- Setup terminal module
+local dadbod_ui = require("db")
+dadbod_ui.setup()
+
+-- Set colorscheme
+vim.cmd("colorscheme vague")
+vim.cmd(":hi statusline guibg=NONE")
+
 -- Enable lsp
-vim.lsp.enable({ "lua_ls", "ts_ls" })
+-- Configure LSP servers
+local lspconfig = require('lspconfig')
+
+-- Configure Lua Language Server
+lspconfig.lua_ls.setup({
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT'
+      },
+      diagnostics = {
+        globals = { 'vim' }
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false
+      },
+      telemetry = {
+        enable = false
+      }
+    }
+  }
+})
+
+-- Configure TypeScript Language Server
+lspconfig.ts_ls.setup({
+  root_dir = lspconfig.util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json'),
+  settings = {
+    typescript = {
+      inlayHints = {
+        includeInlayParameterNameHints = 'all',
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      }
+    },
+    javascript = {
+      inlayHints = {
+        includeInlayParameterNameHints = 'all',
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = true,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = true,
+        includeInlayEnumMemberValueHints = true,
+      }
+    }
+  },
+  -- Disable ts_ls formatting since we'll use Biome for that
+  on_attach = function(client, bufnr)
+    client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+  end,
+})
+
+-- Configure Biome LSP
+lspconfig.biome.setup({
+  root_dir = lspconfig.util.root_pattern('biome.json', 'biome.jsonc', 'package.json'),
+  single_file_support = false, -- Biome works best with projects
+  settings = {
+    -- Add any Biome-specific settings here
+  },
+  -- Only enable formatting and diagnostics capabilities for Biome
+  on_attach = function(client, bufnr)
+    -- Disable hover and other capabilities, keep only formatting and diagnostics
+    client.server_capabilities.hoverProvider = false
+    client.server_capabilities.definitionProvider = false
+    client.server_capabilities.referencesProvider = false
+    client.server_capabilities.completionProvider = nil
+  end,
+})
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
@@ -70,10 +177,12 @@ require "oil".setup({
 })
 require "mini.pick".setup({ options = { use_cache = true } })
 require "mini.pairs".setup()
-
--- Set colorscheme
-vim.cmd("colorscheme vague")
-vim.cmd(":hi statusline guibg=NONE")
+-- Setup terminal module
+local terminal = require("term")
+terminal.setup()
+-- Setup terminal module
+local dadbod_ui = require("db")
+dadbod_ui.setup()
 
 local opts = { noremap = true, silent = true }
 -- Source current file to nvim
@@ -111,12 +220,22 @@ vim.keymap.set("n", "<leader>l", ":Pick grep_live<CR>", opts)
 vim.keymap.set("n", "<leader>r", ":Pick resume<CR>", opts)
 vim.keymap.set("n", "<leader>h", ":Pick help<CR>", opts)
 
--- Navigate between splits
+-- Dadbod keymaps
+vim.keymap.set("n", "<leader>d", ":DBUIToggle<CR>", opts)
+
+-- Terminal keymaps
+vim.keymap.set("n", "<leader>th", function() terminal.create_terminal("horizontal") end,
+  { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>tv", function() terminal.create_terminal("vertical") end, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>tf", function() terminal.create_terminal("float") end, { noremap = true, silent = true })
+
+-- Navigate between splits and tmux panes
 -- Use ctrl-[hjkl] to select the active split!
-vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", opts)
-vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", opts)
-vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", opts)
-vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", opts)
+vim.keymap.set("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>", opts)
+vim.keymap.set("n", "<C-j>", "<cmd>TmuxNavigateDown<cr>", opts)
+vim.keymap.set("n", "<C-k>", "<cmd>TmuxNavigateUp<cr>", opts)
+vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<cr>", opts)
+vim.keymap.set("n", "<C-\\>", "<cmd>TmuxNavigatePrevious<cr>", opts)
 
 -- Split resize maps
 -- Vertical resize
