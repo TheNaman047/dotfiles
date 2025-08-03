@@ -38,6 +38,7 @@ vim.pack.add({
   { src = "https://github.com/tpope/vim-dadbod" },
   { src = "https://github.com/christoomey/vim-tmux-navigator" },
   { src = "https://github.com/ibhagwan/smartyank.nvim" },
+  { src = "git@github.com:smithbm2316/centerpad.nvim" },
 })
 
 -- Setup plugins
@@ -183,8 +184,11 @@ vim.keymap.set("n", "<leader>d", ":DBUIToggle<CR>", opts)
 -- Terminal keymaps
 vim.keymap.set("n", "<leader>th", function() terminal.create_terminal("horizontal") end,
   { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>tv", function() terminal.create_terminal("vertical") end, { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>tf", function() terminal.create_terminal("float") end, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>tv", function() terminal.create_terminal("vertical") end, opts)
+vim.keymap.set("n", "<leader>tf", function() terminal.create_terminal("float") end, opts)
+
+-- Centerpad keymap
+vim.api.nvim_set_keymap('n', '<leader>z', '<cmd>Centerpad<cr>', opts)
 
 -- Navigate between splits and tmux panes
 -- Use ctrl-[hjkl] to select the active split!
