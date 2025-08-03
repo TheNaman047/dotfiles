@@ -94,57 +94,9 @@ lspconfig.lua_ls.setup({
     }
   }
 })
+-- Enable other lsp
+vim.lsp.enable({ "ts_ls" })
 
--- Configure TypeScript Language Server
-lspconfig.ts_ls.setup({
-  root_dir = lspconfig.util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json'),
-  settings = {
-    typescript = {
-      inlayHints = {
-        includeInlayParameterNameHints = 'all',
-        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayVariableTypeHints = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayEnumMemberValueHints = true,
-      }
-    },
-    javascript = {
-      inlayHints = {
-        includeInlayParameterNameHints = 'all',
-        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-        includeInlayFunctionParameterTypeHints = true,
-        includeInlayVariableTypeHints = true,
-        includeInlayPropertyDeclarationTypeHints = true,
-        includeInlayFunctionLikeReturnTypeHints = true,
-        includeInlayEnumMemberValueHints = true,
-      }
-    }
-  },
-  -- Disable ts_ls formatting since we'll use Biome for that
-  on_attach = function(client, bufnr)
-    client.server_capabilities.documentFormattingProvider = false
-    client.server_capabilities.documentRangeFormattingProvider = false
-  end,
-})
-
--- Configure Biome LSP
-lspconfig.biome.setup({
-  root_dir = lspconfig.util.root_pattern('biome.json', 'biome.jsonc', 'package.json'),
-  single_file_support = false, -- Biome works best with projects
-  settings = {
-    -- Add any Biome-specific settings here
-  },
-  -- Only enable formatting and diagnostics capabilities for Biome
-  on_attach = function(client, bufnr)
-    -- Disable hover and other capabilities, keep only formatting and diagnostics
-    client.server_capabilities.hoverProvider = false
-    client.server_capabilities.definitionProvider = false
-    client.server_capabilities.referencesProvider = false
-    client.server_capabilities.completionProvider = nil
-  end,
-})
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
@@ -153,11 +105,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
       -- Optional: trigger autocompletion on EVERY keypress. May be slow!
       local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
       client.server_capabilities.completionProvider.triggerCharacters = chars
-      vim.lsp.completion.enable(true, client.id, args.buf, { autotrigger = true })
+      vim.lsp.completion.enable(true, client.id, args.buf, {
+        autotrigger = true,
+        convert = function(item)
+          return { abbr = item.label:gsub("%b()", "") }
+        end,
+      })
     end
   end,
 })
-vim.cmd("set completeopt+=noselect")
+vim.opt.completeopt = { "menuone", "noselect", "popup" }
 
 -- Setup plugins
 require "oil".setup({
