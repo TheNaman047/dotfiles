@@ -37,7 +37,9 @@ vim.pack.add({
   { src = "https://github.com/tpope/vim-dadbod" },
   { src = "https://github.com/christoomey/vim-tmux-navigator" },
   { src = "https://github.com/ibhagwan/smartyank.nvim" },
-  { src = "git@github.com:smithbm2316/centerpad.nvim" },
+  { src = "https://github.com/smithbm2316/centerpad.nvim" },
+  { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+  { src = "https://github.com/coder/claudecode.nvim" },
 })
 
 -- Setup plugins
@@ -59,6 +61,13 @@ require "oil".setup({
 require "mini.pick".setup({ options = { use_cache = true } })
 require "mini.pairs".setup()
 require "smartyank".setup()
+require 'nvim-treesitter.configs'.setup({
+  ensure_installed = { "lua", "vim", "vimdoc", "markdown", "markdown_inline", "javascript", "typescript", "json", "python", "toml", "rust", "sql", "tsx", "yaml", "dockerfile", "terraform", "hcl", },
+  highlight = { enable = true }
+})
+require "claudecode".setup()
+
+
 -- Setup terminal module
 local terminal = require("term")
 terminal.setup()
@@ -166,6 +175,10 @@ vim.keymap.set("n", "<leader>th", function() terminal.create_terminal("horizonta
 vim.keymap.set("n", "<leader>tv", function() terminal.create_terminal("vertical") end, opts)
 vim.keymap.set("n", "<leader>tf", function() terminal.create_terminal("float") end, opts)
 
+-- ClaudeCode
+vim.keymap.set("n", "<leader>ac", "<cmd>ClaudeCode<cr>", opts)
+vim.keymap.set("n", "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", opts)
+vim.keymap.set("v", "<leader>as", "<cmd>ClaudeCodeSend<cr>", opts)
 -- Centerpad keymap
 vim.api.nvim_set_keymap('n', '<leader>z', '<cmd>Centerpad<cr>', opts)
 
