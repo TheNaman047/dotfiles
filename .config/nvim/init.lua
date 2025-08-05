@@ -30,7 +30,6 @@ vim.pack.add({
   { src = "https://github.com/vague2k/vague.nvim" },
   { src = "https://github.com/stevearc/oil.nvim" },
   { src = "https://github.com/refractalize/oil-git-status.nvim" },
-  { src = "https://github.com/neovim/nvim-lspconfig" },
   { src = "https://github.com/echasnovski/mini.pick" },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
   { src = "https://github.com/echasnovski/mini.pairs" },
@@ -72,36 +71,12 @@ vim.cmd("colorscheme vague")
 vim.cmd(":hi statusline guibg=NONE")
 
 -- Enable lsp
--- Configure LSP servers
-local lspconfig = require('lspconfig')
-
--- Configure Lua Language Server
-lspconfig.lua_ls.setup({
-  settings = {
-    Lua = {
-      runtime = {
-        version = 'LuaJIT'
-      },
-      diagnostics = {
-        globals = { 'vim' }
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file("", true),
-        checkThirdParty = false
-      },
-      telemetry = {
-        enable = false
-      }
-    }
-  }
-})
--- Enable other lsp
-vim.lsp.enable({ "ts_ls" })
+vim.lsp.enable({ "ts_ls", "lua_ls", "vtsls", "vue_ls", "jsonls", "basedpyright", "ruff" })
 
 vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
   callback = function(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-    -- Enable auto-completion. Note: Use CTRL-Y to select an item. |complete_CTRL-Y|
     if client:supports_method('textDocument/completion') then
       -- Optional: trigger autocompletion on EVERY keypress. May be slow!
       local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
@@ -112,6 +87,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
           return { abbr = item.label:gsub("%b()", "") }
         end,
       })
+    end
+    if client.name == 'ruff' then
+      -- Disable hover in favor of Pyright
+      client.server_capabilities.hoverProvider = false
     end
   end,
 })
