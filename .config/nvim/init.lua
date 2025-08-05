@@ -131,12 +131,12 @@ local dadbod_ui = require("db")
 dadbod_ui.setup()
 
 local opts = { noremap = true, silent = true }
+
 -- Source current file to nvim
 vim.keymap.set("n", "<leader>o", ":update<CR> :source<CR>", opts)
 
 -- LSP keymaps
 vim.keymap.set("n", "<leader>fd", vim.lsp.buf.format, opts)
-
 
 -- Oil keymaps
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", opts)
@@ -154,7 +154,6 @@ local wipeout_cur_buf = function()
 end
 local buffer_mappings = { wipeout = { char = '<C-d>', func = wipeout_cur_buf } }
 local local_opts = { include_current = false }
--- MiniPick.builtin.buffers(local_opts, { mappings = buffer_mappings })
 
 -- Mini pick keymap
 vim.keymap.set("n", "<leader>p", ":Pick files<CR>", opts)
