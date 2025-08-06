@@ -27,7 +27,8 @@ vim.o.termguicolors = true
 
 -- Setting theme
 vim.pack.add({
-  { src = "https://github.com/vague2k/vague.nvim" },
+  -- { src = "https://github.com/vague2k/vague.nvim" },
+  { src = "https://github.com/rose-pine/neovim" },
   { src = "https://github.com/stevearc/oil.nvim" },
   { src = "https://github.com/refractalize/oil-git-status.nvim" },
   { src = "https://github.com/echasnovski/mini.pick" },
@@ -76,7 +77,8 @@ local dadbod_ui = require("db")
 dadbod_ui.setup()
 
 -- Set colorscheme
-vim.cmd("colorscheme vague")
+-- vim.cmd("colorscheme vague")
+vim.cmd("colorscheme rose-pine")
 vim.cmd(":hi statusline guibg=NONE")
 
 -- Enable lsp
