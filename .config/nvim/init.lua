@@ -62,6 +62,11 @@ require "oil".setup({
 require "mini.pick".setup({ options = { use_cache = true } })
 require "mini.pairs".setup()
 require "smartyank".setup()
+require "rose-pine".setup({
+  styles = {
+    transparency = true,
+  },
+})
 require 'nvim-treesitter.configs'.setup({
   ensure_installed = { "lua", "vim", "vimdoc", "markdown", "markdown_inline", "javascript", "typescript", "json", "python", "toml", "rust", "sql", "tsx", "yaml", "dockerfile", "terraform", "hcl", },
   highlight = { enable = true }
