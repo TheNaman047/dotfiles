@@ -41,6 +41,7 @@ vim.pack.add({
   { src = "https://github.com/smithbm2316/centerpad.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
   { src = "https://github.com/coder/claudecode.nvim" },
+  { src = "https://github.com/L3MON4D3/LuaSnip" },
 })
 
 -- Setup plugins
@@ -72,7 +73,6 @@ require 'nvim-treesitter.configs'.setup({
   highlight = { enable = true }
 })
 require "claudecode".setup()
-
 
 -- Setup terminal module
 local terminal = require("term")
@@ -130,9 +130,11 @@ require "oil".setup({
 })
 require "mini.pick".setup({ options = { use_cache = true } })
 require "mini.pairs".setup()
+
 -- Setup terminal module
 local terminal = require("term")
 terminal.setup()
+
 -- Setup terminal module
 local dadbod_ui = require("db")
 dadbod_ui.setup()
@@ -171,6 +173,14 @@ end, opts)
 vim.keymap.set("n", "<leader>l", ":Pick grep_live<CR>", opts)
 vim.keymap.set("n", "<leader>r", ":Pick resume<CR>", opts)
 vim.keymap.set("n", "<leader>h", ":Pick help<CR>", opts)
+
+-- Snippets
+local ls = require("luasnip")
+ls.setup({ enable_autosnippets = true })
+require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
+vim.keymap.set("i", "<C-e>", function() ls.expand_or_jump(1) end, { silent = true })
+vim.keymap.set({ "i", "s" }, "<C-J>", function() ls.jump(1) end, { silent = true })
+vim.keymap.set({ "i", "s" }, "<C-K>", function() ls.jump(-1) end, { silent = true })
 
 -- Dadbod keymaps
 vim.keymap.set("n", "<leader>d", ":DBUIToggle<CR>", opts)
