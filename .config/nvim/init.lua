@@ -192,9 +192,9 @@ vim.keymap.set("n", "<leader>tv", function() terminal.create_terminal("vertical"
 vim.keymap.set("n", "<leader>tf", function() terminal.create_terminal("float") end, opts)
 
 -- ClaudeCode
-vim.keymap.set("n", "<leader>ac", "<cmd>ClaudeCode<cr>", opts)
-vim.keymap.set("n", "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", opts)
-vim.keymap.set("v", "<leader>as", "<cmd>ClaudeCodeSend<cr>", opts)
+vim.keymap.set("n", "<leader>c", "<cmd>ClaudeCode<cr>", opts)
+vim.keymap.set("n", "<leader>sb", "<cmd>ClaudeCodeAdd %<cr>", opts)
+vim.keymap.set("v", "<leader>ss", "<cmd>ClaudeCodeSend<cr>", opts)
 -- Centerpad keymap
 vim.api.nvim_set_keymap('n', '<leader>z', '<cmd>Centerpad<cr>', opts)
 
