@@ -40,6 +40,9 @@ vim.pack.add({
   { src = "https://github.com/ibhagwan/smartyank.nvim" },
   { src = "https://github.com/smithbm2316/centerpad.nvim" },
   { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+  { src = "https://github.com/nvim-lua/plenary.nvim" },
+  { src = "https://github.com/olimorris/codecompanion.nvim" },
+  { src = "https://github.com/ravitemer/codecompanion-history.nvim" },
   { src = "https://github.com/coder/claudecode.nvim" },
   { src = "https://github.com/L3MON4D3/LuaSnip" },
 })
@@ -73,6 +76,17 @@ require 'nvim-treesitter.configs'.setup({
   highlight = { enable = true }
 })
 require "claudecode".setup()
+require "codecompanion".setup({
+  display = { chat = { window = { width = 0.4, } } },
+  strategies = {
+    chat = {
+      adapter = "anthropic",
+      model = "claude-sonnet-4-20250514",
+      auto_scroll = false,
+    },
+  },
+  extensions = { history = { enabled = true } }
+})
 
 -- Setup terminal module
 local terminal = require("term")
@@ -112,33 +126,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 vim.opt.completeopt = { "menuone", "noselect", "popup" }
 
--- Setup plugins
-require "oil".setup({
-  win_options = {
-    signcolumn = "yes:2",
-  },
-  delete_to_trash = true,
-  view_options = {
-    show_hidden = true,
-  },
-  keymaps = {
-    ["<C-t>"] = { "actions.select", opts = { tab = true } },
-    ["<C-r>"] = { "actions.preview", opts = { split = "botright" } },
-    ["<C-p>"] = false,
-    ["g."] = { "actions.toggle_hidden", mode = "n" },
-  },
-})
-require "mini.pick".setup({ options = { use_cache = true } })
-require "mini.pairs".setup()
-
--- Setup terminal module
-local terminal = require("term")
-terminal.setup()
-
--- Setup terminal module
-local dadbod_ui = require("db")
-dadbod_ui.setup()
-
 local opts = { noremap = true, silent = true }
 
 -- Source current file to nvim
@@ -153,13 +140,42 @@ vim.keymap.set("n", "<leader>-", "<CMD>Oil --float<CR>", opts)
 
 -- Mini pick functions
 -- Remove the buffer and move to the next file
+-- Mini pick functions - simplified approach
 local wipeout_cur_buf = function()
-  local current_match = MiniPick.get_picker_matches().current
+  local matches = MiniPick.get_picker_matches()
+  local current_match = matches.current
+  local all_matches = matches.all
+
+  -- Find current index
+  local current_index = 1
+  for i, match in ipairs(all_matches) do
+    if match.bufnr == current_match.bufnr then
+      current_index = i
+      break
+    end
+  end
+
+  -- Delete the buffer
   vim.api.nvim_buf_delete(current_match.bufnr, {})
-  -- Refresh the picker to update the buffer list
-  MiniPick.set_picker_items(vim.tbl_filter(function(item)
+
+  -- Filter out invalid buffers and update
+  local filtered_items = vim.tbl_filter(function(item)
     return vim.api.nvim_buf_is_valid(item.bufnr)
-  end, MiniPick.get_picker_items()))
+  end, MiniPick.get_picker_items())
+
+  MiniPick.set_picker_items(filtered_items)
+
+  -- Use vim.schedule to navigate after update
+  vim.schedule(function()
+    local new_matches = MiniPick.get_picker_matches()
+    if #new_matches.all > 0 then
+      local target_index = math.min(current_index, #new_matches.all)
+      -- Move to target position using built-in navigation
+      for _ = 1, target_index - 1 do
+        vim.api.nvim_input('<C-n>')
+      end
+    end
+  end)
 end
 local buffer_mappings = { wipeout = { char = '<C-d>', func = wipeout_cur_buf } }
 local local_opts = { include_current = false }
@@ -193,8 +209,15 @@ vim.keymap.set("n", "<leader>tf", function() terminal.create_terminal("float") e
 
 -- ClaudeCode
 vim.keymap.set("n", "<leader>c", "<cmd>ClaudeCode<cr>", opts)
-vim.keymap.set("n", "<leader>sb", "<cmd>ClaudeCodeAdd %<cr>", opts)
-vim.keymap.set("v", "<leader>ss", "<cmd>ClaudeCodeSend<cr>", opts)
+vim.keymap.set("n", "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", opts)
+vim.keymap.set("v", "<leader>as", "<cmd>ClaudeCodeSend<cr>", opts)
+
+-- Code Companion keymaps
+vim.keymap.set({ "n", "v" }, "<leader>i", "<cmd>CodeCompanionChat Toggle<cr>", opts)
+vim.keymap.set({ "n", "v" }, "<leader>aa", "<cmd>CodeCompanionActions<cr>", opts)
+vim.keymap.set({ "n", "v" }, "<leader>ah", "<cmd>CodeCompanionHistory<cr>", opts)
+vim.keymap.set("v", "<leader>ap", "<cmd>CodeCompanionChat Add<cr>", opts)
+
 -- Centerpad keymap
 vim.api.nvim_set_keymap('n', '<leader>z', '<cmd>Centerpad<cr>', opts)
 
