@@ -28,7 +28,7 @@ vim.o.termguicolors = true
 
 -- Setting theme
 vim.pack.add({
-  -- { src = "https://github.com/vague2k/vague.nvim" },
+  { src = "https://github.com/vague2k/vague.nvim" },
   { src = "https://github.com/rose-pine/neovim" },
   { src = "https://github.com/stevearc/oil.nvim" },
   { src = "https://github.com/refractalize/oil-git-status.nvim" },
@@ -50,6 +50,7 @@ vim.pack.add({
 })
 
 -- Setup plugins
+require "vague".setup({ transparent = true })
 require "oil".setup({
   win_options = {
     signcolumn = "yes:2",
@@ -119,8 +120,8 @@ local dadbod_ui = require("db")
 dadbod_ui.setup()
 
 -- Set colorscheme
--- vim.cmd("colorscheme vague")
-vim.cmd("colorscheme rose-pine")
+vim.cmd("colorscheme vague")
+-- vim.cmd("colorscheme rose-pine")
 vim.cmd(":hi statusline guibg=NONE")
 
 -- Enable lsp
@@ -130,17 +131,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
   callback = function(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-    -- if client:supports_method('textDocument/completion') then
-    --   -- Optional: trigger autocompletion on EVERY keypress. May be slow!
-    --   local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
-    --   client.server_capabilities.completionProvider.triggerCharacters = chars
-    --   vim.lsp.completion.enable(true, client.id, args.buf, {
-    --     autotrigger = true,
-    --     convert = function(item)
-    --       return { abbr = item.label:gsub("%b()", "") }
-    --     end,
-    --   })
-    -- end
     if client.name == 'ruff' then
       -- Disable hover in favor of Pyright
       client.server_capabilities.hoverProvider = false
@@ -173,12 +163,6 @@ end, opts)
 vim.keymap.set("n", "<leader>l", ":Pick grep_live<CR>", opts)
 vim.keymap.set("n", "<leader>r", ":Pick resume<CR>", opts)
 vim.keymap.set("n", "<leader>h", ":Pick help<CR>", opts)
-
--- Snippets
--- require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
--- vim.keymap.set("i", "<C-e>", function() ls.expand_or_jump(1) end, { silent = true })
--- vim.keymap.set({ "i", "s" }, "<C-J>", function() ls.jump(1) end, { silent = true })
--- vim.keymap.set({ "i", "s" }, "<C-K>", function() ls.jump(-1) end, { silent = true })
 
 -- Dadbod keymaps
 vim.keymap.set("n", "<leader>d", ":DBUIToggle<CR>", opts)
