@@ -18,6 +18,7 @@ vim.o.cursorline = true
 vim.o.splitbelow = true
 vim.o.splitright = true
 
+vim.o.acd = true
 -- Set leader
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
@@ -32,8 +33,10 @@ vim.pack.add({
   { src = "https://github.com/stevearc/oil.nvim" },
   { src = "https://github.com/refractalize/oil-git-status.nvim" },
   { src = "https://github.com/echasnovski/mini.pick" },
-  { src = "https://github.com/nvim-tree/nvim-web-devicons" },
   { src = "https://github.com/echasnovski/mini.pairs" },
+  { src = "https://github.com/echasnovski/mini.completion" },
+  { src = "https://github.com/echasnovski/mini.snippets" },
+  { src = "https://github.com/nvim-tree/nvim-web-devicons" },
   { src = "https://github.com/kristijanhusak/vim-dadbod-ui" },
   { src = "https://github.com/tpope/vim-dadbod" },
   { src = "https://github.com/christoomey/vim-tmux-navigator" },
@@ -44,7 +47,6 @@ vim.pack.add({
   { src = "https://github.com/olimorris/codecompanion.nvim" },
   { src = "https://github.com/ravitemer/codecompanion-history.nvim" },
   { src = "https://github.com/coder/claudecode.nvim" },
-  { src = "https://github.com/L3MON4D3/LuaSnip" },
 })
 
 -- Setup plugins
@@ -65,6 +67,27 @@ require "oil".setup({
 })
 require "mini.pick".setup({ options = { use_cache = true } })
 require "mini.pairs".setup()
+require('mini.completion').setup({
+  mappings = {
+    force_twostep = '<C-Space>',
+    force_fallback = '<A-Space>',
+  },
+})
+local gen_loader = require('mini.snippets').gen_loader
+require('mini.snippets').setup({
+  mappings = {
+    expand = '<C-e>',
+    jump_next = '<C-j>',
+    jump_prev = '<C-k>',
+    stop = '<C-c>',
+  },
+  snippets = {
+    gen_loader.from_file('~/.config/nvim/snippets/global.json'),
+    -- Load snippets based on current language by reading files from
+    -- "snippets/" subdirectories from 'runtimepath' directories.
+    gen_loader.from_lang(),
+  },
+})
 require "smartyank".setup()
 require "rose-pine".setup({
   styles = {
@@ -107,24 +130,24 @@ vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
   callback = function(args)
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
-    if client:supports_method('textDocument/completion') then
-      -- Optional: trigger autocompletion on EVERY keypress. May be slow!
-      local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
-      client.server_capabilities.completionProvider.triggerCharacters = chars
-      vim.lsp.completion.enable(true, client.id, args.buf, {
-        autotrigger = true,
-        convert = function(item)
-          return { abbr = item.label:gsub("%b()", "") }
-        end,
-      })
-    end
+    -- if client:supports_method('textDocument/completion') then
+    --   -- Optional: trigger autocompletion on EVERY keypress. May be slow!
+    --   local chars = {}; for i = 32, 126 do table.insert(chars, string.char(i)) end
+    --   client.server_capabilities.completionProvider.triggerCharacters = chars
+    --   vim.lsp.completion.enable(true, client.id, args.buf, {
+    --     autotrigger = true,
+    --     convert = function(item)
+    --       return { abbr = item.label:gsub("%b()", "") }
+    --     end,
+    --   })
+    -- end
     if client.name == 'ruff' then
       -- Disable hover in favor of Pyright
       client.server_capabilities.hoverProvider = false
     end
   end,
 })
-vim.opt.completeopt = { "menuone", "noselect", "popup" }
+-- vim.opt.completeopt = { "menuone", "noselect", "popup" }
 
 local opts = { noremap = true, silent = true }
 
@@ -138,49 +161,10 @@ vim.keymap.set("n", "<leader>fd", vim.lsp.buf.format, opts)
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", opts)
 vim.keymap.set("n", "<leader>-", "<CMD>Oil --float<CR>", opts)
 
--- Mini pick functions
--- Remove the buffer and move to the next file
--- Mini pick functions - simplified approach
-local wipeout_cur_buf = function()
-  local matches = MiniPick.get_picker_matches()
-  local current_match = matches.current
-  local all_matches = matches.all
-
-  -- Find current index
-  local current_index = 1
-  for i, match in ipairs(all_matches) do
-    if match.bufnr == current_match.bufnr then
-      current_index = i
-      break
-    end
-  end
-
-  -- Delete the buffer
-  vim.api.nvim_buf_delete(current_match.bufnr, {})
-
-  -- Filter out invalid buffers and update
-  local filtered_items = vim.tbl_filter(function(item)
-    return vim.api.nvim_buf_is_valid(item.bufnr)
-  end, MiniPick.get_picker_items())
-
-  MiniPick.set_picker_items(filtered_items)
-
-  -- Use vim.schedule to navigate after update
-  vim.schedule(function()
-    local new_matches = MiniPick.get_picker_matches()
-    if #new_matches.all > 0 then
-      local target_index = math.min(current_index, #new_matches.all)
-      -- Move to target position using built-in navigation
-      for _ = 1, target_index - 1 do
-        vim.api.nvim_input('<C-n>')
-      end
-    end
-  end)
-end
-local buffer_mappings = { wipeout = { char = '<C-d>', func = wipeout_cur_buf } }
-local local_opts = { include_current = false }
-
 -- Mini pick keymap
+local mini_pick = require("mini-pick")
+local buffer_mappings = { wipeout = { char = '<C-d>', func = mini_pick.wipeout_cur_buf } }
+local local_opts = { include_current = false }
 vim.keymap.set("n", "<leader>p", ":Pick files<CR>", opts)
 vim.keymap.set("n", "<leader>gf", ":Pick grep<CR>", opts)
 vim.keymap.set("n", "<leader>gb", function()
@@ -191,12 +175,10 @@ vim.keymap.set("n", "<leader>r", ":Pick resume<CR>", opts)
 vim.keymap.set("n", "<leader>h", ":Pick help<CR>", opts)
 
 -- Snippets
-local ls = require("luasnip")
-ls.setup({ enable_autosnippets = true })
-require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
-vim.keymap.set("i", "<C-e>", function() ls.expand_or_jump(1) end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<C-J>", function() ls.jump(1) end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<C-K>", function() ls.jump(-1) end, { silent = true })
+-- require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
+-- vim.keymap.set("i", "<C-e>", function() ls.expand_or_jump(1) end, { silent = true })
+-- vim.keymap.set({ "i", "s" }, "<C-J>", function() ls.jump(1) end, { silent = true })
+-- vim.keymap.set({ "i", "s" }, "<C-K>", function() ls.jump(-1) end, { silent = true })
 
 -- Dadbod keymaps
 vim.keymap.set("n", "<leader>d", ":DBUIToggle<CR>", opts)

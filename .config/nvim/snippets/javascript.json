@@ -1,0 +1,78 @@
+{
+  "Console log": {
+    "prefix": "con",
+    "body": [ "console.log(\"${1}\", ${2});", "$0" ]
+  },
+  "For loop": {
+    "prefix": "for",
+    "body": [
+      "for (var ${1:i} = ${2}; ${1} < ${3}; ${1}++) {",
+      "    $0",
+      "}"
+    ]
+  },
+  "Function": {
+    "prefix": "fun",
+    "body": [
+      "function ${1}(${2}) {",
+      "    $0",
+      "}"
+    ]
+  },
+  "Promise": {
+    "prefix": "pro",
+    "body": [
+      "new Promise((resolve, reject) => {",
+      "    $0",
+      "})"
+    ]
+  },
+  "Then": {
+    "prefix": "the",
+    "body": [
+      ".then(response => {",
+      "    $0",
+      "})"
+    ]
+  },
+  "Catch": {
+    "prefix": "cat",
+    "body": [
+      ".catch(error => {",
+      "    $0",
+      "})"
+    ]
+  },
+  "Promise all": {
+    "prefix": "proa",
+    "body": [
+      "Promise.all([",
+      "    $0",
+      "])"
+    ]
+  },
+  "Express router": {
+    "prefix": "routeEx",
+    "body": [
+      "const express = require('express'),",
+      "    router = express.Router()",
+      "",
+      "router.${1}('/${2}', ${0})",
+      "",
+      "module.exports = router;"
+    ]
+  },
+  "Module exports": {
+    "prefix": "modEx",
+    "body": [
+      "module.exports = {",
+      "    $0",
+      "}"
+    ]
+  },
+  "Module require": {
+    "prefix": "modReq",
+    "body": "${1} = require('${0}')"
+  }
+}
+

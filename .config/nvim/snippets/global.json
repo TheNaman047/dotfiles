@@ -1,0 +1,6 @@
+{
+  "Copy relative path": {
+    "prefix": "crp",
+    "body": "let @+ = expand('%')"
+  }
+}
