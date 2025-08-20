@@ -50,7 +50,7 @@ vim.pack.add({
 })
 
 -- Setup plugins
-require "vague".setup({ transparent = true })
+-- require "vague".setup({ transparent = true })
 require "oil".setup({
   win_options = {
     signcolumn = "yes:2",
@@ -90,11 +90,11 @@ require('mini.snippets').setup({
   },
 })
 require "smartyank".setup()
-require "rose-pine".setup({
-  styles = {
-    transparency = true,
-  },
-})
+-- require "rose-pine".setup({
+--   styles = {
+--     transparency = true,
+--   },
+-- })
 require 'nvim-treesitter.configs'.setup({
   ensure_installed = { "lua", "vim", "vimdoc", "markdown", "markdown_inline", "javascript", "typescript", "json", "python", "toml", "rust", "sql", "tsx", "yaml", "dockerfile", "terraform", "hcl", },
   highlight = { enable = true }
@@ -168,10 +168,9 @@ vim.keymap.set("n", "<leader>h", ":Pick help<CR>", opts)
 vim.keymap.set("n", "<leader>d", ":DBUIToggle<CR>", opts)
 
 -- Terminal keymaps
-vim.keymap.set("n", "<leader>th", function() terminal.create_terminal("horizontal") end,
+vim.keymap.set("n", "<leader>t", function() terminal.create_terminal("horizontal") end,
   { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>tv", function() terminal.create_terminal("vertical") end, opts)
-vim.keymap.set("n", "<leader>tf", function() terminal.create_terminal("float") end, opts)
+-- vim.keymap.set("n", "<leader>tv", function() terminal.create_terminal("vertical") end, opts)
 
 -- ClaudeCode
 vim.keymap.set("n", "<leader>c", "<cmd>ClaudeCode<cr>", opts)
@@ -206,3 +205,4 @@ vim.keymap.set("n", "<S-Up>", "<C-W>10+", opts)   -- Increase height
 -- Miscellaneous
 -- Generate uuid at cursor
 vim.keymap.set("n", "<leader>guu", ":r !uuidgen<CR>", opts)
+vim.o.autochdir = false
