@@ -155,7 +155,7 @@ vim.keymap.set("n", "<leader>-", "<CMD>Oil --float<CR>", opts)
 local mini_pick = require("mini-pick")
 local buffer_mappings = { wipeout = { char = '<C-d>', func = mini_pick.wipeout_cur_buf } }
 local local_opts = { include_current = false }
-vim.keymap.set("n", "<leader>p", ":Pick files<CR>", opts)
+vim.keymap.set("n", "<leader>p", mini_pick.pick_with_hidden, opts)
 vim.keymap.set("n", "<leader>gf", ":Pick grep<CR>", opts)
 vim.keymap.set("n", "<leader>gb", function()
   MiniPick.builtin.buffers(local_opts, { mappings = buffer_mappings })

@@ -40,4 +40,19 @@ function M.wipeout_cur_buf()
   end)
 end
 
+function M.pick_with_hidden()
+  MiniPick.builtin.cli({
+    -- find files and directories with fd
+    command = { 'fd', '--hidden', '--type', 'f', '--exclude', '.git' },
+  }, {
+    source = {
+      name = 'Files',
+      show = function(buf_id, items, query)
+        MiniPick.default_show(buf_id, items, query, { show_icons = true })
+      end,
+      choose = vim.schedule_wrap(MiniPick.default_choose),
+    },
+  })
+end
+
 return M
