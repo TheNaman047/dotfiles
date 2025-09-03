@@ -278,18 +278,6 @@ function M.setup(user_config)
 
   -- Alternative exit (double Esc for safety)
   vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
-
-  -- Terminal navigation (while in terminal mode)
-  vim.keymap.set("t", "<C-h>", "<C-\\><C-n><C-w>h", { noremap = true, silent = true })
-  vim.keymap.set("t", "<C-j>", "<C-\\><C-n><C-w>j", { noremap = true, silent = true })
-  vim.keymap.set("t", "<C-k>", "<C-\\><C-n><C-w>k", { noremap = true, silent = true })
-  vim.keymap.set("t", "<C-l>", "<C-\\><C-n><C-w>l", { noremap = true, silent = true })
-
-  -- Normal mode navigation (consistent with terminal)
-  vim.keymap.set("n", "<C-h>", "<C-w>h", { noremap = true, silent = true })
-  vim.keymap.set("n", "<C-j>", "<C-w>j", { noremap = true, silent = true })
-  vim.keymap.set("n", "<C-k>", "<C-w>k", { noremap = true, silent = true })
-  vim.keymap.set("n", "<C-l>", "<C-w>l", { noremap = true, silent = true })
 end
 
 return M
