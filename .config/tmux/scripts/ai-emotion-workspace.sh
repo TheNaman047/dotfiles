@@ -18,7 +18,7 @@ tmux new-session -d -s "$SESSION" -c "$DEV_DIR"
 
 for i in "${!SUB_DIRS[@]}"; do
     subdir="${SUB_DIRS[$i]}"
-    window_name="code-$subdir"
+    window_name="code-${subdir#ai-emotion-}"
     
     if [ $i -eq 0 ]; then
         # Rename the first window (already exists)
