@@ -2,10 +2,11 @@
 
 (defcfg
   process-unmapped-keys yes
+  danger-enable-cmd yes
 )
 
 (defsrc
-  caps lalt a s d f j k l ; h 
+  caps lalt a s d f j k l ; h tab e w o i n u p m , . g y enter spc = - `
 )
 
 (defvar
@@ -14,17 +15,63 @@
 )
 
 (deflayer base
-  @escctrl @motion @a @s @d @f @j @k @l @; _
+  @escctrl @motion @a @s @d @f @j @k @l @; _ @hypertab e w _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 )
 
 (deflayer motion
-  _ _ _ _ _ _ down up right _ left
+  _ _ _ _ _ _ down up right _ left _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 )
 
+(deflayer hyper
+  _ _ _ _ _ _ _ _ _ _ _ _ @apps-e @window-w _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+)
+
+(deflayer apps-e
+  _ _ _ _ _ _ _ _ _ _ _ _ _ _ @zen @ghostty @slack @finder @postman @pgadmin @obs @mongodb _ @whatsapp @gather _ _ _ _
+)
+
+(deflayer window-w
+  _ _ _ _ _ _ @win-center @win-custom @win-right _ @win-left _ _ _ @win-last-third @win-last-fourth @win-first-threefourths _ @win-next-window @win-first-twothirds @win-last-twothirds @win-last-threefourths _ @win-first-third @win-maximize @win-almost-max @win-smaller @win-larger _
+)
 
 (defalias
   escctrl (tap-hold-press 0 10000 esc lctrl)
   motion (tap-hold-release-keys 0 1000 lalt (layer-toggle motion) (tab spc))
+  hypertab (tap-hold $tap-time $hold-time tab (layer-while-held hyper))
+  apps-e (layer-while-held apps-e)
+  window-w (layer-while-held window-w)
+  
+  ;; Application launchers
+  zen (cmd open -a "Zen")
+  ghostty (cmd open -a "Ghostty")
+  slack (cmd open -a "Slack")
+  finder (cmd open -a "Finder.app")
+  postman (cmd open -a "Postman.app")
+  pgadmin (cmd open -a "pgAdmin 4.app")
+  obs (cmd open -a "OBS.app")
+  mongodb (cmd open -a "MongoDB Compass.app")
+  whatsapp (cmd open -a "WhatsApp")
+  
+  ;; Window management (Rectangle commands)
+  win-left (cmd open -g "rectangle://execute-action?name=left-half")
+  win-right (cmd open -g "rectangle://execute-action?name=right-half")
+  win-center (cmd open -g "rectangle://execute-action?name=center-half")
+  win-maximize (cmd open -g "rectangle://execute-action?name=maximize")
+  win-almost-max (cmd open -g "rectangle://execute-action?name=almost-maximize")
+  win-first-threefourths (cmd open -g "rectangle://execute-action?name=first-three-fourths")
+  win-last-threefourths (cmd open -g "rectangle://execute-action?name=last-three-fourths")
+  win-first-twothirds (cmd open -g "rectangle://execute-action?name=first-two-thirds")
+  win-last-twothirds (cmd open -g "rectangle://execute-action?name=last-two-thirds")
+  win-first-third (cmd open -g "rectangle://execute-action?name=first-third")
+  win-last-third (cmd open -g "rectangle://execute-action?name=last-third")
+  win-first-fourth (cmd open -g "rectangle://execute-action?name=first-fourth")
+  win-last-fourth (cmd open -g "rectangle://execute-action?name=last-fourth")
+  win-larger (cmd open -g "rectangle://execute-action?name=larger")
+  win-smaller (cmd open -g "rectangle://execute-action?name=smaller")
+  win-custom (multi lmet lalt lctl lsft n)
+  win-next-window (multi rmet `)
+  
+  ;; Home row mods
   a (tap-hold $tap-time $hold-time a lmet)
   s (tap-hold $tap-time $hold-time s lalt)
   d (tap-hold $tap-time $hold-time d lsft)
@@ -34,4 +81,3 @@
   l (tap-hold $tap-time $hold-time l ralt)
   ; (tap-hold $tap-time $hold-time ; rmet)
 )
-
