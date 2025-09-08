@@ -27,7 +27,7 @@
 )
 
 (deflayer apps-e
-  _ _ _ _ _ _ _ _ _ _ _ _ _ _ @zen @ghostty @slack @finder @postman @pgadmin @obs @mongodb _ @whatsapp @gather _ _ _ _
+  _ _ _ _ _ _ _ _ _ _ _ _ _ _ @zen @ghostty @slack @finder @postman @pgadmin @obs @mongodb _ @whatsapp _ _ _ _ _
 )
 
 (deflayer window-w
