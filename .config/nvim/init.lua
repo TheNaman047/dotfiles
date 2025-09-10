@@ -7,16 +7,22 @@ vim.o.number = true
 vim.o.relativenumber = true
 vim.o.swapfile = false
 vim.o.signcolumn = "yes"
+vim.o.colorcolumn = "100"
 vim.o.winborder = "rounded"
 vim.o.hidden = true
-vim.o.showmode = true
+vim.o.showmode = false
 vim.o.scrolloff = 1
 vim.o.ignorecase = true
 vim.o.smartcase = true
+vim.o.incsearch = true
 vim.o.autoread = true
 vim.o.cursorline = true
 vim.o.splitbelow = true
 vim.o.splitright = true
+vim.o.wildmenu = true
+vim.o.wildmode = "longest:full,full"
+vim.o.redrawtime = 10000
+vim.o.maxmempattern = 20000
 
 vim.o.acd = true
 -- Set leader
@@ -48,6 +54,10 @@ vim.pack.add({
   { src = "https://github.com/ravitemer/codecompanion-history.nvim" },
   { src = "https://github.com/coder/claudecode.nvim" },
 })
+
+-- Imports and declarations
+local opts = { noremap = true, silent = true }
+local utils = require('utils')
 
 -- Setup plugins
 require "vague".setup({ transparent = true })
@@ -139,7 +149,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 -- vim.opt.completeopt = { "menuone", "noselect", "popup" }
 
-local opts = { noremap = true, silent = true }
 
 -- Source current file to nvim
 vim.keymap.set("n", "<leader>o", ":update<CR> :source<CR>", opts)
@@ -206,4 +215,8 @@ vim.keymap.set("n", "<S-Up>", "<C-W>10+", opts)   -- Increase height
 -- Miscellaneous
 -- Generate uuid at cursor
 vim.keymap.set("n", "<leader>guu", ":r !uuidgen<CR>", opts)
+vim.keymap.set("n", "<leader>gp", utils.copy_file_path, opts)
+
 vim.o.autochdir = false
+
+require('statusline')
