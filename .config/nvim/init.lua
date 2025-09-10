@@ -50,7 +50,7 @@ vim.pack.add({
 })
 
 -- Setup plugins
--- require "vague".setup({ transparent = true })
+require "vague".setup({ transparent = true })
 require "oil".setup({
   win_options = {
     signcolumn = "yes:2",
