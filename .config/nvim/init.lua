@@ -170,7 +170,8 @@ vim.keymap.set("n", "<leader>d", ":DBUIToggle<CR>", opts)
 -- Terminal keymaps
 vim.keymap.set("n", "<leader>t", function() terminal.create_terminal("horizontal") end,
   { noremap = true, silent = true })
--- vim.keymap.set("n", "<leader>tv", function() terminal.create_terminal("vertical") end, opts)
+vim.keymap.set("n", "<leader>x", function() terminal.close_terminal("horizontal") end,
+  { noremap = true, silent = true })
 
 -- ClaudeCode
 vim.keymap.set("n", "<leader>c", "<cmd>ClaudeCode<cr>", opts)
@@ -193,11 +194,6 @@ vim.keymap.set("n", "<C-j>", "<cmd>TmuxNavigateDown<cr>", opts)
 vim.keymap.set("n", "<C-k>", "<cmd>TmuxNavigateUp<cr>", opts)
 vim.keymap.set("n", "<C-l>", "<cmd>TmuxNavigateRight<cr>", opts)
 vim.keymap.set("n", "<C-\\>", "<cmd>TmuxNavigatePrevious<cr>", opts)
--- Terminal navigation (while in terminal mode)
-vim.keymap.set("t", "<C-h>", "<C-\\><C-n><C-w>h", { noremap = true, silent = true })
-vim.keymap.set("t", "<C-j>", "<C-\\><C-n><C-w>j", { noremap = true, silent = true })
-vim.keymap.set("t", "<C-k>", "<C-\\><C-n><C-w>k", { noremap = true, silent = true })
-vim.keymap.set("t", "<C-l>", "<C-\\><C-n><C-w>l", { noremap = true, silent = true })
 
 -- Split resize maps
 -- Vertical resize
