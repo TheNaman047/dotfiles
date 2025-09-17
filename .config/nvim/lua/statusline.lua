@@ -2,8 +2,8 @@
 local function git_branch()
   local branch = vim.fn.system("git branch --show-current 2>/dev/null | tr -d '\n'")
   -- Truncate long branch names
-  if #branch > 20 then
-    branch = branch:sub(1, 17) .. "..."
+  if #branch > 30 then
+    branch = branch:sub(1, 26) .. "..."
   end
   
   return "  " .. branch .. " "

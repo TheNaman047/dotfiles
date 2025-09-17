@@ -10,7 +10,7 @@ font-style-bold-italic = "Bold Italic"
 font-thicken = true
 font-thicken-strength = 150
 
-theme = tokyonight_night
+theme = TokyoNight Night
 background-opacity = 0.95
 background-blur = true
 window-decoration = auto
