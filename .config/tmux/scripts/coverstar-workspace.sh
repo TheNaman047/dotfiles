@@ -18,6 +18,10 @@ tmux rename-window -t "$SESSION:1" "code"
 
 # Send commands
 tmux send-keys -t "$SESSION:1.1" "nvim" Enter
+sleep 0.5
+tmux send-keys -t "$SESSION:1.1" "Space" "t"
+tmux send-keys -t "$SESSION:1.1" "export AWS_PROFILE=coverstar-dev" Enter
+tmux send-keys -t "$SESSION:1.1" "aws sso login" Enter
 
 # Window 2: DB - dev
 tmux new-window -t "$SESSION" -c "$DEV_DIR" -n "db-dev"

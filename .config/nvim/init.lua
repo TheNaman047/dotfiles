@@ -19,6 +19,7 @@ vim.o.autoread = true
 vim.o.cursorline = true
 vim.o.splitbelow = true
 vim.o.splitright = true
+vim.o.spell = true
 vim.o.wildmenu = true
 vim.o.wildmode = "longest:full,full"
 vim.o.redrawtime = 10000
