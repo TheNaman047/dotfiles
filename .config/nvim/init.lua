@@ -24,7 +24,7 @@ vim.o.wildmode = "longest:full,full"
 vim.o.redrawtime = 10000
 vim.o.maxmempattern = 20000
 
-vim.o.acd = true
+-- vim.o.acd = true
 -- Set leader
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
