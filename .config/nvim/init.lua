@@ -41,11 +41,12 @@ vim.pack.add({
   { src = "https://github.com/refractalize/oil-git-status.nvim" },
   { src = "https://github.com/echasnovski/mini.pick" },
   { src = "https://github.com/echasnovski/mini.pairs" },
-  { src = "https://github.com/echasnovski/mini.completion" },
+  { src = "https://github.com/saghen/blink.cmp", version = "v1.7.0" },
   { src = "https://github.com/echasnovski/mini.snippets" },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
   { src = "https://github.com/kristijanhusak/vim-dadbod-ui" },
   { src = "https://github.com/tpope/vim-dadbod" },
+  { src = "https://github.com/kristijanhusak/vim-dadbod-completion" },
   { src = "https://github.com/christoomey/vim-tmux-navigator" },
   { src = "https://github.com/ibhagwan/smartyank.nvim" },
   { src = "https://github.com/smithbm2316/centerpad.nvim" },
@@ -79,12 +80,43 @@ require "oil".setup({
 })
 require "mini.pick".setup({ options = { use_cache = true } })
 require "mini.pairs".setup()
-require('mini.completion').setup({
-  mappings = {
-    force_twostep = '<C-Space>',
-    force_fallback = '<A-Space>',
+-- require('mini.completion').setup({
+--   mappings = {
+--     force_twostep = '<C-Space>',
+--     force_fallback = '<A-Space>',
+--   },
+-- })
+
+require('blink.cmp').setup({
+  keymap = {preset = 'super-tab'},
+  snippets = { preset = 'mini_snippets' },
+  completion = {
+    accept = {
+      auto_brackets = {
+        enabled = true,
+      },
+    },
+    menu = {
+      draw = {
+        treesitter = { "lsp" },
+      },
+    },
+    documentation = {
+      auto_show = true,
+      auto_show_delay_ms = 200,
+    },
+  },
+  sources = {
+    default = { 'lsp', 'path', 'snippets', 'buffer' },
+    per_filetype = {
+      sql = { 'snippets', 'dadbod', 'buffer' },
+    },
+    providers = {
+      dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+    },
   },
 })
+
 local gen_loader = require('mini.snippets').gen_loader
 require('mini.snippets').setup({
   mappings = {
@@ -116,7 +148,7 @@ require "codecompanion".setup({
   strategies = {
     chat = {
       adapter = "anthropic",
-      model = "claude-sonnet-4-20250514",
+      model = "claude-sonnet-4.5",
       auto_scroll = false,
     },
   },
