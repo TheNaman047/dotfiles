@@ -280,10 +280,10 @@ function M.setup(user_config)
   })
 
   -- Exit terminal mode with Esc
-  vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
+  -- vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
 
   -- Alternative exit (double Esc for safety)
-  vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
+  -- vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
 end
 
 return M
