@@ -1,7 +1,7 @@
 {
   "Console log": {
     "prefix": "con",
-    "body": [ "console.log(\"${1}\", ${2});", "$0" ]
+    "body": [ "console.log(\"${1}\", ${0});"]
   },
   "For loop": {
     "prefix": "for",
