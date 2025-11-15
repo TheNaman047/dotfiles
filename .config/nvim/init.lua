@@ -41,7 +41,7 @@ vim.pack.add({
   { src = "https://github.com/refractalize/oil-git-status.nvim" },
   { src = "https://github.com/echasnovski/mini.pick" },
   { src = "https://github.com/echasnovski/mini.pairs" },
-  { src = "https://github.com/saghen/blink.cmp", version = "v1.7.0" },
+  { src = "https://github.com/saghen/blink.cmp", version = "v1.8.0" },
   { src = "https://github.com/echasnovski/mini.snippets" },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
   { src = "https://github.com/kristijanhusak/vim-dadbod-ui" },
