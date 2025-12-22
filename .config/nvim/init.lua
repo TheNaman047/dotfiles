@@ -55,6 +55,7 @@ vim.pack.add({
   { src = "https://github.com/olimorris/codecompanion.nvim" },
   { src = "https://github.com/ravitemer/codecompanion-history.nvim" },
   { src = "https://github.com/coder/claudecode.nvim" },
+  { src = "https://github.com/adriankarlen/plugin-view.nvim" },
 })
 
 -- Imports and declarations
@@ -80,13 +81,7 @@ require "oil".setup({
 })
 require "mini.pick".setup({ options = { use_cache = true } })
 require "mini.pairs".setup()
--- require('mini.completion').setup({
---   mappings = {
---     force_twostep = '<C-Space>',
---     force_fallback = '<A-Space>',
---   },
--- })
-
+require "plugin-view".setup({})
 require('blink.cmp').setup({
   keymap = {preset = 'super-tab'},
   snippets = { preset = 'mini_snippets' },
@@ -180,8 +175,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
   end,
 })
--- vim.opt.completeopt = { "menuone", "noselect", "popup" }
-
 
 -- Source current file to nvim
 vim.keymap.set("n", "<leader>o", ":update<CR> :source<CR>", opts)
@@ -192,6 +185,9 @@ vim.keymap.set("n", "<leader>fd", vim.lsp.buf.format, opts)
 -- Oil keymaps
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", opts)
 vim.keymap.set("n", "<leader>-", "<CMD>Oil --float<CR>", opts)
+
+-- Plugin View keymaps
+vim.keymap.set("n", "<leader>v", require("plugin-view").open, opts)
 
 -- Mini pick keymap
 local mini_pick = require("mini-pick")
