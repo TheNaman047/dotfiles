@@ -19,16 +19,15 @@ zinit ice as"command" from"gh-r" \
 zinit light starship/starship
 
 # Add in zsh plugins
-zinit ice wait lucid
-zinit light zsh-users/zsh-syntax-highlighting
-zinit ice wait lucid
-zinit light zsh-users/zsh-completions
-zinit ice wait lucid
-zinit light zsh-users/zsh-autosuggestions
-zinit ice wait lucid
-zinit light Aloxaf/fzf-tab
-zinit ice wait lucid
-zinit light "dominik-schwabe/zsh-fnm"
+zinit wait lucid for \
+  zsh-users/zsh-syntax-highlighting \
+  zsh-users/zsh-autosuggestions \
+  Aloxaf/fzf-tab \
+  dominik-schwabe/zsh-fnm
+
+# zsh-completions needs special handling to update FPATH
+zinit wait lucid atpull'zinit creinstall -q .' for \
+  zsh-users/zsh-completions
 
 # Check for macos for configuring brew
 if type brew &>/dev/null
