@@ -19,10 +19,15 @@ zinit ice as"command" from"gh-r" \
 zinit light starship/starship
 
 # Add in zsh plugins
+zinit ice wait lucid
 zinit light zsh-users/zsh-syntax-highlighting
+zinit ice wait lucid
 zinit light zsh-users/zsh-completions
+zinit ice wait lucid
 zinit light zsh-users/zsh-autosuggestions
+zinit ice wait lucid
 zinit light Aloxaf/fzf-tab
+zinit ice wait lucid
 zinit light "dominik-schwabe/zsh-fnm"
 
 # Check for macos for configuring brew
@@ -87,7 +92,6 @@ eval "$(zoxide init --cmd cd zsh)"
 
 # Lazy Load miniconda
 # source $HOME/.config/miniconda/.zsh_lazyload_conda.sh
-# zprof
 
 # fnm
 FNM_PATH="/home/naman47/.local/share/fnm"
@@ -96,4 +100,4 @@ if [ -d "$FNM_PATH" ]; then
   eval "`fnm env`"
 fi
 
-
+# zprof
