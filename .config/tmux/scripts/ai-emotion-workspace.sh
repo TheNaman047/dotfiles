@@ -23,10 +23,12 @@ for i in "${!SUB_DIRS[@]}"; do
     if [ $i -eq 0 ]; then
         # Rename the first window (already exists)
         tmux rename-window -t "$SESSION:1" "$window_name"
+        sleep 0.5
         tmux send-keys -t "$SESSION:1" "cd $subdir && nvim ." Enter
     else
         # Create new windows for remaining subdirectories
         tmux new-window -t "$SESSION" -c "$DEV_DIR/$subdir" -n "$window_name"
+        sleep 0.5
         tmux send-keys -t "$SESSION:$(($i + 1))" "nvim ." Enter
     fi
 done

@@ -2,13 +2,14 @@ return {
   init_options = {
     hostInfo = 'neovim',
   },
-  cmd = { 'typescript-language-server', '--stdio' },
+  cmd = { 'vtsls', '--stdio' },
   filetypes = {
     'javascript',
     'javascriptreact',
     'typescript',
     'typescriptreact',
   },
+  format = { enable = true },
   root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
   handlers = {
     -- handle rename request for certain code actions like extracting functions / types

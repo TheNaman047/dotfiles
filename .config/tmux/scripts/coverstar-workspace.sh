@@ -17,6 +17,7 @@ tmux new-session -d -s "$SESSION" -c "$DEV_DIR"
 tmux rename-window -t "$SESSION:1" "code"
 
 # Send commands
+sleep 1
 tmux send-keys -t "$SESSION:1.1" "nvim" Enter
 sleep 0.5
 tmux send-keys -t "$SESSION:1.1" "Space" "t"
