@@ -164,7 +164,7 @@ vim.cmd("colorscheme rose-pine")
 vim.cmd(":hi statusline guibg=NONE")
 
 -- Enable lsp
-vim.lsp.enable({ "ts_ls", "lua_ls", "vtsls", "vue_ls", "jsonls", "basedpyright", "ruff" })
+vim.lsp.enable({ "ts_go_ls", "lua_ls", "vtsls", "vue_ls", "jsonls", "basedpyright", "ruff" })
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('lsp_attach_disable_ruff_hover', { clear = true }),
