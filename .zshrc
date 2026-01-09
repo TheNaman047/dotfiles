@@ -99,4 +99,5 @@ if [ -d "$FNM_PATH" ]; then
   eval "`fnm env`"
 fi
 
+. "$HOME/.local/bin/env"
 # zprof
