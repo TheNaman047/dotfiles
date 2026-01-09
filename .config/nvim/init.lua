@@ -128,11 +128,12 @@ require('mini.snippets').setup({
   },
 })
 require "smartyank".setup()
--- require "rose-pine".setup({
---   styles = {
---     transparency = true,
---   },
--- })
+require "rose-pine".setup({
+  styles = {
+    transparency = true,
+  },
+  dim_inactive_windows = true
+})
 require 'nvim-treesitter.configs'.setup({
   ensure_installed = { "lua", "vim", "vimdoc", "markdown", "markdown_inline", "javascript", "typescript", "json", "python", "toml", "rust", "sql", "tsx", "yaml", "dockerfile", "terraform", "hcl", },
   highlight = { enable = true }
@@ -158,8 +159,8 @@ local dadbod_ui = require("db")
 dadbod_ui.setup()
 
 -- Set colorscheme
-vim.cmd("colorscheme vague")
--- vim.cmd("colorscheme rose-pine")
+-- vim.cmd("colorscheme vague")
+vim.cmd("colorscheme rose-pine")
 vim.cmd(":hi statusline guibg=NONE")
 
 -- Enable lsp
