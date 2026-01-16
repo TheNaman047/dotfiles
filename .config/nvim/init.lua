@@ -56,6 +56,8 @@ vim.pack.add({
   { src = "https://github.com/ravitemer/codecompanion-history.nvim" },
   { src = "https://github.com/coder/claudecode.nvim" },
   { src = "https://github.com/adriankarlen/plugin-view.nvim" },
+  { src = "https://github.com/MunifTanjim/nui.nvim" },
+  { src = "https://github.com/vuki656/package-info.nvim" },
 })
 
 -- Imports and declarations
@@ -111,6 +113,7 @@ require('blink.cmp').setup({
     },
   },
 })
+require "package-info".setup({})
 
 local gen_loader = require('mini.snippets').gen_loader
 require('mini.snippets').setup({
@@ -225,6 +228,11 @@ vim.keymap.set("v", "<leader>ap", "<cmd>CodeCompanionChat Add<cr>", opts)
 
 -- Centerpad keymap
 vim.api.nvim_set_keymap('n', '<leader>z', '<cmd>Centerpad<cr>', opts)
+
+
+-- Package Info keymap
+vim.api.nvim_set_keymap('n', '<leader>ns', '<cmd>lua require("package-info").show()<cr>', opts)
+vim.api.nvim_set_keymap('n', '<leader>np', '<cmd>lua require("package-info").change_version()<cr>', opts)
 
 -- Navigate between splits and tmux panes
 -- Use ctrl-[hjkl] to select the active split!
