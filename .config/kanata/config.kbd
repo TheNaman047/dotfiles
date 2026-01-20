@@ -43,7 +43,7 @@
   
   ;; Application launchers
   zen (cmd open -a "Zen")
-  ghostty (cmd open -a "Ghostty")
+  ghostty (cmd open -a "Alacritty")
   slack (cmd open -a "Slack")
   finder (cmd open -a "Finder.app")
   postman (cmd open -a "Postman.app")
