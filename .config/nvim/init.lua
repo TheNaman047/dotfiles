@@ -141,7 +141,11 @@ require 'nvim-treesitter.configs'.setup({
   ensure_installed = { "lua", "vim", "vimdoc", "markdown", "markdown_inline", "javascript", "typescript", "json", "python", "toml", "rust", "sql", "tsx", "yaml", "dockerfile", "terraform", "hcl", },
   highlight = { enable = true }
 })
-require "claudecode".setup()
+require "claudecode".setup({
+  terminal = {
+    provider = "none", -- no UI actions; server + tools remain available
+  },
+})
 require "codecompanion".setup({
   display = { chat = { window = { width = 0.4, } } },
   strategies = {

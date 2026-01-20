@@ -100,4 +100,31 @@ if [ -d "$FNM_PATH" ]; then
 fi
 
 . "$HOME/.local/bin/env"
+
+myip() {
+    local ip=$(curl -s -4 ifconfig.me)
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS
+        echo -n "$ip" | pbcopy
+        echo "Public IPv4 copied to clipboard: $ip"
+    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        # Linux - try different clipboard tools
+        if command -v xclip &> /dev/null; then
+            echo -n "$ip" | xclip -selection clipboard
+            echo "Public IPv4 copied to clipboard: $ip"
+        elif command -v xsel &> /dev/null; then
+            echo -n "$ip" | xsel --clipboard --input
+            echo "Public IPv4 copied to clipboard: $ip"
+        elif command -v wl-copy &> /dev/null; then
+            echo -n "$ip" | wl-copy
+            echo "Public IPv4 copied to clipboard: $ip"
+        else
+            echo "Public IPv4: $ip"
+            echo "No clipboard tool found. Install xclip, xsel, or wl-clipboard."
+        fi
+    else
+        echo "Public IPv4: $ip"
+        echo "Clipboard copy not supported on this platform."
+    fi
+}
 # zprof
