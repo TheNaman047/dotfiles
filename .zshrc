@@ -100,8 +100,6 @@ if [ -d "$FNM_PATH" ]; then
   eval "`fnm env`"
 fi
 
-. "$HOME/.local/bin/env"
-
 myip() {
     local ip=$(curl -s -4 ifconfig.me)
     if [[ "$OSTYPE" == "darwin"* ]]; then
