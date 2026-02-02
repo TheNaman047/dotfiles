@@ -79,6 +79,7 @@ alias ls='ls --color'
 alias vim='nvim'
 alias c='clear'
 alias lg='lazygit'
+alias oil='~/.local/bin/oil-ssh.sh'
 
 # Key Maps
 # Enable Ctrl+arrow key bindings for word jumping
