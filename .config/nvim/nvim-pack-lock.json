@@ -3,7 +3,7 @@
     "blink.cmp": {
       "rev": "8483171",
       "src": "https://github.com/saghen/blink.cmp",
-      "version": "'v1.8.0'"
+      "version": "'v1.9.1'"
     },
     "centerpad.nvim": {
       "rev": "666641d02fd8c58ac401c1fb6bf596bb00b815fb",
@@ -57,6 +57,10 @@
       "rev": "f55b25e493a7df76371cfadd0ded5004cb9cd48a",
       "src": "https://github.com/stevearc/oil.nvim"
     },
+    "opencode.nvim": {
+      "rev": "632ec5879295a3103fa39742b2e3f0639496c96f",
+      "src": "https://github.com/NickvanDyke/opencode.nvim"
+    },
     "package-info.nvim": {
       "rev": "52e407af634cd5d3add0dc916c517865850113a4",
       "src": "https://github.com/vuki656/package-info.nvim"
@@ -72,6 +76,10 @@
     "smartyank.nvim": {
       "rev": "c4e53e0d9316ca790a6f5d78aad73206a763873b",
       "src": "https://github.com/ibhagwan/smartyank.nvim"
+    },
+    "snacks.nvim": {
+      "rev": "fe7cfe9800a182274d0f868a74b7263b8c0c020b",
+      "src": "https://github.com/folke/snacks.nvim"
     },
     "vague.nvim": {
       "rev": "30d2239ecf8adab9bc0d07d42e7a07283879dab6",
@@ -92,6 +100,10 @@
     "vim-tmux-navigator": {
       "rev": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432",
       "src": "https://github.com/christoomey/vim-tmux-navigator"
+    },
+    "which-key.nvim": {
+      "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
+      "src": "https://github.com/folke/which-key.nvim"
     }
   }
 }

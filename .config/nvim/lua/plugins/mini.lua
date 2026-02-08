@@ -1,5 +1,30 @@
-local M = {}
+vim.pack.add({
+  "https://github.com/echasnovski/mini.pick",
+  "https://github.com/echasnovski/mini.pairs",
+  "https://github.com/echasnovski/mini.snippets",
+})
 
+require "mini.pick".setup({ options = { use_cache = true } })
+require "mini.pairs".setup()
+
+local gen_loader = require('mini.snippets').gen_loader
+require('mini.snippets').setup({
+  mappings = {
+    expand = '<C-e>',
+    jump_next = '<C-j>',
+    jump_prev = '<C-k>',
+    stop = '<C-c>',
+  },
+  snippets = {
+    gen_loader.from_file('~/.config/nvim/snippets/global.json'),
+    -- Load snippets based on current language by reading files from
+    -- "snippets/" subdirectories from 'runtimepath' directories.
+    gen_loader.from_lang(),
+  },
+})
+
+local M = {}
+-- Custom functions
 -- Mini pick functions
 -- Remove the buffer and move to the next file
 -- Mini pick functions - simplified approach
@@ -55,4 +80,14 @@ function M.pick_with_hidden()
   })
 end
 
-return M
+-- Keymaps
+local buffer_mappings = { wipeout = { char = '<C-d>', func = M.wipeout_cur_buf } }
+local local_opts = { include_current = false }
+vim.keymap.set("n", "<leader>p", M.pick_with_hidden, opts)
+vim.keymap.set("n", "<leader>gf", ":Pick grep<CR>", opts)
+vim.keymap.set("n", "<leader>gb", function()
+  MiniPick.builtin.buffers(local_opts, { mappings = buffer_mappings })
+end, opts)
+vim.keymap.set("n", "<leader>l", ":Pick grep_live<CR>", opts)
+vim.keymap.set("n", "<leader>r", ":Pick resume<CR>", opts)
+vim.keymap.set("n", "<leader>h", ":Pick help<CR>", opts)
