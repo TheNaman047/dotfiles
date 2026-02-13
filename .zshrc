@@ -86,12 +86,11 @@ alias oil='~/.local/bin/oil-ssh.sh'
 bindkey '^[[1;5C' forward-word     # Ctrl+right arrow
 bindkey '^[[1;5D' backward-word    # Ctrl+left arrow
 
+export EDITOR="nvim"
+
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
-
-# Lazy Load miniconda
-# source $HOME/.config/miniconda/.zsh_lazyload_conda.sh
 
 # fnm
 FNM_PATH="/home/naman47/.local/share/fnm"

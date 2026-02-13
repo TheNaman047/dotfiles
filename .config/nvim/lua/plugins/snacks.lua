@@ -1,44 +1,41 @@
 vim.pack.add({
-"https://github.com/folke/snacks.nvim",
-"https://github.com/nvim-tree/nvim-web-devicons",
+  "https://github.com/folke/snacks.nvim",
+  "https://github.com/nvim-tree/nvim-web-devicons",
 })
 
 local Snacks = require("snacks")
 
 Snacks.setup({
-  dim = { enabled = true },
-  image = { enabled = true },
-  indent = { enabled = true },
+  dim = { enabled = false },
+  image = { enabled = false },
+  indent = { enabled = false },
   notifier = { enabled = true },
-  quickfile = { enabled = true },
-  terminal = { enabled = true },
+  quickfile = { enabled = false },
+  statuscolumn = { enabled = false },
+  terminal = { enabled = false },
 })
 
 -- stylua: ignore start
 local keymaps = {
-    -- terminal
-    { "<leader>t", function() Snacks.terminal() end, desc = "Terminal (cwd)", mode = "n", },
-    { "<c-_>", function() Snacks.terminal(nil, { cwd = vim.fn.getcwd() }) end, desc = "which_key_ignore",  mode = "n", },
-    -- Other
-    { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
-    {
-      "<leader>N",
-      desc = "Neovim News",
-      function()
-        Snacks.win({
-          file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
-          width = 0.6,
-          height = 0.6,
-          wo = {
-            spell = false,
-            wrap = false,
-            signcolumn = "yes",
-            statuscolumn = " ",
-            conceallevel = 3,
-          },
-        })
-      end,
-    }
+  { "<leader>gg", function() Snacks.lazygit() end,                                desc = "Lazygit" },
+  {
+    "<leader>N",
+    desc = "Neovim News",
+    function()
+      Snacks.win({
+        file = vim.api.nvim_get_runtime_file("doc/news.txt", false)[1],
+        width = 0.6,
+        height = 0.6,
+        wo = {
+          spell = false,
+          wrap = false,
+          signcolumn = "yes",
+          statuscolumn = " ",
+          conceallevel = 3,
+        },
+      })
+    end,
+  }
 }
 -- stylua: ignore end
 for _, map in ipairs(keymaps) do
@@ -58,4 +55,3 @@ for _, map in ipairs(keymaps) do
   local mode = map.mode or "n"
   vim.keymap.set(mode, map[1], map[2], opts)
 end
-
