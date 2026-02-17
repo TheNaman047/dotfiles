@@ -1,0 +1,21 @@
+customCommands:
+    - key: "C"
+      context: "files"
+      description: "Generate commit message with Groq Kimi"
+      command: |
+        le && git diff --staged | jq -Rs '{
+          "messages": [{
+            "role": "user", 
+            "content": ("Generate a concise git commit message for these staged changes. Output ONLY the raw commit message with no markdown, no code blocks, no backticks, no explanations. Use conventional commit format.\n\n" + .)
+          }],
+          "model": "moonshotai/kimi-k2-instruct-0905",
+          "temperature": 0.6,
+          "max_completion_tokens": 4096,
+          "stream": false
+        }' | curl -s "https://api.groq.com/openai/v1/chat/completions" \
+          -X POST \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Bearer ${GROQ_API_KEY}" \
+          -d @- | jq -r '.choices[0].message.content' > /tmp/commit_msg && \
+        GIT_EDITOR=nvim git commit -e --no-verify -F /tmp/commit_msg
+      output: terminal
