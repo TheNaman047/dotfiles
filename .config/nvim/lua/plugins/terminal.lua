@@ -74,7 +74,7 @@ vim.api.nvim_create_autocmd("TermClose", {
 
 -- Create new terminal
 vim.keymap.set("n", "<leader>nt", new_terminal, { desc = "New terminal" })
-vim.keymap.set("t", "<leader>nt", new_terminal, { desc = "New terminal" })
+vim.keymap.set("t", "<M-t>", new_terminal, { desc = "New terminal" })
 
 -- Toggle all or create first (normal mode only)
 vim.keymap.set("n", "<leader>t", toggle_or_create, { desc = "Toggle all terminals" })
