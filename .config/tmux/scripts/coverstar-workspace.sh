@@ -27,10 +27,12 @@ tmux send-keys -t "$SESSION:1.1" "aws sso login" Enter
 # Window 2: DB - dev
 tmux new-window -t "$SESSION" -c "$DEV_DIR" -n "db-dev"
 tmux send-keys -t "$SESSION:2" "nvim" Enter
+tmux send-keys -t "$SESSION:2" ":DBUI" Enter
 
 # Window 3: DB - prod
 tmux new-window -t "$SESSION" -c "$DEV_DIR" -n "db-prod"
 tmux send-keys -t "$SESSION:3" "nvim" Enter
+tmux send-keys -t "$SESSION:3" ":DBUI" Enter
 
 # Select first window and pane
 tmux select-window -t "$SESSION:1"

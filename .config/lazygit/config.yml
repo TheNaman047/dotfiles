@@ -3,7 +3,7 @@ customCommands:
       context: "files"
       description: "Generate commit message with Groq Kimi"
       command: |
-        le && git diff --staged | jq -Rs '{
+        lk && git diff --staged | jq -Rs '{
           "messages": [{
             "role": "user", 
             "content": ("Generate a concise git commit message for these staged changes. Output ONLY the raw commit message with no markdown, no code blocks, no backticks, no explanations. Use conventional commit format.\n\n" + .)
