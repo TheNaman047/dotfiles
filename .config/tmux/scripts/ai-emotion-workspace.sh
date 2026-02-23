@@ -5,7 +5,7 @@ DEV_DIR="$HOME/Projects/ai-emotion-analysis/code"
 SUB_DIRS=(
     "ai-emotion-backend"
     "ai-emotion-ui"
-    "ai-emotion-ml-v2"
+    "ai-emotion-docs"
     "ai-emotion-ml-v3"
 )
 
