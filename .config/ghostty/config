@@ -35,3 +35,6 @@ keybind = ctrl+alt+plus=increase_font_size:1
 keybind = ctrl+alt+equal=increase_font_size:1
 keybind = ctrl+alt+minus=decrease_font_size:1
 keybind = ctrl+alt+comma=open_config
+
+# Fix general slowness on hyprland (https://github.com/ghostty-org/ghostty/discussions/3224)
+async-backend = epoll
