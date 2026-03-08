@@ -1,11 +1,11 @@
 require("plugins.theme")
 require("plugins.treesitter")
-require("plugins.ai")
 require("plugins.dadbod")
 require("plugins.oil")
 require("plugins.extras")
 require("plugins.mini")
 require("plugins.snacks")
 require("plugins.terminal")
+require("plugins.ai") -- as uses terminal
 require("plugins.blink")
 require("plugins.whichkey")
