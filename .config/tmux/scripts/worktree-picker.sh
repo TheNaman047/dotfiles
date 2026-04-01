@@ -13,5 +13,9 @@ selected=$(
 
 worktree_path=$(echo "$selected" | cut -d'|' -f2)
 window_name=$(basename "$worktree_path" | tr './' '__')
+port=$(shuf -i 10000-65000 -n 1)
 
 tmux new-window -n "$window_name" -c "$worktree_path"
+tmux split-window -hl 30% -c "$worktree_path" "opencode --port $port"
+tmux select-pane -L
+tmux send-keys "nvim ." Enter
