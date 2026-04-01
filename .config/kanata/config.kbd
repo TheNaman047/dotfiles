@@ -27,7 +27,7 @@
 )
 
 (deflayer apps-e
-  _ _ _ _ _ _ _ _ _ _ _ _ _ _ @zen @ghostty @slack @finder @postman @mongodb @obs @pgadmin _ @whatsapp _ _ _ _ _
+  _ _ _ _ _ _ _ _ _ _ _ _ _ _ @zen @ghostty @slack @finder @postman @spotify @mongodb @mattermost @whatsapp _ _ _ _ _ _
 )
 
 (deflayer window-w
@@ -48,8 +48,9 @@
   finder (cmd open -a "Finder.app")
   postman (cmd open -a "Postman.app")
   pgadmin (cmd open -a "pgAdmin 4.app")
-  obs (cmd open -a "OBS.app")
   mongodb (cmd open -a "MongoDB Compass.app")
+  spotify (cmd open -a "Spotify")
+  mattermost (cmd open -a "Mattermost")
   whatsapp (cmd open -a "WhatsApp")
   
   ;; Window management (Rectangle commands)
