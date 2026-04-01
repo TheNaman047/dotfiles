@@ -2,7 +2,7 @@
 
 # Development Workspace Setup
 SESSION="coverstar"
-DEV_DIR="$HOME/Projects/norae/code/spotlight-backend"
+DEV_DIR="$HOME/Projects/coverstar/code/spotlight-backend"
 
 # Check if session exists
 if tmux has-session -t "$SESSION" 2>/dev/null; then

@@ -6,34 +6,7 @@ vim.pack.add({
 })
 
 -- OpenCode config
-local opencode_cmd = 'opencode --port'
-
-local Terminal = require('toggleterm.terminal').Terminal
-
-local opencode_term = Terminal:new({
-  cmd = opencode_cmd,
-  direction = 'vertical', -- or 'float', 'horizontal'
-  hidden = true,
-  on_open = function(term)
-    -- Mirror snacks' on_win callback using toggleterm's window id
-    require('opencode.terminal').setup(term.window)
-  end,
-})
-
----@type opencode.Opts
-vim.g.opencode_opts = {
-  server = {
-    start = function()
-      opencode_term:open()
-    end,
-    stop = function()
-      opencode_term:close()
-    end,
-    toggle = function()
-      opencode_term:toggle()
-    end,
-  },
-}
+vim.g.opencode_opts = {}
 
 -- require "claudecode".setup({
 --   terminal = {
