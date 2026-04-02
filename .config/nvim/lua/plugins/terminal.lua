@@ -13,7 +13,7 @@ require("toggleterm").setup({
   open_mapping = false,
   hide_numbers = true,
   shade_terminals = true,
-  shading_factor = 2,
+  shading_factor = -10,
   start_in_insert = true,
   insert_mappings = false,
   terminal_mappings = false,
