@@ -1,6 +1,6 @@
 font-family = "ComicShannsMono Nerd Font"
-font-family-bold = "DankMono Nerd Font"
-font-family-italic = "DankMono Nerd Font"
+font-family-bold = "ComicShannsMono Nerd Font"
+font-family-italic = "ComicShannsMono Nerd Font"
 font-size = 13
 font-style = "Semibold Italic"
 font-style-bold = "Bold"
@@ -10,7 +10,7 @@ font-style-bold-italic = "Bold Italic"
 font-thicken = true
 font-thicken-strength = 150
 
-theme = TokyoNight Night
+theme = Kanagawa Wave
 background-opacity = 0.95
 background-blur = true
 window-decoration = auto
