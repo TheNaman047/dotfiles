@@ -1,0 +1,11 @@
+node_modules
+dist
+.next
+.nuxt
+build
+.cache
+__pycache__
+*.pyc
+target
+vendor
+.git
