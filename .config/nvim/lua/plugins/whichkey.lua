@@ -12,6 +12,7 @@ wk.add({
 	{ "[", group = "prev" },
 	{ "]", group = "next" },
 	{ "g", group = "goto" },
+	{ "<leader>h", group = "hunk", icon = { icon = "󰌒 ", color = "green" } },
 	{ "gs", group = "surround" },
 	{ "z", group = "fold" },
 	{

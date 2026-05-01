@@ -5,6 +5,7 @@ vim.pack.add({
   "https://github.com/adriankarlen/plugin-view.nvim",
   "https://github.com/MunifTanjim/nui.nvim",
   "https://github.com/vuki656/package-info.nvim",
+  "https://github.com/tpope/vim-sleuth",
 })
 
 require "plugin-view".setup({})

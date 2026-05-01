@@ -67,6 +67,8 @@ opt.wildmenu = true
 opt.wildmode = "longest:full,full"
 
 opt.diffopt:append("linematch:60")
+opt.diffopt:append("algorithm:histogram")
+opt.diffopt:append("indent-heuristic")
 
 opt.redrawtime = 10000
 opt.maxmempattern = 20000

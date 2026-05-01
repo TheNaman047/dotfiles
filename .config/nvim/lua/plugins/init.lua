@@ -8,4 +8,5 @@ require("plugins.snacks")
 require("plugins.terminal")
 require("plugins.ai") -- as uses terminal
 require("plugins.blink")
+require("plugins.gitsigns")
 require("plugins.whichkey")

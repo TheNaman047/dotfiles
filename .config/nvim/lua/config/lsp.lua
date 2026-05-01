@@ -7,7 +7,14 @@ local default_keymaps = {
   { keys = "<leader>k",  func = vim.lsp.buf.hover,       desc = "Hover Documentation", has = "hoverProvider" },
   { keys = "K",          func = vim.lsp.buf.hover,       desc = "Hover (alt)",         has = "hoverProvider" },
   { keys = "gd",         func = vim.lsp.buf.definition,  desc = "Goto Definition",     has = "definitionProvider" },
-  { keys = "<leader>fd", func = vim.lsp.buf.format,      desc = "Format Code" },
+  { keys = "<leader>fd", func = function()
+    local params = vim.lsp.util.make_formatting_params()
+    vim.lsp.buf_request(0, 'textDocument/rangeFormatting', params, function(err, result, ctx)
+      if not err and result then
+        vim.lsp.util.apply_text_edits(result, ctx.bufnr, 'utf-16')
+      end
+    end)
+  end, desc = "Format Code" },
 }
 
 -- I use blink.cmp for completion, but you can use native completion too
