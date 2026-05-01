@@ -33,6 +33,6 @@ require "kanagawa".setup({
 -- vim.cmd("colorscheme vague")
 -- vim.cmd("colorscheme rose-pine")
 vim.cmd("colorscheme kanagawa")
-vim.cmd(":hi statusline guibg=NONE")
+
 
 -- require "vague".setup({ transparent = true })

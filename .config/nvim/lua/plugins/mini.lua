@@ -68,7 +68,7 @@ end
 function M.pick_with_hidden()
   MiniPick.builtin.cli({
     -- find files and directories with fd
-    command = { 'fd', '--hidden', '--type', 'f', '--exclude', '.git' },
+    command = { 'fd', '--hidden', '--type', 'f', '--no-ignore-vcs', '--exclude', '.git' },
   }, {
     source = {
       name = 'Files',
