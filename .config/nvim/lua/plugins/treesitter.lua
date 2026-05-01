@@ -5,5 +5,6 @@ vim.pack.add({
 
 require 'nvim-treesitter.config'.setup({
   ensure_installed = { "lua", "vim", "vimdoc", "markdown", "markdown_inline", "javascript", "typescript", "json", "python", "toml", "rust", "sql", "tsx", "yaml", "dockerfile", "terraform", "hcl", },
+  auto_install = true,
   highlight = { enable = true }
 })

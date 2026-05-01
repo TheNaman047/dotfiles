@@ -1,9 +1,7 @@
 local M = {}
 
-function M.copy_file_path()
-  local path = vim.fn.expand('%:p')
-  vim.fn.setreg("+", path)
-  print('file: ', path)
+function M.augroup(name)
+  return vim.api.nvim_create_augroup("user_" .. name, { clear = true })
 end
 
 return M

@@ -19,6 +19,8 @@ require "oil".setup({
   },
 })
 
+local opts = { noremap = true, silent = true }
+
 -- Oil keymaps
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", opts)
 vim.keymap.set("n", "<leader>-", "<CMD>Oil --float<CR>", opts)

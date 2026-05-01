@@ -17,5 +17,7 @@ vim.g.db_ui_save_location = "~/Applications/dadbod-ui/"
 -- vim.g.db_ui_save_location = "~/.ssh/dbui"
 -- vim.g.db_ui_tmp_query_location = "~/github/dotfiles-latest/neovim/neobean/dadbod/queries"
 
+local opts = { noremap = true, silent = true }
+
 -- Keymaps
 vim.keymap.set("n", "<leader>d", ":DBUIToggle<CR>", opts)

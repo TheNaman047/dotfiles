@@ -11,6 +11,8 @@ require "plugin-view".setup({})
 require "package-info".setup({})
 require "smartyank".setup()
 
+local opts = { noremap = true, silent = true }
+
 -- Plugin View keymaps
 vim.keymap.set("n", "<leader>v", require("plugin-view").open, opts)
 

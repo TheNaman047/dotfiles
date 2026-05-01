@@ -1,18 +1,13 @@
 vim.pack.add({
   "https://github.com/olimorris/codecompanion.nvim",
   "https://github.com/ravitemer/codecompanion-history.nvim",
-  "https://github.com/coder/claudecode.nvim",
   "https://github.com/NickvanDyke/opencode.nvim",
 })
 
+local opts = { noremap = true, silent = true }
+
 -- OpenCode config
 vim.g.opencode_opts = {}
-
--- require "claudecode".setup({
---   terminal = {
---     provider = "none", -- no UI actions; server + tools remain available
---   },
--- })
 
 require "codecompanion".setup({
   display = { chat = { window = { width = 0.4, } } },
@@ -25,11 +20,6 @@ require "codecompanion".setup({
   },
   extensions = { history = { enabled = true } }
 })
-
--- ClaudeCode
--- vim.keymap.set("n", "<leader>c", "<cmd>ClaudeCode<cr>", opts)
--- vim.keymap.set("n", "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", opts)
--- vim.keymap.set("v", "<leader>as", "<cmd>ClaudeCodeSend<cr>", opts)
 
 -- OpenCode
 vim.keymap.set({ "n", "x" }, "<leader>ea", function() require("opencode").ask("@this: ", { submit = true }) end, { desc = "Ask opencode…" })
