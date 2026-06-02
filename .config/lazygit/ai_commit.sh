@@ -1,12 +1,13 @@
 #!/bin/zsh
 
 RESPONSE=$(git -C . diff --staged --no-color | jq -Rs '{
-  "model": "llama3.1-8b",
+  "model": "zai-glm-4.7",
   "stream": false,
-  "temperature": 0,
+  "temperature": 0.3,
   "max_completion_tokens": 200,
   "top_p": 1,
   "seed": 0,
+  "reasoning_effort": "none",
   "messages": [
     {
       "role": "system",
