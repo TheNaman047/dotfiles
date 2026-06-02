@@ -1,5 +1,5 @@
 local vue_language_server_path =
-'$HOME/.local/share/fnm/node-versions/v20.19.0/installation/lib/node_modules/@vue/language-server'
+  vim.fn.expand('$HOME') .. '/.bun/install/global/node_modules/@vue/language-server'
 local vue_plugin = {
   name = '@vue/typescript-plugin',
   location = vue_language_server_path,

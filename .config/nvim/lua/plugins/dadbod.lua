@@ -4,20 +4,34 @@ vim.pack.add({
   "https://github.com/kristijanhusak/vim-dadbod-completion",
 })
 
--- Setup dadbod module
+vim.g.db_ui_use_nerd_fonts = 1
 vim.g.db_ui_show_help = 0
 vim.g.db_ui_win_position = "right"
-vim.g.db_ui_use_nerd_fonts = 1
+vim.g.db_ui_winwidth = 35
+vim.g.db_ui_auto_execute_table_helpers = 1
 
--- This sets the location of the `connections.json` file, which includes the
--- DB conection strings (includes passwords in plaintext, so do not track
--- this file. Storing it in iCloud but this is only for my homelab)
--- The default location for this is `~/.local/share/db_ui`
-vim.g.db_ui_save_location = "~/Applications/dadbod-ui/"
--- vim.g.db_ui_save_location = "~/.ssh/dbui"
--- vim.g.db_ui_tmp_query_location = "~/github/dotfiles-latest/neovim/neobean/dadbod/queries"
+-- Store connections/queries outside the dotfiles repo (contains plaintext passwords)
+vim.g.db_ui_save_location = vim.fn.expand("~/.local/share/db_ui")
 
-local opts = { noremap = true, silent = true }
+-- Load named connections from a private, git-ignored file
+local ok, dbs = pcall(require, "private.db_connections")
+if ok then
+  vim.g.dbs = dbs
+end
 
--- Keymaps
-vim.keymap.set("n", "<leader>d", ":DBUIToggle<CR>", opts)
+vim.keymap.set("n", "<leader>d", ":DBUIToggle<CR>", { noremap = true, silent = true, desc = "Toggle DB UI" })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "dbout", "json" },
+  callback = function(ev)
+    local name = vim.api.nvim_buf_get_name(ev.buf)
+    -- only apply to dadbod result buffers
+    if vim.bo[ev.buf].filetype == "json" and not name:match("dadbod") then
+      return
+    end
+    vim.opt_local.foldenable = true
+    vim.opt_local.foldmethod = "indent"
+    vim.opt_local.foldlevel = 1
+    vim.opt_local.wrap = false
+  end,
+})

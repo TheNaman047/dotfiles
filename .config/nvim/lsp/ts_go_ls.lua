@@ -1,12 +1,10 @@
 return {
-  cmd = { 'tsgo', '--lsp', '-stdio'},
+  cmd = { 'tsgo', '--lsp', '-stdio' },
   filetypes = {
     "javascript",
     "javascriptreact",
-    "javascript.jsx",
     "typescript",
     "typescriptreact",
-    "typescript.tsx",
   },
   format = { enable = true },
   root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
