@@ -31,5 +31,4 @@ require("fff").setup({
 })
 
 vim.keymap.set("n", "<leader>p", function() require("fff").find_files() end, { desc = "Find files" })
-vim.keymap.set("n", "<leader>gf", function() require("fff").grep() end, { desc = "Grep" })
-vim.keymap.set("n", "<leader>l", function() require("fff").grep() end, { desc = "Live grep" })
+vim.keymap.set("n", "<leader>l", function() require("fff").live_grep() end, { desc = "Live grep" })
