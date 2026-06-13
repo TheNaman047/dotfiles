@@ -10,6 +10,7 @@ Snacks.setup({
   image = { enabled = false },
   indent = { enabled = false },
   notifier = { enabled = true },
+  picker = { enabled = true },
   quickfile = { enabled = false },
   statuscolumn = { enabled = false },
   terminal = { enabled = false },
@@ -17,7 +18,10 @@ Snacks.setup({
 
 -- stylua: ignore start
 local keymaps = {
-  { "<leader>gg", function() Snacks.lazygit() end,                                desc = "Lazygit" },
+  { "<leader>gg", function() Snacks.lazygit() end,               desc = "Lazygit" },
+  { "<leader>gb", function() Snacks.picker.buffers() end,        desc = "Buffers" },
+  { "<leader>h",  function() Snacks.picker.help() end,           desc = "Help" },
+  { "<leader>r",  function() Snacks.picker.resume() end,         desc = "Resume picker" },
   {
     "<leader>N",
     desc = "Neovim News",
