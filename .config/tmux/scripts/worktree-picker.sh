@@ -14,6 +14,6 @@ worktree_path=$(echo "$selected" | cut -d'|' -f2)
 window_name=$(basename "$worktree_path" | tr './' '__')
 
 tmux new-window -n "$window_name" -c "$worktree_path"
-tmux split-window -hl 30% -c "$worktree_path" "claude"
+tmux split-window -hl 30% -c "$worktree_path" "claude agents"
 tmux select-pane -L
 tmux send-keys "nvim ." Enter
