@@ -1,15 +1,6 @@
 vim.pack.add({
-  "https://github.com/vague2k/vague.nvim",
-  "https://github.com/rose-pine/neovim",
   "https://github.com/rebelot/kanagawa.nvim",
 })
-
--- require "rose-pine".setup({
---   styles = {
---     transparency = true,
---   },
---   dim_inactive_windows = true
--- })
 
 require "kanagawa".setup({
     compile = false,             -- enable compiling the colorscheme
@@ -29,10 +20,4 @@ require "kanagawa".setup({
     },
 })
 
--- Set colorscheme
--- vim.cmd("colorscheme vague")
--- vim.cmd("colorscheme rose-pine")
 vim.cmd("colorscheme kanagawa")
-
-
--- require "vague".setup({ transparent = true })

@@ -47,6 +47,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 
 
 vim.api.nvim_create_autocmd("TermOpen", {
+  group = augroup("term_keymaps"),
   callback = function()
     local map = vim.keymap.set
     map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })

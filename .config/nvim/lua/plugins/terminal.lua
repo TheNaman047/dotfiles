@@ -1,3 +1,5 @@
+local augroup = require("utils").augroup
+
 vim.pack.add({
   "https://github.com/akinsho/toggleterm.nvim.git",
 })
@@ -61,13 +63,12 @@ end
 
 -- Clean up when terminal is closed
 vim.api.nvim_create_autocmd("TermClose", {
+  group = augroup("terminal_cleanup"),
   pattern = "term://*toggleterm#*",
-  callback = function()
-    -- Extract terminal ID from buffer name
-    local bufname = vim.api.nvim_buf_get_name(0)
-    local id = bufname:match("toggleterm#(%d+)")
-    if id then
-      active_terminals[tonumber(id)] = nil
+  callback = function(ev)
+    local ok, id = pcall(vim.api.nvim_buf_get_var, ev.buf, "toggle_number")
+    if ok and id then
+      active_terminals[id] = nil
     end
   end,
 })

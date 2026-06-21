@@ -53,7 +53,7 @@ opt.mouse = "a"
 opt.encoding = "UTF-8"
 
 opt.smoothscroll = true
-vim.wo.foldmethod = "expr"
+opt.foldmethod = "expr"
 opt.foldlevel = 99
 opt.formatoptions = "jcroqlnt"
 opt.grepformat = "%f:%l:%c:%m"
@@ -83,11 +83,9 @@ vim.g.trouble_lualine = true
 
 opt.jumpoptions = "view"
 opt.laststatus = 3
-opt.list = false
-opt.linebreak = true
 opt.list = true
+opt.linebreak = true
 opt.shiftround = true
-opt.shiftwidth = 2
 opt.shortmess:append({ W = true, I = true, c = true, C = true})
 
 vim.g.markdown_recommended_style = 0

@@ -5,3 +5,4 @@ function M.augroup(name)
 end
 
 return M
+

@@ -38,7 +38,7 @@ wk.add({
 		{
 			"<leader>fCf",
 			function()
-				vim.fn.setreg("+", vim.fn.expand("%:p")) -- Copy full file path to clipboard
+				vim.fn.setreg("+", vim.fn.expand("%:p"))
 				vim.notify("Copied full file path: " .. vim.fn.expand("%:p"))
 			end,
 			desc = "Copy full file path",
@@ -46,7 +46,7 @@ wk.add({
 		{
 			"<leader>fCn",
 			function()
-				vim.fn.setreg("+", vim.fn.expand("%:t")) -- Copy file name to clipboard
+				vim.fn.setreg("+", vim.fn.expand("%:t"))
 				vim.notify("Copied file name: " .. vim.fn.expand("%:t"))
 			end,
 			desc = "Copy file name",
@@ -54,28 +54,28 @@ wk.add({
 		{
 			"<leader>fCr",
 			function()
-				local cwd = vim.fn.getcwd() -- Current working directory
-				local full_path = vim.fn.expand("%:p") -- Full file path
-				local rel_path = full_path:sub(#cwd + 2) -- Remove cwd prefix and leading slash
-				vim.fn.setreg("+", rel_path) -- Copy relative file path to clipboard
+				local cwd = vim.fn.getcwd()
+				local full_path = vim.fn.expand("%:p")
+				local rel_path = full_path:sub(#cwd + 2)
+				vim.fn.setreg("+", rel_path)
 				vim.notify("Copied relative file path: " .. rel_path)
 			end,
 			desc = "Copy relative file path",
 		},
-		{
-			"<leader>?",
-			function()
-				require("which-key").show({ global = false })
-			end,
-			desc = "Buffer Keymaps (which-key)",
-		},
-		{
-			"<c-w><space>",
-			function()
-				require("which-key").show({ keys = "<c-w>", loop = true })
-			end,
-			desc = "Window Hydra Mode (which-key)",
-		},
+	},
+	{
+		"<leader>?",
+		function()
+			require("which-key").show({ global = false })
+		end,
+		desc = "Buffer Keymaps (which-key)",
+	},
+	{
+		"<c-w><space>",
+		function()
+			require("which-key").show({ keys = "<c-w>", loop = true })
+		end,
+		desc = "Window Hydra Mode (which-key)",
 	},
 })
 

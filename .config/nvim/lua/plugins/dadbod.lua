@@ -1,3 +1,5 @@
+local augroup = require("utils").augroup
+
 vim.pack.add({
   "https://github.com/kristijanhusak/vim-dadbod-ui",
   "https://github.com/tpope/vim-dadbod",
@@ -22,6 +24,7 @@ end
 vim.keymap.set("n", "<leader>d", ":DBUIToggle<CR>", { noremap = true, silent = true, desc = "Toggle DB UI" })
 
 vim.api.nvim_create_autocmd("FileType", {
+  group = augroup("dadbod_result"),
   pattern = { "dbout", "json" },
   callback = function(ev)
     local name = vim.api.nvim_buf_get_name(ev.buf)

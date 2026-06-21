@@ -20,7 +20,7 @@ Snacks.setup({
 local keymaps = {
   { "<leader>gg", function() Snacks.lazygit() end,               desc = "Lazygit" },
   { "<leader>gb", function() Snacks.picker.buffers() end,        desc = "Buffers" },
-  { "<leader>h",  function() Snacks.picker.help() end,           desc = "Help" },
+  { "<leader>sh", function() Snacks.picker.help() end,           desc = "Help" },
   { "<leader>r",  function() Snacks.picker.resume() end,         desc = "Resume picker" },
   {
     "<leader>N",
@@ -42,20 +42,6 @@ local keymaps = {
   }
 }
 -- stylua: ignore end
-for _, map in ipairs(keymaps) do
-  local opts = { desc = map.desc }
-  if map.silent ~= nil then
-    opts.silent = map.silent
-  end
-  if map.noremap ~= nil then
-    opts.noremap = map.noremap
-  else
-    opts.noremap = true
-  end
-  if map.expr ~= nil then
-    opts.expr = map.expr
-  end
-
-  local mode = map.mode or "n"
-  vim.keymap.set(mode, map[1], map[2], opts)
+for _, m in ipairs(keymaps) do
+  vim.keymap.set(m.mode or "n", m[1], m[2], { desc = m.desc })
 end

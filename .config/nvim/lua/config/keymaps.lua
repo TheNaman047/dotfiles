@@ -37,4 +37,4 @@ map("n", "<leader>xw", "<cmd>set wrap!<CR>", { desc = "Toggle Wrap", silent = tr
 -- Miscellaneous
 -- Generate uuid at cursor
 map("n", "<leader>guu", ":r !uuidgen<CR>", opts)
--- map("n", "<leader>gp", utils.copy_file_path, opts)
+
