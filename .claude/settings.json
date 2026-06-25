@@ -1,0 +1,25 @@
+{
+  "env": {
+    "DISABLE_AUTOUPDATER": "1"
+  },
+  "includeCoAuthoredBy": false,
+  "model": "sonnet[1m]",
+  "worktree": {
+    "baseRef": "fresh"
+  },
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true
+  },
+  "effortLevel": "medium",
+  "awaySummaryEnabled": false,
+  "theme": "auto",
+  "editorMode": "vim",
+  "preferredNotifChannel": "ghostty",
+  "inputNeededNotifEnabled": true,
+  "remoteControlAtStartup": true,
+  "statusLine": {
+    "type": "command",
+    "command": "bash $HOME/.claude/statusline-command.sh"
+  }
+}
