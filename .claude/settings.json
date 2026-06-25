@@ -3,6 +3,9 @@
     "DISABLE_AUTOUPDATER": "1"
   },
   "includeCoAuthoredBy": false,
+  "attribution": {
+    "sessionUrl": false
+  },
   "model": "sonnet[1m]",
   "worktree": {
     "baseRef": "fresh"
