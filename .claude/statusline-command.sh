@@ -1,97 +1,133 @@
 #!/usr/bin/env bash
+#
+# Claude Code statusline — minimal colored-text style.
+#
+# SAFETY: reads only the JSON Claude Code sends on stdin plus the LOCAL git
+# branch (via `git branch --show-current`, a read-only local query). No network
+# access, no curl/wget, no eval of external input. All jq lookups use `// empty`
+# so missing fields degrade to blank rather than erroring.
 
 input=$(cat)
 
 # ── Parse JSON ───────────────────────────────────────────────────────────────
-cwd=$(echo "$input"          | jq -r '.workspace.current_dir // .cwd // empty')
-model=$(echo "$input"        | jq -r '.model.display_name // empty')
-repo_owner=$(echo "$input"   | jq -r '.workspace.repo.owner // empty')
-repo_name=$(echo "$input"    | jq -r '.workspace.repo.name // empty')
-git_worktree=$(echo "$input" | jq -r '.workspace.git_worktree // empty')
-used_pct=$(echo "$input"     | jq -r '.context_window.used_percentage // empty')
-vim_mode=$(echo "$input"     | jq -r '.vim.mode // empty')
-pr_num=$(echo "$input"       | jq -r '.pr.number // empty')
-pr_state=$(echo "$input"     | jq -r '.pr.review_state // empty')
+cwd=$(echo "$input"        | jq -r '.workspace.current_dir // .cwd // empty')
+model=$(echo "$input"      | jq -r '.model.display_name // empty')
+repo_owner=$(echo "$input" | jq -r '.workspace.repo.owner // empty')
+repo_name=$(echo "$input"  | jq -r '.workspace.repo.name // empty')
+wt_name=$(echo "$input"    | jq -r '.worktree.name // .workspace.git_worktree // empty')
+effort=$(echo "$input"     | jq -r '.effort.level // empty')
+rl_5h=$(echo "$input"      | jq -r '.rate_limits.five_hour.used_percentage // empty')
+rl_7d=$(echo "$input"      | jq -r '.rate_limits.seven_day.used_percentage // empty')
+ctx_pct=$(echo "$input"    | jq -r '.context_window.used_percentage // empty')
+vim_mode=$(echo "$input"   | jq -r '.vim.mode // empty')
+pr_num=$(echo "$input"     | jq -r '.pr.number // empty')
+pr_state=$(echo "$input"   | jq -r '.pr.review_state // empty')
 
-# ── Color helpers (fg only — no bg blocks) ───────────────────────────────────
+# ── Color helpers (foreground only — no background blocks) ────────────────────
 reset="\033[0m"
 bold="\033[1m"
-dim="\033[2m"
 fg() { printf "\033[38;5;%sm" "$1"; }
 
 SEP=" $(fg 240)·${reset} "   # dim dot separator
 
-# ── Directory ────────────────────────────────────────────────────────────────
-home="$HOME"
-display_dir="${cwd/#$home/\~}"
-display_dir=$(echo "$display_dir" | awk -F'/' '{
-  if (NF > 4) print "…/" $(NF-1) "/" $NF
-  else        print $0
-}')
+# ── Icons (Nerd Font) ─────────────────────────────────────────────────────────
+I_WORKTREE=""   # repo-forked
+I_REPO=""       # repo
+I_BRANCH=""     # git branch
+I_MODEL="󰚩"       # robot
+I_EFFORT=""     # gauge / speedometer
+I_QUOTA=""      # clock (time-window quota)
+I_CTX=""        # graph
 
-# ── Vim mode ─────────────────────────────────────────────────────────────────
-vim_part=""
+# ── Branch name (worktree name if present, else local git branch) ─────────────
+branch=""
+if [ -n "$wt_name" ]; then
+  branch="$wt_name"
+elif [ -n "$cwd" ]; then
+  branch=$(git -C "$cwd" branch --show-current 2>/dev/null)
+fi
+
+# ── Build segments ────────────────────────────────────────────────────────────
+parts=()
+
+# 1. Vim mode (leftmost, only when active)
 if [ -n "$vim_mode" ]; then
   case "$vim_mode" in
-    NORMAL)  vim_part="$(fg 179)${bold}N${reset}" ;;   # amber
-    INSERT)  vim_part="$(fg 71)${bold}I${reset}"  ;;   # green
-    VISUAL*) vim_part="$(fg 135)${bold}V${reset}" ;;   # violet
-    *)       vim_part="$(fg 240)${bold}${vim_mode:0:1}${reset}" ;;
+    NORMAL)  parts+=("$(fg 179)${bold}N${reset}") ;;
+    INSERT)  parts+=("$(fg 71)${bold}I${reset}")  ;;
+    VISUAL*) parts+=("$(fg 135)${bold}V${reset}") ;;
+    *)       parts+=("$(fg 240)${bold}${vim_mode:0:1}${reset}") ;;
   esac
 fi
 
-# ── Directory segment ─────────────────────────────────────────────────────────
-dir_part="$(fg 110)${display_dir}${reset}"    # soft blue
-
-# ── Git segment ───────────────────────────────────────────────────────────────
-git_part=""
-if [ -n "$repo_owner" ] && [ -n "$repo_name" ]; then
-  git_part="$(fg 71) ${repo_owner}/${repo_name}${reset}"  # muted green
-  if [ -n "$git_worktree" ]; then
-    git_part="${git_part}$(fg 240) ${git_worktree}${reset}"
-  fi
+# 2. Worktree indicator (only when in a worktree)
+if [ -n "$wt_name" ]; then
+  parts+=("$(fg 175)${I_WORKTREE} worktree${reset}")
 fi
 
-# ── PR segment ────────────────────────────────────────────────────────────────
-pr_part=""
+# 3. Repo  owner/name
+if [ -n "$repo_owner" ] && [ -n "$repo_name" ]; then
+  parts+=("$(fg 71)${I_REPO} ${repo_owner}/${repo_name}${reset}")
+fi
+
+# 4. Branch / worktree name
+if [ -n "$branch" ]; then
+  parts+=("$(fg 110)${I_BRANCH} ${branch}${reset}")
+fi
+
+# 5. PR badge (only when a PR exists)
 if [ -n "$pr_num" ]; then
   case "$pr_state" in
-    approved)          pr_color=71;  pr_icon="" ;;
-    changes_requested) pr_color=167; pr_icon="" ;;
-    draft)             pr_color=240; pr_icon="" ;;
-    *)                 pr_color=75;  pr_icon="" ;;
+    approved)          pr_color=71  ;;
+    changes_requested) pr_color=167 ;;
+    draft)             pr_color=240 ;;
+    *)                 pr_color=75  ;;
   esac
-  pr_part="$(fg "$pr_color")${pr_icon} #${pr_num}${reset}"
+  parts+=("$(fg "$pr_color") #${pr_num}${reset}")
 fi
 
-# ── Model segment ─────────────────────────────────────────────────────────────
-model_part=""
+# 6. Model (Claude prefix stripped for brevity)
 if [ -n "$model" ]; then
   short=$(echo "$model" | sed 's/Claude //;s/ ([^)]*)//g')
-  model_part="$(fg 141) ${short}${reset}"    # soft purple
+  parts+=("$(fg 141)${I_MODEL} ${short}${reset}")
 fi
 
-# ── Context segment ───────────────────────────────────────────────────────────
-ctx_part=""
-if [ -n "$used_pct" ]; then
-  ctx_int=$(printf "%.0f" "$used_pct")
-  if   [ "$ctx_int" -ge 80 ]; then ctx_color=167   # red-ish
-  elif [ "$ctx_int" -ge 50 ]; then ctx_color=172   # orange
-  else                              ctx_color=71    # green
+# 7. Effort level (color by intensity)
+if [ -n "$effort" ]; then
+  case "$effort" in
+    low)    eff_color=109 ;;
+    medium) eff_color=73  ;;
+    high)   eff_color=179 ;;
+    xhigh)  eff_color=172 ;;
+    max)    eff_color=167 ;;
+    *)      eff_color=245 ;;
+  esac
+  parts+=("$(fg "$eff_color")${I_EFFORT} ${effort}${reset}")
+fi
+
+# 8. Quota usage — prefer 5h rate limit; fall back to context window.
+#    color: green < 50 < orange < 80 < red
+color_pct() {
+  local p="$1"
+  if   [ "$p" -ge 80 ]; then echo 167
+  elif [ "$p" -ge 50 ]; then echo 172
+  else                       echo 71
   fi
-  ctx_part="$(fg "$ctx_color") ${ctx_int}%${reset}"
+}
+if [ -n "$rl_5h" ]; then
+  p5=$(printf "%.0f" "$rl_5h")
+  quota_seg="$(fg "$(color_pct "$p5")")${I_QUOTA} 5h ${p5}%${reset}"
+  if [ -n "$rl_7d" ]; then
+    p7=$(printf "%.0f" "$rl_7d")
+    quota_seg="${quota_seg}$(fg 240)/${reset}$(fg "$(color_pct "$p7")")7d ${p7}%${reset}"
+  fi
+  parts+=("$quota_seg")
+elif [ -n "$ctx_pct" ]; then
+  pc=$(printf "%.0f" "$ctx_pct")
+  parts+=("$(fg "$(color_pct "$pc")")${I_CTX} ${pc}%${reset}")
 fi
 
-# ── Assemble ──────────────────────────────────────────────────────────────────
-parts=()
-[ -n "$vim_part"   ] && parts+=("$vim_part")
-parts+=("$dir_part")
-[ -n "$git_part"   ] && parts+=("$git_part")
-[ -n "$pr_part"    ] && parts+=("$pr_part")
-[ -n "$model_part" ] && parts+=("$model_part")
-[ -n "$ctx_part"   ] && parts+=("$ctx_part")
-
-# Join with separator
+# ── Join with separator ───────────────────────────────────────────────────────
 out=""
 for i in "${!parts[@]}"; do
   [ "$i" -gt 0 ] && out="${out}${SEP}"
