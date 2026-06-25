@@ -3,23 +3,23 @@
     "DISABLE_AUTOUPDATER": "1"
   },
   "includeCoAuthoredBy": false,
-  "model": "sonnet[1m]",
+  "model": "sonnet",
   "worktree": {
     "baseRef": "fresh"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash $HOME/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true
   },
-  "effortLevel": "medium",
+  "effortLevel": "low",
   "awaySummaryEnabled": false,
   "theme": "auto",
   "editorMode": "vim",
   "preferredNotifChannel": "ghostty",
-  "inputNeededNotifEnabled": true,
   "remoteControlAtStartup": true,
-  "statusLine": {
-    "type": "command",
-    "command": "bash $HOME/.claude/statusline-command.sh"
-  }
+  "inputNeededNotifEnabled": true
 }
