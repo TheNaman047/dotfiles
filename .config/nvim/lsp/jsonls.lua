@@ -1,5 +1,5 @@
 return {
-  cmd = { 'vscode-json-languageserver', '--stdio' },
+  cmd = { '$HOME/.bun/bin/vscode-json-languageserver', '--stdio' },
   filetypes = { 'json', 'jsonc', 'json5' },
   init_options = {
     provideFormatter = true,
