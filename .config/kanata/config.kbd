@@ -7,6 +7,7 @@
 
 (defsrc
   caps lalt a s d f j k l ; h tab e w o i n u p m , . g y enter spc = - `
+  f1 f2 f7 f8 f9 f10 f11 f12
 )
 
 (defvar
@@ -16,22 +17,27 @@
 
 (deflayer base
   @escctrl @motion @a @s @d @f @j @k @l @; _ @hypertab e w _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+  brdown brup prev pp next mute vold volu
 )
 
 (deflayer motion
   _ _ _ _ _ _ down up right _ left _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+  _ _ _ _ _ _ _ _
 )
 
 (deflayer hyper
   _ _ _ _ _ _ _ _ _ _ _ _ @apps-e @window-w _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+  _ _ _ _ _ _ _ _
 )
 
 (deflayer apps-e
-  _ _ _ _ _ _ _ _ _ _ _ _ _ _ @zen @ghostty @slack @finder @postman @spotify @mongodb @mattermost @whatsapp _ _ _ _ _ _
+  _ _ _ _ _ _ _ _ _ _ _ _ _ _ @vivaldi @ghostty @slack @finder @postman @spotify @mongodb @mattermost @whatsapp _ _ _ _ _ _
+  _ _ _ _ _ _ _ _
 )
 
 (deflayer window-w
   _ _ _ _ _ _ @win-center @win-custom @win-right _ @win-left _ _ _ @win-last-third @win-last-fourth @win-first-threefourths _ @win-next-window @win-first-twothirds @win-last-twothirds @win-last-threefourths _ @win-first-third @win-maximize @win-almost-max @win-smaller @win-larger _
+  _ _ _ _ _ _ _ _
 )
 
 (defalias
@@ -42,7 +48,7 @@
   window-w (layer-while-held window-w)
   
   ;; Application launchers
-  zen (cmd open -a "Zen")
+  vivaldi (cmd open -a "Vivaldi")
   ghostty (cmd open -a "Ghostty")
   slack (cmd open -a "Slack")
   finder (cmd open -a "Finder.app")
