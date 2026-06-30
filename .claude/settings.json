@@ -2,10 +2,10 @@
   "env": {
     "DISABLE_AUTOUPDATER": "1"
   },
-  "includeCoAuthoredBy": false,
   "attribution": {
     "sessionUrl": false
   },
+  "includeCoAuthoredBy": false,
   "model": "sonnet[1m]",
   "worktree": {
     "baseRef": "fresh"
@@ -24,5 +24,16 @@
   "editorMode": "vim",
   "preferredNotifChannel": "ghostty",
   "remoteControlAtStartup": true,
-  "inputNeededNotifEnabled": true
+  "inputNeededNotifEnabled": true,
+  "extraKnownMarketplaces": {
+    "coverstar-agents": {
+      "source": {
+        "source": "github",
+        "repo": "noraeinc/coverstar-agents"
+      }
+    }
+  },
+  "permissions": {
+    "defaultMode": "auto"
+  }
 }
