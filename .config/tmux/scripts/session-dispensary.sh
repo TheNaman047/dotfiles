@@ -1,8 +1,6 @@
 #!/bin/bash
 
 DIRS=(
-    "$HOME"
-    "$HOME/documents"
     "$HOME/Projects"
 )
 
