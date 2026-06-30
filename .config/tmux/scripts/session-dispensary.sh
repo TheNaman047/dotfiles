@@ -5,6 +5,7 @@ DIRS=(
     "$HOME"
     "$HOME/documents/notes"
     "$HOME/documents/projects"
+    "$HOME/dotfiles"
 )
 
 if [[ $# -eq 1 ]]; then
@@ -13,7 +14,11 @@ if [[ $# -eq 1 ]]; then
         | fzf --margin 10% --color="bw")
     [[ $selected ]] && selected="$HOME/$selected"
 else
-    selected=$(fd "${DIRS[@]}" --type=dir --max-depth=1 --full-path \
+    # Merge zoxide frecency-ranked dirs with fd results, deduplicate, then fzf
+    zoxide_dirs=$(zoxide query --list 2>/dev/null | head -20)
+    fd_dirs=$(fd "${DIRS[@]}" --type=dir --max-depth=1 --full-path 2>/dev/null)
+    selected=$(printf '%s\n%s\n' "$zoxide_dirs" "$fd_dirs" \
+        | awk '!seen[$0]++' \
         | sed "s|^$HOME/||" \
         | fzf --margin 10% --color="bw")
     [[ $selected ]] && selected="$HOME/$selected"
@@ -28,4 +33,4 @@ if ! tmux has-session -t "$selected_name"; then
 fi
 
 tmux switch-client -t "$selected_name"
-tmux send-keys -t "$SESSION:1.1" "nvim ." Enter
+tmux send-keys -t "$selected_name:1.1" "nvim ." Enter
