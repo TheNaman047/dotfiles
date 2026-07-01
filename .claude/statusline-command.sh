@@ -19,6 +19,8 @@ effort=$(echo "$input"     | jq -r '.effort.level // empty')
 rl_5h=$(echo "$input"      | jq -r '.rate_limits.five_hour.used_percentage // empty')
 rl_7d=$(echo "$input"      | jq -r '.rate_limits.seven_day.used_percentage // empty')
 ctx_pct=$(echo "$input"    | jq -r '.context_window.used_percentage // empty')
+ctx_used=$(echo "$input"   | jq -r '.context_window.total_input_tokens // empty')
+ctx_size=$(echo "$input"   | jq -r '.context_window.context_window_size // empty')
 vim_mode=$(echo "$input"   | jq -r '.vim.mode // empty')
 pr_num=$(echo "$input"     | jq -r '.pr.number // empty')
 pr_state=$(echo "$input"   | jq -r '.pr.review_state // empty')
@@ -105,7 +107,7 @@ if [ -n "$effort" ]; then
   parts+=("$(fg "$eff_color")${I_EFFORT} ${effort}${reset}")
 fi
 
-# 8. Quota usage — prefer 5h rate limit; fall back to context window.
+# 8. Quota usage — 5h / 7d rate limit, when available.
 #    color: green < 50 < orange < 80 < red
 color_pct() {
   local p="$1"
@@ -122,6 +124,17 @@ if [ -n "$rl_5h" ]; then
     quota_seg="${quota_seg}$(fg 240)/${reset}$(fg "$(color_pct "$p7")")7d ${p7}%${reset}"
   fi
   parts+=("$quota_seg")
+fi
+
+# 9. Context window usage — tokens consumed vs. the current model's limit.
+fmt_tokens() {
+  awk -v n="$1" 'BEGIN { if (n >= 1000) printf "%.1fk", n/1000; else printf "%d", n }'
+}
+if [ -n "$ctx_used" ] && [ -n "$ctx_size" ] && [ "$ctx_size" -gt 0 ]; then
+  ctx_used_fmt=$(fmt_tokens "$ctx_used")
+  ctx_size_fmt=$(fmt_tokens "$ctx_size")
+  ctx_pct2=$(( ctx_used * 100 / ctx_size ))
+  parts+=("$(fg "$(color_pct "$ctx_pct2")")${I_CTX} ${ctx_used_fmt}/${ctx_size_fmt} (${ctx_pct2}%)${reset}")
 elif [ -n "$ctx_pct" ]; then
   pc=$(printf "%.0f" "$ctx_pct")
   parts+=("$(fg "$(color_pct "$pc")")${I_CTX} ${pc}%${reset}")

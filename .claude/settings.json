@@ -6,7 +6,10 @@
     "sessionUrl": false
   },
   "includeCoAuthoredBy": false,
-  "model": "claude-sonnet-5",
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "model": "sonnet",
   "worktree": {
     "baseRef": "fresh"
   },
@@ -18,13 +21,6 @@
     "typescript-lsp@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true
   },
-  "effortLevel": "low",
-  "awaySummaryEnabled": false,
-  "theme": "auto",
-  "editorMode": "vim",
-  "preferredNotifChannel": "ghostty",
-  "remoteControlAtStartup": true,
-  "inputNeededNotifEnabled": true,
   "extraKnownMarketplaces": {
     "coverstar-agents": {
       "source": {
@@ -33,7 +29,11 @@
       }
     }
   },
-  "permissions": {
-    "defaultMode": "auto"
-  }
+  "effortLevel": "low",
+  "awaySummaryEnabled": false,
+  "theme": "auto",
+  "editorMode": "vim",
+  "preferredNotifChannel": "ghostty",
+  "remoteControlAtStartup": true,
+  "inputNeededNotifEnabled": true
 }
