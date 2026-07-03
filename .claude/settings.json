@@ -19,7 +19,9 @@
   },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": true
+    "pyright-lsp@claude-plugins-official": false,
+    "last30days@last30days-skill": true,
+    "ponytail@ponytail": true
   },
   "extraKnownMarketplaces": {
     "coverstar-agents": {
@@ -27,11 +29,23 @@
         "source": "github",
         "repo": "noraeinc/coverstar-agents"
       }
+    },
+    "last30days-skill": {
+      "source": {
+        "source": "github",
+        "repo": "mvanhorn/last30days-skill"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
     }
   },
   "effortLevel": "low",
   "awaySummaryEnabled": false,
-  "theme": "auto",
+  "theme": "custom:kanagawa-wave",
   "editorMode": "vim",
   "preferredNotifChannel": "auto",
   "autoCompactEnabled": true,
