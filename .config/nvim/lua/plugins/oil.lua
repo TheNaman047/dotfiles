@@ -16,6 +16,12 @@ require "oil".setup({
     ["<C-r>"] = { "actions.preview", opts = { split = "botright" } },
     ["<C-p>"] = false,
     ["g."] = { "actions.toggle_hidden", mode = "n" },
+    -- Let vim-tmux-navigator handle <C-hjkl> instead of oil's defaults
+    -- (oil binds <C-h> to select_split and <C-l> to refresh)
+    ["<C-h>"] = { "<cmd>TmuxNavigateLeft<cr>", mode = "n" },
+    ["<C-j>"] = { "<cmd>TmuxNavigateDown<cr>", mode = "n" },
+    ["<C-k>"] = { "<cmd>TmuxNavigateUp<cr>", mode = "n" },
+    ["<C-l>"] = { "<cmd>TmuxNavigateRight<cr>", mode = "n" },
   },
 })
 
