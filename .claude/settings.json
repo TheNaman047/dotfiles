@@ -9,7 +9,7 @@
   "permissions": {
     "defaultMode": "auto"
   },
-  "model": "sonnet",
+  "model": "opus[1m]",
   "worktree": {
     "baseRef": "fresh"
   },
@@ -33,7 +33,8 @@
   "awaySummaryEnabled": false,
   "theme": "auto",
   "editorMode": "vim",
-  "preferredNotifChannel": "ghostty",
+  "preferredNotifChannel": "auto",
+  "autoCompactEnabled": true,
   "remoteControlAtStartup": true,
   "inputNeededNotifEnabled": true
 }
