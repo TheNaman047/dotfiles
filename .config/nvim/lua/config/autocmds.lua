@@ -51,10 +51,10 @@ vim.api.nvim_create_autocmd("TermOpen", {
   callback = function()
     local map = vim.keymap.set
     map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
-    map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to Left Window" })
-    map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to Lower Window" })
-    map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to Upper Window" })
-    map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to Right Window" })
+    map("t", "<C-h>", "<cmd>TmuxNavigateLeft<cr>", { desc = "Go to Left Window/Pane" })
+    map("t", "<C-j>", "<cmd>TmuxNavigateDown<cr>", { desc = "Go to Lower Window/Pane" })
+    map("t", "<C-k>", "<cmd>TmuxNavigateUp<cr>", { desc = "Go to Upper Window/Pane" })
+    map("t", "<C-l>", "<cmd>TmuxNavigateRight<cr>", { desc = "Go to Right Window/Pane" })
     map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
   end,
 })
