@@ -21,6 +21,14 @@
       "rev": "e0fe366cf3af6c80dcac86cb053ef3fe48aae911",
       "src": "https://github.com/olimorris/codecompanion.nvim"
     },
+    "diffview.nvim": {
+      "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
+      "src": "https://github.com/sindrets/diffview.nvim"
+    },
+    "fff.nvim": {
+      "rev": "957f222da76f120868defdf9e7204309c3800e5e",
+      "src": "https://github.com/dmtrKovalenko/fff.nvim"
+    },
     "gitsigns.nvim": {
       "rev": "6d808f99bd63303646794406e270bd553ad7792e",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
@@ -60,6 +68,10 @@
     "nvim-web-devicons": {
       "rev": "d7462543c9e366c0d196c7f67a945eaaf5d99414",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
+    },
+    "octo.nvim": {
+      "rev": "b9a73e167f851a98d8f29d62658d3640bb8a7314",
+      "src": "https://github.com/pwntester/octo.nvim"
     },
     "oil-git-status.nvim": {
       "rev": "a3e2ccb00cb8822115e28a9a1791eda051d940c9",

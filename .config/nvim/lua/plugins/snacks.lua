@@ -10,7 +10,21 @@ Snacks.setup({
   image = { enabled = false },
   indent = { enabled = false },
   notifier = { enabled = true },
-  picker = { enabled = true },
+  picker = {
+    enabled = true,
+    matcher = {
+      frecency = true,   -- rank frequent/recent files first, like fff
+      cwd_bonus = true,  -- boost matches in the current dir
+    },
+    win = {
+      input = {
+        keys = {
+          -- single Esc closes from both insert and normal mode
+          ["<Esc>"] = { "close", mode = { "n", "i" } },
+        },
+      },
+    },
+  },
   quickfile = { enabled = false },
   statuscolumn = { enabled = false },
   terminal = { enabled = false },
@@ -19,6 +33,8 @@ Snacks.setup({
 -- stylua: ignore start
 local keymaps = {
   { "<leader>gg", function() Snacks.lazygit() end,               desc = "Lazygit" },
+  { "<leader>p",  function() Snacks.picker.files() end,          desc = "Find files" },
+  { "<leader>l",  function() Snacks.picker.grep() end,           desc = "Live grep" },
   { "<leader>gb", function() Snacks.picker.buffers() end,        desc = "Buffers" },
   { "<leader>sh", function() Snacks.picker.help() end,           desc = "Help" },
   { "<leader>r",  function() Snacks.picker.resume() end,         desc = "Resume picker" },

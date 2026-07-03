@@ -4,7 +4,6 @@ require("plugins.dadbod")
 require("plugins.oil")
 require("plugins.extras")
 require("plugins.mini")
-require("plugins.fff")
 require("plugins.snacks")
 require("plugins.terminal")
 require("plugins.ai") -- as uses terminal
