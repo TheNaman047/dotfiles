@@ -125,4 +125,10 @@ myip() {
         echo "Clipboard copy not supported on this platform."
     fi
 }
+# oMLX: CLI shim path begin
+case ":$PATH:" in
+  *":$HOME/.omlx/bin:"*) ;;
+  *) export PATH="$HOME/.omlx/bin:$PATH" ;;
+esac
+# oMLX: CLI shim path end
 # zprof
