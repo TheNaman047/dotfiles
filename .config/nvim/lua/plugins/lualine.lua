@@ -15,20 +15,29 @@ require("lualine").setup({
       {
         "filename",
         path = 1,
-        symbols = { modified = " ", readonly = " ", unnamed = "[No Name]" },
+        symbols = { modified = "\239\131\135 ", readonly = "\239\128\163 ", unnamed = "[No Name]" },
       },
     },
     lualine_c = {
       {
         "branch",
-        icon = { " ", align = "left" },
+        icon = { "\238\156\165", align = "left" },
       },
       {
         "diff",
         symbols = { added = "+", modified = "~", removed = "-" },
       },
+      {
+        function()
+          return "\226\151\143 @" .. vim.fn.reg_recording()
+        end,
+        cond = function()
+          return vim.fn.reg_recording() ~= ""
+        end,
+      },
     },
     lualine_x = {
+      "lsp_status",
       {
         "diagnostics",
         sources = { "nvim_lsp" },
@@ -37,7 +46,7 @@ require("lualine").setup({
       "filetype",
     },
     lualine_y = { "progress" },
-    lualine_z = { "location" },
+    lualine_z = { "selectioncount", "location", "searchcount" },
   },
   inactive_sections = {
     lualine_a = {},
@@ -47,4 +56,5 @@ require("lualine").setup({
     lualine_y = {},
     lualine_z = {},
   },
+  extensions = { "oil" },
 })
