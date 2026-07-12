@@ -10,7 +10,7 @@ font-style-bold-italic = "Bold Italic"
 font-thicken = true
 font-thicken-strength = 150
 
-theme = Kanagawa Wave
+config-file = theme.conf
 background-opacity = 0.95
 background-blur = true
 window-decoration = auto
@@ -35,6 +35,7 @@ keybind = ctrl+alt+plus=increase_font_size:1
 keybind = ctrl+alt+equal=increase_font_size:1
 keybind = ctrl+alt+minus=decrease_font_size:1
 keybind = ctrl+alt+comma=open_config
+keybind = cmd+alt+r=reload_config
 
 # Fix general slowness on hyprland (https://github.com/ghostty-org/ghostty/discussions/3224)
 async-backend = epoll
