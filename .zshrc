@@ -90,6 +90,10 @@ export EDITOR="nvim"
 
 # Shell integrations
 eval "$(fzf --zsh)"
+# ponytail: Claude Code's Bash tool re-sources a function-only snapshot of this
+# file per command, which drops the chpwd_functions array zoxide registers here,
+# tripping its doctor check as a false positive. Real interactive shells are unaffected.
+[[ -n "$CLAUDECODE" ]] && export _ZO_DOCTOR=0
 eval "$(zoxide init --cmd cd zsh)"
 
 # fnm
