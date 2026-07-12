@@ -1,2 +1,5 @@
 .config/tmux/plugins/
 .claude/settings.local.json
+.config/theme/current
+.config/tmux/theme-active.conf
+.config/ghostty/theme.conf
