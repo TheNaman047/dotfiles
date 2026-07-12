@@ -43,7 +43,8 @@
       }
     }
   },
-  "effortLevel": "low",
+  "effortLevel": "xhigh",
+  "advisorModel": "opus",
   "awaySummaryEnabled": false,
   "theme": "custom:kanagawa-wave",
   "editorMode": "vim",
