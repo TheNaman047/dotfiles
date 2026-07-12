@@ -11,9 +11,10 @@ UKIYO_APPLY="$HOME/.config/tmux/plugins/tmux-ukiyo/scripts/ukiyo.sh"
 # key|Label|ghostty theme name|mode|value
 # mode=native -> value is the @ukiyo-theme string (tmux-ukiyo ships this family)
 # mode=colors -> value is space-separated name=hex pairs for @ukiyo-color-*
-# ponytail: everforest/gruvbox-material/nightfox collapse bg_bar+highlight+selection to one
-# derived surface shade (only one panel tone was extracted per theme). Upgrade path: pull that
-# theme's real bg1/bg2/bg3 constants from its own palette source if finer gradation is wanted.
+# ponytail: highlight/selection use each theme's "bright black" ANSI slot (distinct from
+# bg_bar) so the active window/pane border is actually visible, not identical to inactive.
+# Everforest's own bright-black (#a6b0a0) was too light to read, so its pair below is its
+# real bg4 surface tone instead - not sourced from ghostty like the rest of this file.
 THEMES="
 kanagawa-wave|Kanagawa Wave|Kanagawa Wave|native|kanagawa/wave
 catppuccin-mocha|Catppuccin Mocha|Catppuccin Mocha|native|catppuccin/mocha
@@ -24,9 +25,13 @@ gruvbox-dark|Gruvbox Dark|Gruvbox Dark|native|gruvbox/dark
 nord|Nord|Nord|native|nord/default
 solarized-dark|Solarized Dark|iTerm2 Solarized Dark|native|solarized/dark
 onedark|OneDark|Atom One Dark|native|onedark/dark
-everforest-dark-hard|Everforest Dark Hard|Everforest Dark Hard|colors|text=#d3c6aa bg_bar=#2d353b bg_pane=#1e2326 highlight=#2d353b selection=#2d353b info=#83c092 accent=#7fbbb3 notice=#dbbc7f error=#e67e80 muted=#d699b6 alert=#dbbc7f
-gruvbox-material-dark|Gruvbox Material Dark|Gruvbox Material Dark|colors|text=#d4be98 bg_bar=#32302f bg_pane=#282828 highlight=#32302f selection=#32302f info=#89b482 accent=#7daea3 notice=#d8a657 error=#ea6962 muted=#d3869b alert=#d8a657
-nightfox|Nightfox|Nightfox|colors|text=#cdcecf bg_bar=#2b3b51 bg_pane=#192330 highlight=#2b3b51 selection=#2b3b51 info=#63cdcf accent=#719cd6 notice=#dbc074 error=#c94f6d muted=#9d79d6 alert=#dbc074
+everforest-dark-hard|Everforest Dark Hard|Everforest Dark Hard|colors|text=#d3c6aa bg_bar=#2d353b bg_pane=#1e2326 highlight=#495156 selection=#495156 info=#83c092 accent=#7fbbb3 notice=#dbbc7f error=#e67e80 muted=#d699b6 alert=#dbbc7f
+gruvbox-material-dark|Gruvbox Material Dark|Gruvbox Material Dark|colors|text=#d4be98 bg_bar=#32302f bg_pane=#282828 highlight=#7c6f64 selection=#7c6f64 info=#89b482 accent=#7daea3 notice=#d8a657 error=#ea6962 muted=#d3869b alert=#d8a657
+nightfox|Nightfox|Nightfox|colors|text=#cdcecf bg_bar=#2b3b51 bg_pane=#192330 highlight=#575860 selection=#575860 info=#63cdcf accent=#719cd6 notice=#dbc074 error=#c94f6d muted=#9d79d6 alert=#dbc074
+duskfox|Duskfox|Duskfox|colors|text=#e0def4 bg_bar=#433c59 bg_pane=#232136 highlight=#544d8a selection=#544d8a info=#9ccfd8 accent=#569fba notice=#f6c177 error=#eb6f92 muted=#c4a7e7 alert=#f6c177
+nordfox|Nordfox|Nordfox|colors|text=#cdcecf bg_bar=#3e4a5b bg_pane=#2e3440 highlight=#53648d selection=#53648d info=#88c0d0 accent=#81a1c1 notice=#ebcb8b error=#bf616a muted=#b48ead alert=#ebcb8b
+carbonfox|Carbonfox|Carbonfox|colors|text=#f2f4f8 bg_bar=#2a2a2a bg_pane=#161616 highlight=#484848 selection=#484848 info=#33b1ff accent=#78a9ff notice=#08bdba error=#ee5396 muted=#be95ff alert=#08bdba
+terafox|Terafox|Terafox|colors|text=#e6eaea bg_bar=#293e40 bg_pane=#152528 highlight=#4e5157 selection=#4e5157 info=#a1cdd8 accent=#5a93aa notice=#fda47f error=#e85c51 muted=#ad5c7c alert=#fda47f
 "
 
 usage() {
