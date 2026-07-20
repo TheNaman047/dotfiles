@@ -13,7 +13,7 @@ else
     # Merge zoxide frecency-ranked dirs with fd results, deduplicate, then fzf
     zoxide_dirs=$(zoxide query --list 2>/dev/null | head -20)
     fd_dirs=$(printf '%s\n' \
-        "$(fd "${DIRS[@]}" --type=dir --max-depth=1 --full-path 2>/dev/null)" \
+        "$(fd . "${DIRS[@]}" --type=dir --max-depth=3 --full-path 2>/dev/null)" \
         "$(fd . "$HOME/dotfiles/.config" --type=dir --max-depth=1 --full-path 2>/dev/null)")
     selected=$(printf '%s\n%s\n' "$zoxide_dirs" "$fd_dirs" \
         | awk '!seen[$0]++' \
