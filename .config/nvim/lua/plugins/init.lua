@@ -9,5 +9,7 @@ require("plugins.terminal")
 require("plugins.ai") -- as uses terminal
 require("plugins.blink")
 require("plugins.gitsigns")
+require("plugins.diffview")
+require("plugins.octo")
 require("plugins.lualine")
 require("plugins.whichkey")
