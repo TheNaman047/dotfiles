@@ -25,6 +25,10 @@
       "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
       "src": "https://github.com/sindrets/diffview.nvim"
     },
+    "everforest": {
+      "rev": "85a86eb62409e3ec88713bff3d1b9d7374e112e4",
+      "src": "https://github.com/sainnhe/everforest"
+    },
     "fff.nvim": {
       "rev": "957f222da76f120868defdf9e7204309c3800e5e",
       "src": "https://github.com/dmtrKovalenko/fff.nvim"
@@ -40,6 +44,10 @@
     "lualine.nvim": {
       "rev": "131a558e13f9f28b15cd235557150ccb23f89286",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
+    },
+    "markview.nvim": {
+      "rev": "2471f4097f8561a6880a0fe05ee0f21cbc82b374",
+      "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mini.pairs": {
       "rev": "b7fde3719340946feb75017ef9d75edebdeb0566",
@@ -96,6 +104,10 @@
     "plugin-view.nvim": {
       "rev": "369c80aff5e71b1147f69ecbefa4b46d97f733d2",
       "src": "https://github.com/adriankarlen/plugin-view.nvim"
+    },
+    "render-markdown.nvim": {
+      "rev": "f422cb5c6855f150e2ddcfaf44e7157b98b34f6a",
+      "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "smartyank.nvim": {
       "rev": "c4e53e0d9316ca790a6f5d78aad73206a763873b",
