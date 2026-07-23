@@ -9,4 +9,4 @@ require("markview").setup({
   preview = { modes = {} },
 })
 
-vim.keymap.set("n", "<leader>um", "<cmd>Markview splitToggle<CR>", { desc = "Toggle markdown preview split" })
+vim.keymap.set("n", "<leader>mv", "<cmd>Markview splitToggle<CR>", { desc = "Toggle markdown preview split" })
