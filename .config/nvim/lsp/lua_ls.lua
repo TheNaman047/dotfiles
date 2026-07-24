@@ -19,8 +19,8 @@ return {
       diagnostics = {
         globals = { 'vim' }
       },
+      -- workspace.library is managed by lazydev.nvim (loads runtime paths lazily)
       workspace = {
-        library = vim.api.nvim_get_runtime_file("", true),
         checkThirdParty = false
       },
       telemetry = {
