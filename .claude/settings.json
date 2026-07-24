@@ -43,13 +43,14 @@
       }
     }
   },
-  "effortLevel": "xhigh",
-  "advisorModel": "opus",
+  "effortLevel": "medium",
   "awaySummaryEnabled": false,
   "theme": "custom:kanagawa-wave",
   "editorMode": "vim",
   "preferredNotifChannel": "auto",
   "autoCompactEnabled": true,
   "remoteControlAtStartup": true,
-  "inputNeededNotifEnabled": true
+  "inputNeededNotifEnabled": true,
+  "bgIsolation": "none",
+  "advisorModel": "fable"
 }
