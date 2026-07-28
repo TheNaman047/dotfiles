@@ -12,7 +12,8 @@ require("octo").setup({
 local keymaps = {
   { "<leader>gpr", "<cmd>Octo pr list<cr>",      desc = "List PRs" },
   { "<leader>gps", "<cmd>Octo pr search<cr>",    desc = "Search PRs" },
-  { "<leader>gpR", "<cmd>Octo review start<cr>", desc = "Start PR review" },
+  -- bare `Octo review` = start_or_resume; `review start` hard-fails if a pending review exists
+  { "<leader>gpR", "<cmd>Octo review<cr>",       desc = "Start/resume PR review" },
   { "<leader>gir", "<cmd>Octo issue list<cr>",   desc = "List issues" },
 }
 -- stylua: ignore end
