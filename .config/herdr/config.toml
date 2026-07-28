@@ -1,0 +1,167 @@
+# herdr configuration — ported from ~/.config/tmux
+# Reload after editing: herdr server reload-config
+
+onboarding = false
+
+[theme]
+# Matches @ukiyo-theme "kanagawa/wave"
+name = "kanagawa"
+
+[terminal]
+# tmux: set -g default-shell /bin/zsh
+default_shell = "/bin/zsh"
+# tmux: every split/new-window used -c "#{pane_current_path}"
+new_cwd = "follow"
+
+[keys]
+# tmux: set-option -g prefix C-s
+prefix = "ctrl+s"
+
+# -- reload / meta ---------------------------------------------------------
+# tmux: bind r source-file ~/.config/tmux/tmux.conf
+reload_config = "prefix+r"
+# default prefix+r taken by reload, move resize mode aside
+# tmux analogue: bind -r H/J/K/L resize-pane
+resize_mode = "prefix+shift+r"
+settings = "prefix+comma"
+help = "prefix+?"
+detach = "prefix+q"
+
+# -- panes -----------------------------------------------------------------
+# tmux: bind -r h/j/k/l select-pane
+focus_pane_left = "prefix+h"
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+focus_pane_right = "prefix+l"
+# tmux: bind - split-window -v  (stacked)
+split_horizontal = "prefix+minus"
+# tmux used '\' for the side-by-side split; herdr's key parser has no
+# backslash token, so this stays on herdr's default.
+split_vertical = "prefix+v"
+# tmux: bind-key C-x kill-pane
+close_pane = "prefix+ctrl+x"
+# tmux: bind-key C-f resize-pane -Z
+zoom = "prefix+ctrl+f"
+rename_pane = "prefix+shift+p"
+cycle_pane_next = "prefix+tab"
+cycle_pane_previous = "prefix+shift+tab"
+
+# -- tabs (tmux windows) ---------------------------------------------------
+# tmux: bind c new-window
+new_tab = "prefix+c"
+# tmux: bind -r C-k/C-j select-window -t :-/:+
+previous_tab = "prefix+ctrl+k"
+next_tab = "prefix+ctrl+j"
+# tmux: bind C-r command-prompt "rename-window"
+rename_tab = "prefix+ctrl+r"
+# tmux: bind-key X command-prompt "kill-window"
+close_tab = "prefix+shift+x"
+switch_tab = "prefix+1..9"
+# default prefix+e is edit_scrollback; freed for the status/sidebar toggle
+edit_scrollback = "prefix+ctrl+e"
+
+# -- workspaces (tmux sessions) --------------------------------------------
+# tmux: bind-key -r b new-session
+new_workspace = "prefix+b"
+# tmux: bind s display-popup fzf jump-to-session
+workspace_picker = "prefix+s"
+# tmux: bind -r e set -g status  (toggle the status bar)
+toggle_sidebar = "prefix+e"
+rename_workspace = "prefix+shift+w"
+close_workspace = "prefix+shift+d"
+# default prefix+g is reassigned to lazygit below
+goto = "prefix+ctrl+g"
+# default prefix+o is reassigned to opencode below
+open_notification_target = "prefix+ctrl+o"
+
+# -- worktrees -------------------------------------------------------------
+# tmux: bind t display-popup worktree-picker.sh — herdr does this natively
+open_worktree = "prefix+t"
+new_worktree = "prefix+shift+g"
+
+# -- custom commands -------------------------------------------------------
+# tmux: bind-key g display-popup -w 80% -h 80% -E lazygit
+[[keys.command]]
+key = "prefix+g"
+type = "popup"
+command = "lazygit"
+width = "80%"
+height = "80%"
+
+# tmux: bind-key d display-popup -w 80% -h 80% -E lazydocker
+[[keys.command]]
+key = "prefix+d"
+type = "popup"
+command = "lazydocker"
+width = "80%"
+height = "80%"
+
+# tmux: bind-key o split-window -hl 30% opencode
+[[keys.command]]
+key = "prefix+o"
+type = "pane"
+command = "opencode --port $(shuf -i 10000-65000 -n 1)"
+
+# tmux: bind-key i split-window -hl 30% claude agents
+[[keys.command]]
+key = "prefix+i"
+type = "pane"
+command = "claude agents --cwd \"$PWD\""
+
+# tmux: bind-key C-t display-popup theme-picker.sh
+[[keys.command]]
+key = "prefix+ctrl+t"
+type = "popup"
+command = "~/.config/tmux/scripts/theme-picker.sh"
+width = "60%"
+height = "70%"
+
+# tmux: bind-key O display-popup session-dispensary.sh
+[[keys.command]]
+key = "prefix+shift+o"
+type = "popup"
+command = "~/.config/herdr/scripts/workspace-dispensary.sh"
+width = "80%"
+height = "80%"
+
+# tmux: bind-key A display-popup session-dispensary.sh $HOME/Projects/alfa
+[[keys.command]]
+key = "prefix+shift+a"
+type = "popup"
+command = "~/.config/herdr/scripts/workspace-dispensary.sh $HOME/Projects/alfa"
+width = "80%"
+height = "80%"
+
+# tmux: bind-key Y run-shell coverstar-workspace.sh
+[[keys.command]]
+key = "prefix+shift+y"
+type = "shell"
+command = "~/.config/herdr/scripts/coverstar-workspace.sh"
+
+# tmux: bind-key M run-shell ai-emotion-workspace.sh
+[[keys.command]]
+key = "prefix+shift+m"
+type = "shell"
+command = "~/.config/herdr/scripts/ai-emotion-workspace.sh"
+
+# tmux: bind-key N run-shell new-proj-workspace.sh
+[[keys.command]]
+key = "prefix+shift+n"
+type = "popup"
+command = "~/.config/herdr/scripts/new-proj-workspace.sh"
+width = "80%"
+height = "80%"
+
+[ui]
+# tmux kill-pane/kill-window never prompted
+confirm_close = false
+prompt_new_tab_name = false
+# tmux: set -g mouse on
+mouse_capture = true
+
+[session]
+resume_agents_on_restore = true
+
+[advanced]
+# tmux: set -g history-limit 100001
+scrollback_limit_bytes = 10000000
