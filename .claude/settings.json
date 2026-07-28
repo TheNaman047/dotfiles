@@ -9,7 +9,6 @@
   "permissions": {
     "defaultMode": "auto"
   },
-  "model": "opus[1m]",
   "worktree": {
     "baseRef": "fresh"
   },
@@ -44,6 +43,7 @@
     }
   },
   "effortLevel": "medium",
+  "advisorModel": "fable",
   "awaySummaryEnabled": false,
   "theme": "custom:kanagawa-wave",
   "editorMode": "vim",
@@ -52,5 +52,5 @@
   "remoteControlAtStartup": true,
   "inputNeededNotifEnabled": true,
   "bgIsolation": "none",
-  "advisorModel": "fable"
+  "tui": "fullscreen"
 }
