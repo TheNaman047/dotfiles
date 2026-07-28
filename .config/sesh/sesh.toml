@@ -1,0 +1,105 @@
+# ~/.config/sesh/sesh.toml
+# Port of session-dispensary.sh + the three *-workspace.sh scripts.
+#
+# Semantics that shaped this file (verified against sesh v2 startup/startup.go):
+#   - `windows = [...]` creates windows IN ADDITION to the session's window 1.
+#   - `startup_command` runs in window 1 (sesh wraps back with `next-window`).
+#   - `[[window]]` names are a GLOBAL namespace, not per-session. Keep them unique.
+
+"$schema" = "https://raw.githubusercontent.com/joshmedeski/sesh/main/sesh.schema.json"
+
+# Merge order in the picker. Configured sessions first so `cs`/`ae` are always on top.
+sort_order = ["config", "tmux", "zoxide"]
+
+[default_session]
+# Replaces the `tmux send-keys ... "nvim ." Enter` tail of session-dispensary.sh.
+startup_command = "nvim ."
+preview_command = "git -C {} log --oneline --color -20 2>/dev/null || ls -A {}"
+
+[tui]
+show_icons = true
+show_windows = true
+preview = true
+preview_width = 55
+preview_border = "line"
+prompt = "⚡ "
+placeholder = "session…"
+# Type `/` to filter to aliased sessions only.
+alias_filter_prefix = "/"
+alias_auto_connect_delay = "300ms"
+
+
+#------------------------------------------------------------------------------
+# coverstar-workspace.sh  ->  prefix Y  becomes  alias `cs`
+#------------------------------------------------------------------------------
+[[session]]
+name = "coverstar"
+path = "~/Projects/coverstar/code/spotlight-backend"
+alias = "cs"
+icon = "★"
+windows = ["aws", "db-dev", "db-prod"]
+startup_command = "nvim ."
+
+[[window]]
+name = "aws"
+path = "~/Projects/coverstar/code/spotlight-backend"
+startup_script = "export AWS_PROFILE=coverstar-dev && aws sso login"
+
+[[window]]
+name = "db-dev"
+path = "~/Projects/coverstar/code/spotlight-backend"
+startup_script = "nvim -c DBUI"
+
+[[window]]
+name = "db-prod"
+path = "~/Projects/coverstar/code/spotlight-backend"
+startup_script = "nvim -c DBUI"
+
+
+#------------------------------------------------------------------------------
+# ai-emotion-workspace.sh  ->  prefix M  becomes  alias `ae`
+# Paths corrected: script pointed at ~/Projects/ai-emotion-analysis/code (absent).
+#------------------------------------------------------------------------------
+[[session]]
+name = "ai-emotion"
+path = "~/Projects/ai-emotion/code/ai-emotion-backend"
+alias = "ae"
+icon = "◆"
+windows = ["ae-ui", "ae-ml-v3", "ae-infra", "ae-server"]
+startup_command = "nvim ."
+
+[[window]]
+name = "ae-ui"
+path = "~/Projects/ai-emotion/code/ai-emotion-ui"
+startup_script = "nvim ."
+
+[[window]]
+name = "ae-ml-v3"
+path = "~/Projects/ai-emotion/code/ai-emotion-ml-v3"
+startup_script = "nvim ."
+
+# New since the script was written.
+[[window]]
+name = "ae-infra"
+path = "~/Projects/ai-emotion/code/ai-emotion-infra"
+startup_script = "nvim ."
+
+[[window]]
+name = "ae-server"
+path = "~/Projects/ai-emotion"
+startup_script = "ssh ai-emotion-gpu-dev"
+
+
+#------------------------------------------------------------------------------
+# Wildcards: every repo under ~/Projects/<proj>/code/<repo> and the dotfiles
+# config dirs get the dispensary treatment for free — no per-project entry.
+#------------------------------------------------------------------------------
+[[wildcard]]
+pattern = "~/Projects/*/code/*"
+startup_command = "nvim ."
+icon = ""
+
+[[wildcard]]
+pattern = "~/dotfiles/.config/*"
+startup_command = "nvim ."
+icon = ""
