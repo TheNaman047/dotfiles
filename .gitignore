@@ -3,3 +3,4 @@
 .config/theme/current
 .config/tmux/theme-active.conf
 .config/ghostty/theme.conf
+.config/tuicr/config.toml

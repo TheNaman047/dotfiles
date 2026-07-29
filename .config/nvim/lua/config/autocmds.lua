@@ -48,14 +48,22 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 
 vim.api.nvim_create_autocmd("TermOpen", {
   group = augroup("term_keymaps"),
-  callback = function()
-    local map = vim.keymap.set
-    map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
-    map("t", "<C-h>", "<cmd>TmuxNavigateLeft<cr>", { desc = "Go to Left Window/Pane" })
-    map("t", "<C-j>", "<cmd>TmuxNavigateDown<cr>", { desc = "Go to Lower Window/Pane" })
-    map("t", "<C-k>", "<cmd>TmuxNavigateUp<cr>", { desc = "Go to Upper Window/Pane" })
-    map("t", "<C-l>", "<cmd>TmuxNavigateRight<cr>", { desc = "Go to Right Window/Pane" })
-    map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
+  callback = function(ev)
+    -- Buffer-local, so full-screen TUIs can opt out: a global <esc><esc> would swallow
+    -- Esc (and make a lone Esc wait out timeoutlen) inside any modal terminal app.
+    if vim.api.nvim_buf_get_name(ev.buf):match("tuicr") then
+      return
+    end
+    local map = function(lhs, rhs, o)
+      o.buffer = ev.buf
+      vim.keymap.set("t", lhs, rhs, o)
+    end
+    map("<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+    map("<C-h>", "<cmd>TmuxNavigateLeft<cr>", { desc = "Go to Left Window/Pane" })
+    map("<C-j>", "<cmd>TmuxNavigateDown<cr>", { desc = "Go to Lower Window/Pane" })
+    map("<C-k>", "<cmd>TmuxNavigateUp<cr>", { desc = "Go to Upper Window/Pane" })
+    map("<C-l>", "<cmd>TmuxNavigateRight<cr>", { desc = "Go to Right Window/Pane" })
+    map("<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
   end,
 })
 
