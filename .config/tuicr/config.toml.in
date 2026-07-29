@@ -1,5 +1,10 @@
 # tuicr - terminal code review. https://tuicr.dev
 # Forge (GitHub via `gh` / GitLab via `glab`) is auto-detected from the git remote.
+#
+# Template, not the live config: set-theme.sh prepends `theme = "..."` and writes
+# config.toml next to this file. tuicr has no include mechanism, so the theme line
+# can't live in a tracked file without dirtying git on every theme switch.
+# Edit this file, then re-run set-theme.sh to apply.
 
 appearance = "system"
 scroll_offset = 5
