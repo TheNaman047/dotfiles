@@ -12,6 +12,7 @@ require("plugins.blink")
 require("plugins.gitsigns")
 require("plugins.diffview")
 require("plugins.octo")
+require("plugins.tuicr") -- after terminal, uses toggleterm
 require("plugins.lualine")
 require("plugins.whichkey")
 require("plugins.markdown")

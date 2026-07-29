@@ -1,0 +1,18 @@
+# tuicr - terminal code review. https://tuicr.dev
+# Forge (GitHub via `gh` / GitLab via `glab`) is auto-detected from the git remote.
+
+appearance = "system"
+scroll_offset = 5
+comment_vim = true
+no_update_check = true
+
+comment_types = [
+  { id = "issue", definition = "problems that must be fixed" },
+  { id = "suggestion", definition = "possible improvements" },
+  { id = "question", definition = "ask for clarification" },
+  { id = "nit", label = "nitpick", definition = "small optional tweaks" },
+  { id = "praise", definition = "positive feedback" },
+]
+
+[forge]
+comment_type_prefix = true

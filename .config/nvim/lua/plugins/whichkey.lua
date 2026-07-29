@@ -13,6 +13,7 @@ wk.add({
 	{ "]", group = "next" },
 	{ "g", group = "goto" },
 	{ "<leader>h", group = "hunk", icon = { icon = "󰌒 ", color = "green" } },
+	{ "<leader>gr", group = "review (tuicr)", icon = { icon = "󰈈 ", color = "orange" } },
 	{ "gs", group = "surround" },
 	{ "z", group = "fold" },
 	{
