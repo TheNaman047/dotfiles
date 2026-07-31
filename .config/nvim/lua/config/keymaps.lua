@@ -12,6 +12,12 @@ map("n", "<S-Right>", "<C-W>15>", opts)
 map("n", "<S-Down>", "<C-W>10-", opts) -- Decrease height
 map("n", "<S-Up>", "<C-W>10+", opts)   -- Increase height
 
+-- Move split to far left/bottom/top/right
+map("n", "<leader>H", "<C-w>H", opts)
+map("n", "<leader>J", "<C-w>J", opts)
+map("n", "<leader>K", "<C-w>K", opts)
+map("n", "<leader>L", "<C-w>L", opts)
+
 -- Quickfix and location lists
 map("n", "<leader>xl", function()
   local success, err = pcall(vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 and vim.cmd.lclose or vim.cmd.lopen)
