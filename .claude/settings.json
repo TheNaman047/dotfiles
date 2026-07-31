@@ -45,6 +45,7 @@
   "effortLevel": "medium",
   "advisorModel": "fable",
   "awaySummaryEnabled": false,
+  "tui": "fullscreen",
   "theme": "custom:kanagawa-wave",
   "editorMode": "vim",
   "preferredNotifChannel": "auto",
@@ -52,5 +53,5 @@
   "remoteControlAtStartup": true,
   "inputNeededNotifEnabled": true,
   "bgIsolation": "none",
-  "tui": "fullscreen"
+  "model": "opus[1m]"
 }
