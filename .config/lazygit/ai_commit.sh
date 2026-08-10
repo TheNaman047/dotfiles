@@ -1,11 +1,11 @@
 #!/bin/zsh
 
 RESPONSE=$(git -C . diff --staged --no-color | jq -Rs '{
-  "model": "zai-glm-4.7",
+  "model": "gemma-4-31b",
   "stream": false,
-  "temperature": 0.3,
-  "max_completion_tokens": 200,
-  "top_p": 1,
+  "temperature": 0.5,
+  "max_completion_tokens": 400,
+  "top_p": 0.95,
   "seed": 0,
   "reasoning_effort": "none",
   "messages": [
