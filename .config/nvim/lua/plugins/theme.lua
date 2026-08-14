@@ -4,7 +4,7 @@
 local function nightfox_setup()
   require("nightfox").setup({
     options = {
-      transparent = false,
+      transparent = true,
       terminal_colors = true,
       styles = {
         comments = "italic",
@@ -31,8 +31,8 @@ local THEMES = {
         keywordStyle = { italic = true },
         statementStyle = { bold = true },
         typeStyle = {},
-        transparent = false,
-        dimInactive = true,
+        transparent = true,
+        dimInactive = false,
         terminalColors = true,
         theme = "wave",
         background = { dark = "wave", light = "lotus" },
@@ -45,7 +45,7 @@ local THEMES = {
     apply = function()
       require("catppuccin").setup({
         flavour = "mocha",
-        transparent_background = false,
+        transparent_background = true,
         term_colors = true,
         default_integrations = true,
         integrations = {
@@ -65,11 +65,13 @@ local THEMES = {
     apply = function()
       require("tokyonight").setup({
         style = "storm",
-        transparent = false,
+        transparent = true,
         terminal_colors = true,
         styles = {
           comments = { italic = true },
           keywords = { italic = true },
+          sidebars = "transparent",
+          floats = "transparent",
         },
       })
       vim.cmd.colorscheme("tokyonight")
@@ -84,7 +86,7 @@ local THEMES = {
         styles = {
           bold = true,
           italic = true,
-          transparency = false,
+          transparency = true,
         },
         groups = {
           border = "muted",
@@ -116,7 +118,7 @@ local THEMES = {
     apply = function()
       require("dracula").setup({
         italic_comment = true,
-        transparent_bg = false,
+        transparent_bg = true,
         show_end_of_buffer = false,
         overrides = {},
       })
@@ -129,7 +131,7 @@ local THEMES = {
       require("gruvbox").setup({
         contrast = "hard",
         terminal_colors = true,
-        transparent_mode = false,
+        transparent_mode = true,
         italic = {
           strings = true,
           emphasis = true,
@@ -146,7 +148,7 @@ local THEMES = {
     repo = "https://github.com/gbprod/nord.nvim",
     apply = function()
       require("nord").setup({
-        transparent = false,
+        transparent = true,
         terminal_colors = true,
         borders = true,
         diff = { mode = "bg" },
@@ -164,7 +166,7 @@ local THEMES = {
     apply = function()
       require("solarized").setup({
         variant = "winter",
-        transparent = { enabled = false },
+        transparent = { enabled = true },
         styles = {
           comments = { italic = true },
           functions = { italic = true },
@@ -184,7 +186,7 @@ local THEMES = {
     apply = function()
       require("onedark").setup({
         style = "dark",
-        transparent = false,
+        transparent = true,
         term_colors = true,
         code_style = {
           comments = "italic",
@@ -206,7 +208,7 @@ local THEMES = {
       vim.g.everforest_enable_italic = 1
       vim.g.everforest_diagnostic_text_highlight = 1
       vim.g.everforest_diagnostic_virtual_text = "colored"
-      vim.g.everforest_dim_inactive_windows = 1
+      vim.g.everforest_transparent_background = 2
       vim.cmd.colorscheme("everforest")
     end,
   },
@@ -218,7 +220,7 @@ local THEMES = {
       vim.g.gruvbox_material_enable_italic = 1
       vim.g.gruvbox_material_diagnostic_text_highlight = 1
       vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
-      vim.g.gruvbox_material_dim_inactive_windows = 1
+      vim.g.gruvbox_material_transparent_background = 2
       vim.cmd.colorscheme("gruvbox-material")
     end,
   },
