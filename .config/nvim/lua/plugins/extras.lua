@@ -1,3 +1,7 @@
+-- after/plugin/herdr_nav.lua owns <C-hjkl> (vim splits -> herdr panes -> tmux).
+-- Must be set before the plugin loads, or it installs its own mappings.
+vim.g.tmux_navigator_no_mappings = 1
+
 vim.pack.add({
   "https://github.com/christoomey/vim-tmux-navigator",
   "https://github.com/ibhagwan/smartyank.nvim",
