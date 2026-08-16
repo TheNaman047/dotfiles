@@ -7,7 +7,7 @@
 
 (defsrc
   caps lalt a s d f j k l ; h tab e w o i n u p m , . g y enter spc = - `
-  f1 f2 f7 f8 f9 f10 f11 f12
+  f1 f2 f7 f8 f9 f10 f11 f12 ralt
 )
 
 (defvar
@@ -17,27 +17,27 @@
 
 (deflayer base
   @escctrl @motion @a @s @d @f @j @k @l @; _ @hypertab e w _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-  brdown brup prev pp next mute vold volu
+  brdown brup prev pp next mute vold volu @dictate
 )
 
 (deflayer motion
   _ _ _ _ _ _ down up right _ left _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-  _ _ _ _ _ _ _ _
+  _ _ _ _ _ _ _ _ _
 )
 
 (deflayer hyper
   _ _ _ _ _ _ _ _ _ _ _ _ @apps-e @window-w _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-  _ _ _ _ _ _ _ _
+  _ _ _ _ _ _ _ _ _
 )
 
 (deflayer apps-e
   _ _ _ _ _ _ _ _ _ _ _ _ _ _ @vivaldi @ghostty @slack @finder @postman @spotify @mongodb @mattermost @whatsapp _ _ _ _ _ _
-  _ _ _ _ _ _ _ _
+  _ _ _ _ _ _ _ _ _
 )
 
 (deflayer window-w
   _ _ _ _ _ _ @win-center @win-custom @win-right _ @win-left _ _ _ @win-last-third @win-last-fourth @win-first-threefourths _ @win-next-window @win-first-twothirds @win-last-twothirds @win-last-threefourths _ @win-first-third @win-maximize @win-almost-max @win-smaller @win-larger _
-  _ _ _ _ _ _ _ _
+  _ _ _ _ _ _ _ _ _
 )
 
 (defalias
@@ -46,6 +46,14 @@
   hypertab (tap-hold $tap-time $hold-time tab (layer-while-held hyper))
   apps-e (layer-while-held apps-e)
   window-w (layer-while-held window-w)
+
+  ;; Dictation: physical Right Alt toggles voxtype, matching the Right Option
+  ;; default on macOS. Binding it here rather than in the compositor keeps one
+  ;; source of truth across both machines -- and it is the only layer that can
+  ;; tell the physical key apart from the `ralt` that @l emits on hold, which
+  ;; a Hyprland bind on ALT_R could not do.
+  ;; Tap, not hold: kanata's `cmd` fires on press only, with no release action.
+  dictate (cmd bash -c "exec ~thenaman047/.config/kanata/dictate.sh")
   
   ;; Application launchers
   vivaldi (cmd open -a "Vivaldi")
