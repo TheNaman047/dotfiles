@@ -9,7 +9,7 @@ font-thicken-strength = 150
 
 theme = Kanagawa Wave
 config-file = ?theme.conf
-background-opacity = 0.95
+background-opacity = 0.9
 background-blur = true
 window-decoration = auto
 macos-titlebar-style = hidden
