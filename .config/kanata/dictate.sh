@@ -17,18 +17,29 @@ set -euo pipefail
 
 user="thenaman047"
 
+# Resolve voxtype to an absolute path *before* dropping privileges. Neither
+# caller's PATH can find a user-installed binary: kanata inherits the bare
+# service PATH (/usr/bin:/bin:/usr/sbin:/sbin), and sudo re-resolves the
+# command name under its own PATH policy rather than the target user's login
+# environment. Looking it up here means what we hand to sudo is already a path.
+PATH="$(eval echo "~$user")/.local/bin:/usr/local/bin:/opt/homebrew/bin:$PATH"
+vox="$(command -v voxtype)" || {
+  echo "dictate.sh: voxtype not found on PATH" >&2
+  exit 1
+}
+
 if [ "$(id -u)" -ne 0 ]; then
   # Already the user (e.g. run by hand, or a non-root kanata build).
-  exec voxtype record toggle
+  exec "$vox" record toggle
 fi
 
 uid="$(id -u "$user")"
 
 case "$(uname)" in
   Darwin)
-    exec launchctl asuser "$uid" sudo -u "$user" voxtype record toggle
+    exec launchctl asuser "$uid" sudo -u "$user" "$vox" record toggle
     ;;
   *)
-    exec sudo -u "$user" env "XDG_RUNTIME_DIR=/run/user/$uid" voxtype record toggle
+    exec sudo -u "$user" env "XDG_RUNTIME_DIR=/run/user/$uid" "$vox" record toggle
     ;;
 esac
