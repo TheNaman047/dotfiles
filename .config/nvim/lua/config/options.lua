@@ -1,3 +1,4 @@
+require("config.remote_clipboard").setup()
 local opt = vim.opt
 -- Set good to have options
 opt.number = true
