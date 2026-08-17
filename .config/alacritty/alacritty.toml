@@ -9,7 +9,7 @@ osc52 = "CopyPaste"
 normal = { family = "ComicShannsMono Nerd Font" }
 bold = { family = "ComicShannsMono Nerd Font" }
 italic = { family = "ComicShannsMono Nerd Font" }
-size = 10
+size = 9
 
 [window]
 padding.x = 0
@@ -30,3 +30,6 @@ bindings = [
 { key = "Insert", mods = "Shift", action = "Paste" },
 { key = "Insert", mods = "Control", action = "Copy" }
 ]
+
+# Send Shift+Return as CSI-u so TUIs can distinguish it from Return without treating it as Alt+Return.
+{ key = "Return", mods = "Shift", chars = "\u001B[13;2u" }
