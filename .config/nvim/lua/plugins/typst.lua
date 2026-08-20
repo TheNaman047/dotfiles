@@ -27,9 +27,12 @@ end
 -- needs a {n} pattern plus paging in the shell script.
 local function compile()
   local file = vim.api.nvim_buf_get_name(0)
+  local dir = root(file)
+  -- Pin cwd: tinymist resolves a relative --root against PWD, and it aborts
+  -- with "cannot get cwd" outright if nvim's cwd was deleted (removed worktree).
   vim.system({
-    tinymist(), "compile", "--root", root(file), "-f", "png", "--pages", "1", file, png,
-  }, {}, function(r)
+    tinymist(), "compile", "--root", dir, "-f", "png", "--pages", "1", file, png,
+  }, { cwd = dir }, function(r)
     -- tinymist panics via SIGABRT, which lands in signal, not code.
     if r.code ~= 0 or (r.signal or 0) ~= 0 then
       vim.schedule(function()
