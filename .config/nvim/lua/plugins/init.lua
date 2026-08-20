@@ -16,4 +16,3 @@ require("plugins.tuicr") -- after terminal, uses toggleterm
 require("plugins.lualine")
 require("plugins.whichkey")
 require("plugins.markdown")
-require("plugins.typst")
