@@ -4,3 +4,5 @@ vim.pack.add({
 
 -- setup() is what fetches/refreshes the tinymist + websocat binaries.
 require("typst-preview").setup({})
+
+vim.keymap.set("n", "<leader>mt", "<cmd>TypstPreviewToggle<CR>", { desc = "Toggle typst preview" })
