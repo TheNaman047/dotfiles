@@ -9,6 +9,7 @@
   "permissions": {
     "defaultMode": "auto"
   },
+  "model": "opus[1m]",
   "worktree": {
     "baseRef": "fresh"
   },
@@ -17,7 +18,6 @@
     "command": "bash $HOME/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
-    "typescript-lsp@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": false,
     "last30days@last30days-skill": true,
     "ponytail@ponytail": true
@@ -42,7 +42,7 @@
       }
     }
   },
-  "effortLevel": "medium",
+  "effortLevel": "xhigh",
   "advisorModel": "fable",
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
@@ -52,6 +52,6 @@
   "autoCompactEnabled": true,
   "remoteControlAtStartup": true,
   "inputNeededNotifEnabled": true,
-  "bgIsolation": "none",
-  "model": "opus[1m]"
+  "agentPushNotifEnabled": true,
+  "bgIsolation": "none"
 }
