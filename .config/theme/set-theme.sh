@@ -7,6 +7,7 @@ GHOSTTY_THEME_FILE="$HOME/.config/ghostty/theme.conf"
 TMUX_ACTIVE_FILE="$HOME/.config/tmux/theme-active.conf"
 CURRENT_FILE="$THEME_DIR/current"
 UKIYO_APPLY="$HOME/.config/tmux/plugins/tmux-ukiyo/scripts/ukiyo.sh"
+FLAG_ICONS="$HOME/.config/tmux/scripts/window-flag-icons.sh"
 TUICR_TEMPLATE="$HOME/.config/tuicr/config.toml.in"
 TUICR_CONFIG="$HOME/.config/tuicr/config.toml"
 
@@ -90,6 +91,10 @@ osascript -e 'tell application "System Events" to keystroke "r" using {command d
 if tmux info >/dev/null 2>&1; then
   tmux source-file "$TMUX_ACTIVE_FILE"
   tmux run-shell "$UKIYO_APPLY"
+  # ukiyo.sh just rewrote window-status-format, wiping the zoom glyph - put it back
+  if [ -x "$FLAG_ICONS" ]; then
+    "$FLAG_ICONS"
+  fi
   tmux display-message "Theme: $label"
 fi
 
