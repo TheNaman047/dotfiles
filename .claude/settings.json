@@ -18,9 +18,7 @@
     "command": "bash $HOME/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
-    "pyright-lsp@claude-plugins-official": false,
-    "last30days@last30days-skill": true,
-    "ponytail@ponytail": true
+    "last30days@last30days-skill": true
   },
   "extraKnownMarketplaces": {
     "coverstar-agents": {
