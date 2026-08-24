@@ -36,6 +36,9 @@ if [ ! -s /tmp/voxtype/voxtype.lock ]; then
   dpid="$(pgrep -f 'voxtype-bin daemon' | head -1)" || dpid=""
   if [ -n "$dpid" ]; then
     mkdir -p /tmp/voxtype
+    # We may be root here, and a root-owned dir would stop the user's daemon
+    # from recreating its socket and locks on the next start.
+    chown "$user" /tmp/voxtype 2>/dev/null || true
     for f in /tmp/voxtype/voxtype.lock /tmp/voxtype/pid; do
       printf '%s' "$dpid" > "$f"
       chown "$user" "$f" 2>/dev/null || true
