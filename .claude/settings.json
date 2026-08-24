@@ -32,12 +32,6 @@
         "source": "github",
         "repo": "mvanhorn/last30days-skill"
       }
-    },
-    "ponytail": {
-      "source": {
-        "source": "github",
-        "repo": "DietrichGebert/ponytail"
-      }
     }
   },
   "effortLevel": "xhigh",
@@ -47,9 +41,10 @@
   "theme": "custom:kanagawa-wave",
   "editorMode": "vim",
   "preferredNotifChannel": "auto",
-  "autoCompactEnabled": true,
+  "autoCompactEnabled": false,
   "remoteControlAtStartup": true,
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
-  "bgIsolation": "none"
+  "bgIsolation": "none",
+  "outputStyle": "Concise"
 }
