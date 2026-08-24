@@ -28,6 +28,21 @@ vox="$(command -v voxtype)" || {
   exit 1
 }
 
+# macOS purges /tmp every few days, taking voxtype's runtime files with it
+# while the daemon itself keeps running. Without them `record toggle` reports
+# "daemon is not running" and this key silently goes dead, so put them back:
+# both files just carry the daemon pid, which is what the CLI looks for.
+if [ ! -s /tmp/voxtype/voxtype.lock ]; then
+  dpid="$(pgrep -f 'voxtype-bin daemon' | head -1)" || dpid=""
+  if [ -n "$dpid" ]; then
+    mkdir -p /tmp/voxtype
+    for f in /tmp/voxtype/voxtype.lock /tmp/voxtype/pid; do
+      printf '%s' "$dpid" > "$f"
+      chown "$user" "$f" 2>/dev/null || true
+    done
+  fi
+fi
+
 if [ "$(id -u)" -ne 0 ]; then
   # Already the user (e.g. run by hand, or a non-root kanata build).
   exec "$vox" record toggle
