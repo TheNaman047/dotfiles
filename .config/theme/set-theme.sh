@@ -107,5 +107,11 @@ if [ -f "$TUICR_TEMPLATE" ]; then
   } >"$TUICR_CONFIG"
 fi
 
+# vicinae: theme ids are the keys above, see gen-vicinae-themes.sh. Best-effort -
+# the CLI needs the server running, and a dead server must not abort the switch.
+if command -v vicinae >/dev/null 2>&1; then
+  vicinae theme set "$key" >/dev/null 2>&1 || true
+fi
+
 # nvim: state only, intentionally not reloaded live (see lua/plugins/theme.lua)
 echo "$key" >"$CURRENT_FILE"
