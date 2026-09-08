@@ -4,9 +4,6 @@
   process-unmapped-keys yes
   danger-enable-cmd yes
 
-  ;; Unfiltered, kanata grabs everything `--list` shows -- including mice.
-  ;; It seized a paired BT mouse and, having no virtual pointing device to
-  ;; re-emit the reports, froze the cursor. Allowlist so pointers stay out.
   macos-dev-names-include (
     "Apple Internal Keyboard / Trackpad"
     "Ace 60 Pro"
