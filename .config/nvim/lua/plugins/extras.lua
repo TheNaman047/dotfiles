@@ -16,6 +16,38 @@ require "plugin-view".setup({})
 require "package-info".setup({})
 require "smartyank".setup()
 
+-- plugin-view calls :sub() straight on spec.version, so a vim.version.range()
+-- pin (a VersionRange table, e.g. typst-preview) blows up its window. Hand it
+-- strings instead. Wrapping the module table survives plugin updates.
+local pv_utils = require "plugin-view.utils"
+local pv_populate = pv_utils.populate_buf
+
+-- Rebuild the "1.*" / "1.2.*" wildcard forms a range was written as: tostring()
+-- spells them out as "1.0.0 - 2.0.0", well past the 10-cell version column.
+local function version_string(v)
+  local from, to = v.from, v.to
+  if from and to and from.patch == 0 and to.patch == 0 then
+    if from.minor == 0 and to.minor == 0 and to.major == from.major + 1 then
+      return from.major .. ".*"
+    end
+    if to.major == from.major and to.minor == from.minor + 1 then
+      return from.major .. "." .. from.minor .. ".*"
+    end
+  end
+  return (tostring(v):gsub("%s+", ""))
+end
+
+pv_utils.populate_buf = function(buf, plugins)
+  return pv_populate(buf, vim.tbl_map(function(plugin)
+    local version = plugin.spec.version
+    if version == nil or type(version) == "string" then
+      return plugin
+    end
+    local spec = vim.tbl_extend("force", plugin.spec, { version = version_string(version) })
+    return vim.tbl_extend("force", plugin, { spec = spec })
+  end, plugins))
+end
+
 local opts = { noremap = true, silent = true }
 
 -- Plugin View keymaps
