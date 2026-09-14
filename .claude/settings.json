@@ -34,7 +34,16 @@
       }
     }
   },
+  "outputStyle": "Concise",
   "effortLevel": "xhigh",
+  "modelSettings": {
+    "claude-opus-5": {
+      "effortLevel": "xhigh"
+    },
+    "claude-sonnet-5": {
+      "effortLevel": "xhigh"
+    }
+  },
   "advisorModel": "fable",
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
@@ -45,6 +54,5 @@
   "remoteControlAtStartup": true,
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
-  "bgIsolation": "none",
-  "outputStyle": "Concise"
+  "bgIsolation": "none"
 }
