@@ -9,7 +9,7 @@
   "permissions": {
     "defaultMode": "auto"
   },
-  "model": "opus[1m]",
+  "model": "sonnet",
   "worktree": {
     "baseRef": "fresh"
   },
@@ -18,7 +18,8 @@
     "command": "bash $HOME/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
-    "last30days@last30days-skill": true
+    "last30days@last30days-skill": true,
+    "typesafe@typesafe-ai": true
   },
   "extraKnownMarketplaces": {
     "coverstar-agents": {
@@ -32,19 +33,25 @@
         "source": "github",
         "repo": "mvanhorn/last30days-skill"
       }
+    },
+    "typesafe-ai": {
+      "source": {
+        "source": "github",
+        "repo": "typesafe-ai/skills"
+      }
     }
   },
   "outputStyle": "Concise",
   "effortLevel": "xhigh",
   "modelSettings": {
     "claude-opus-5": {
-      "effortLevel": "xhigh"
+      "effortLevel": "high"
     },
     "claude-sonnet-5": {
-      "effortLevel": "xhigh"
+      "effortLevel": "high"
     }
   },
-  "advisorModel": "fable",
+  "advisorModel": "opus",
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "theme": "custom:kanagawa-wave",
