@@ -5,11 +5,23 @@
   "attribution": {
     "sessionUrl": false
   },
-  "includeCoAuthoredBy": false,
   "permissions": {
-    "defaultMode": "auto"
+    "defaultMode": "auto",
+    "additionalDirectories": [
+      "$HOME"
+    ],
+    "blockReadsOutsideWorkingDirectories": true
   },
   "model": "sonnet",
+  "maxEffortLevel": "xhigh",
+  "bashOutputMaxChars": 8000,
+  "disableBundledSkills": [],
+  "fileCheckpointingEnabled": true,
+  "alwaysThinkingEnabled": true,
+  "enableWorkflows": true,
+  "promptCacheTtl": "1h",
+  "spinnerTipsEnabled": false,
+  "cleanupPeriodDays": 30,
   "worktree": {
     "baseRef": "fresh"
   },
