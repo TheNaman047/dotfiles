@@ -9,13 +9,12 @@
     "defaultMode": "auto",
     "additionalDirectories": [
       "$HOME"
-    ],
-    "blockReadsOutsideWorkingDirectories": true
+    ]
   },
   "model": "sonnet",
   "maxEffortLevel": "xhigh",
   "bashOutputMaxChars": 8000,
-  "disableBundledSkills": [],
+  "disableBundledSkills": false,
   "fileCheckpointingEnabled": true,
   "alwaysThinkingEnabled": true,
   "enableWorkflows": true,
