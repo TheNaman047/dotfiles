@@ -6,21 +6,30 @@ vim.pack.add({
 -- OpenCode config
 vim.g.opencode_opts = {}
 
+-- "none": no in-editor terminal; run `claude` in a tmux/herdr pane and attach with /ide
 require("claudecode").setup({
-  -- native = plain :terminal split, no snacks dependency
-  terminal = {
-    provider = "native",
-    split_side = "right",
-    split_width_percentage = 0.4,
-    auto_close = true,
-  },
-  focus_after_send = false,
+  terminal = { provider = "none" },
   diff_opts = {
     layout = "vertical",
     open_in_new_tab = false,
-    keep_terminal_focus = false,
-    hide_terminal_in_new_tab = false,
   },
+})
+
+local function cc(desc) return { noremap = true, silent = true, desc = desc } end
+
+vim.keymap.set("n", "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", cc("Claude: add current file"))
+vim.keymap.set("v", "<leader>as", "<cmd>ClaudeCodeSend<cr>", cc("Claude: send selection"))
+vim.keymap.set("n", "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", cc("Claude: accept diff"))
+vim.keymap.set("n", "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", cc("Claude: deny diff"))
+vim.keymap.set("n", "<leader>aq", "<cmd>ClaudeCodeCloseAllDiffs<cr>", cc("Claude: close all diffs"))
+
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("claudecode_tree", { clear = true }),
+  pattern = "oil",
+  callback = function(args)
+    vim.keymap.set({ "n", "v" }, "<leader>as", "<cmd>ClaudeCodeTreeAdd<cr>",
+      { buffer = args.buf, noremap = true, silent = true, desc = "Claude: add file(s)" })
+  end,
 })
 
 -- OpenCode
