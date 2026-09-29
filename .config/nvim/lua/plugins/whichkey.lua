@@ -14,7 +14,6 @@ wk.add({
 	{ "g", group = "goto" },
 	{ "<leader>h", group = "hunk", icon = { icon = "󰌒 ", color = "green" } },
 	{ "<leader>a", group = "claude", icon = { icon = "󰚩 ", color = "purple" } },
-	{ "<leader>gr", group = "review (tuicr)", icon = { icon = "󰈈 ", color = "orange" } },
 	{ "gs", group = "surround" },
 	{ "z", group = "fold" },
 	{
