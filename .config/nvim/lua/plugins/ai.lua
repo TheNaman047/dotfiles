@@ -6,9 +6,14 @@ vim.pack.add({
 -- OpenCode config
 vim.g.opencode_opts = {}
 
--- "none": no in-editor terminal; run `claude` in a tmux/herdr pane and attach with /ide
+-- native = plain :terminal split, no snacks dependency
 require("claudecode").setup({
-  terminal = { provider = "none" },
+  terminal = {
+    provider = "native",
+    split_side = "right",
+    split_width_percentage = 0.4,
+    auto_close = true,
+  },
   diff_opts = {
     layout = "vertical",
     open_in_new_tab = false,
@@ -16,6 +21,12 @@ require("claudecode").setup({
 })
 
 local function cc(desc) return { noremap = true, silent = true, desc = desc } end
+
+vim.keymap.set("n", "<leader>ac", "<cmd>ClaudeCode<cr>", cc("Claude: toggle"))
+vim.keymap.set("n", "<leader>af", "<cmd>ClaudeCodeFocus<cr>", cc("Claude: focus"))
+vim.keymap.set("n", "<leader>ar", "<cmd>ClaudeCode --resume<cr>", cc("Claude: resume"))
+vim.keymap.set("n", "<leader>aC", "<cmd>ClaudeCode --continue<cr>", cc("Claude: continue"))
+vim.keymap.set("n", "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", cc("Claude: select model"))
 
 vim.keymap.set("n", "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", cc("Claude: add current file"))
 vim.keymap.set("v", "<leader>as", "<cmd>ClaudeCodeSend<cr>", cc("Claude: send selection"))
