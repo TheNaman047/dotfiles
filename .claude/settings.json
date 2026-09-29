@@ -1,4 +1,5 @@
 {
+  "cleanupPeriodDays": 30,
   "env": {
     "DISABLE_AUTOUPDATER": "1"
   },
@@ -12,18 +13,12 @@
     ]
   },
   "model": "sonnet",
-  "maxEffortLevel": "xhigh",
-  "bashOutputMaxChars": 8000,
   "disableBundledSkills": false,
-  "fileCheckpointingEnabled": true,
-  "alwaysThinkingEnabled": true,
-  "enableWorkflows": true,
-  "promptCacheTtl": "1h",
-  "spinnerTipsEnabled": false,
-  "cleanupPeriodDays": 30,
   "worktree": {
     "baseRef": "fresh"
   },
+  "enableWorkflows": true,
+  "bashOutputMaxChars": 8000,
   "statusLine": {
     "type": "command",
     "command": "bash $HOME/.claude/statusline-command.sh"
@@ -53,12 +48,16 @@
     }
   },
   "outputStyle": "Concise",
+  "spinnerTipsEnabled": false,
+  "promptCacheTtl": "1h",
+  "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
+  "maxEffortLevel": "xhigh",
   "modelSettings": {
-    "claude-opus-5": {
+    "claude-opus-5-5": {
       "effortLevel": "high"
     },
-    "claude-sonnet-5": {
+    "claude-sonnet-5-5": {
       "effortLevel": "high"
     }
   },
@@ -69,6 +68,7 @@
   "editorMode": "vim",
   "preferredNotifChannel": "auto",
   "autoCompactEnabled": false,
+  "fileCheckpointingEnabled": true,
   "remoteControlAtStartup": true,
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
