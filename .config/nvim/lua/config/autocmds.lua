@@ -49,16 +49,22 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 vim.api.nvim_create_autocmd("TermOpen", {
   group = augroup("term_keymaps"),
   callback = function(ev)
-    -- Buffer-local, so full-screen TUIs can opt out: a global <esc><esc> would swallow
-    -- Esc (and make a lone Esc wait out timeoutlen) inside any modal terminal app.
-    if vim.api.nvim_buf_get_name(ev.buf):match("tuicr") then
-      return
-    end
+    vim.opt_local.spell = false
+    vim.opt_local.cursorline = false
+    vim.opt_local.colorcolumn = ""
+
     local map = function(lhs, rhs, o)
       o.buffer = ev.buf
       vim.keymap.set("t", lhs, rhs, o)
     end
-    map("<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+    -- Buffer-local, so Esc-heavy TUIs can opt out: <esc><esc> makes every lone Esc wait
+    -- out timeoutlen (~1s) before the app sees it. Use <C-\><C-n> there instead.
+    -- Match the executable only: the name is term://<cwd>//<pid>:<cmd>, and paths may contain "claude"
+    local cmd = vim.api.nvim_buf_get_name(ev.buf):match("//%d+:(%S+)") or ""
+    local exe = vim.fs.basename(cmd)
+    if exe ~= "claude" and exe ~= "lazygit" then
+      map("<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+    end
     map("<C-h>", "<cmd>TmuxNavigateLeft<cr>", { desc = "Go to Left Window/Pane" })
     map("<C-j>", "<cmd>TmuxNavigateDown<cr>", { desc = "Go to Lower Window/Pane" })
     map("<C-k>", "<cmd>TmuxNavigateUp<cr>", { desc = "Go to Upper Window/Pane" })
