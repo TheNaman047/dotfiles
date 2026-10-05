@@ -12,7 +12,7 @@
       "$HOME"
     ]
   },
-  "model": "sonnet",
+  "model": "opus",
   "disableBundledSkills": false,
   "worktree": {
     "baseRef": "fresh"
@@ -55,7 +55,7 @@
   "maxEffortLevel": "xhigh",
   "modelSettings": {
     "claude-opus-5-5": {
-      "effortLevel": "high"
+      "effortLevel": "medium"
     },
     "claude-sonnet-5-5": {
       "effortLevel": "high"

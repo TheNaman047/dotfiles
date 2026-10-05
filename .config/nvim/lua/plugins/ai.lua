@@ -27,14 +27,14 @@ vim.keymap.set("n", "<leader>af", "<cmd>ClaudeCodeFocus<cr>", cc("Claude: focus"
 vim.keymap.set("n", "<leader>ar", "<cmd>ClaudeCode --resume<cr>", cc("Claude: resume"))
 vim.keymap.set("n", "<leader>aC", "<cmd>ClaudeCode --continue<cr>", cc("Claude: continue"))
 -- Agent view lists every project's sessions by default; --cwd scopes it to nvim's cwd
-vim.keymap.set("n", "<leader>aA", function()
+vim.keymap.set("n", "<leader>aa", function()
   vim.cmd("ClaudeCode agents --cwd " .. vim.fn.shellescape(vim.fn.getcwd()))
 end, cc("Claude: agent view (cwd only)"))
 vim.keymap.set("n", "<leader>am","<cmd>ClaudeCodeSelectModel<cr>", cc("Claude: select model"))
 
 vim.keymap.set("n", "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", cc("Claude: add current file"))
 vim.keymap.set("v", "<leader>as", "<cmd>ClaudeCodeSend<cr>", cc("Claude: send selection"))
-vim.keymap.set("n", "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", cc("Claude: accept diff"))
+-- vim.keymap.set("n", "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", cc("Claude: accept diff"))
 vim.keymap.set("n", "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", cc("Claude: deny diff"))
 vim.keymap.set("n", "<leader>aq", "<cmd>ClaudeCodeCloseAllDiffs<cr>", cc("Claude: close all diffs"))
 
