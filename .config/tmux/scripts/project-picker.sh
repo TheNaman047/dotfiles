@@ -2,9 +2,6 @@
 # Fixed project workspaces on prefix+P: pick one, jump to its session if it is
 # running, otherwise build it first.
 #
-# These session names are blacklisted in ~/.config/sesh/sesh.toml so they stay
-# out of `prefix s` — keep the two lists in sync.
-#
 # PP_PREFIX prefixes every session name, for dry runs that must not touch the
 # real sessions: PP_PREFIX=test- project-picker.sh medlink
 
