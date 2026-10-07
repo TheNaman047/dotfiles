@@ -31,7 +31,8 @@ build() {
     local s=$1 name=${1#"${PP_PREFIX:-}"}
     case $name in
         vidopix)
-            win "$s" code "$P/ai-emotion/code" "$CLAUDE_NVIM"
+            win "$s" backend "$P/ai-emotion/code/ai-emotion-backend" "$CLAUDE_NVIM"
+            win "$s" infra "$P/ai-emotion/code/ai-emotion-infra" "$CLAUDE_NVIM"
             ;;
         medlink)
             # Every alfa-medlink-* repo except git worktrees (-wt-), window
