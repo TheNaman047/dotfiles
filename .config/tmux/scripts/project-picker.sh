@@ -12,7 +12,8 @@ set -euo pipefail
 
 PROJECTS=(vidopix medlink coverstar alfa emoney)
 P="$HOME/Projects"
-CLAUDE_NVIM="nvim . -c ClaudeCode"
+# Same as <leader>aa in nvim/lua/plugins/ai.lua: agent view scoped to the cwd.
+CLAUDE_NVIM="nvim . -c \"execute 'ClaudeCode agents --cwd ' . shellescape(getcwd())\""
 
 # First window comes with the session; the rest are appended. Each pane gets a
 # shell first so quitting nvim drops back to a prompt instead of closing it.
