@@ -8,11 +8,6 @@
 
 "$schema" = "https://raw.githubusercontent.com/joshmedeski/sesh/main/sesh.schema.json"
 
-# Project workspaces owned by prefix+P (tmux/scripts/project-picker.sh). They
-# live on prefix+P only, so keep them out of `prefix s`. Keep in sync with
-# PROJECTS in that script.
-blacklist = ["^vidopix$", "^medlink$", "^coverstar$", "^alfa$", "^emoney$"]
-
 # Merge order in the picker. Configured sessions first so `ae` is always on top.
 sort_order = ["config", "tmux", "zoxide"]
 
