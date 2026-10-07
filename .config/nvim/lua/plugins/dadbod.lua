@@ -23,6 +23,27 @@ end
 
 vim.keymap.set("n", "<leader>d", ":DBUIToggle<CR>", { noremap = true, silent = true, desc = "Toggle DB UI" })
 
+-- Open the drawer with one named connection expanded (connected), e.g. from
+-- tmux: nvim -c 'DBUIConnect spotlight1-pgcat-dev'. dadbod-ui has no API for
+-- this, so it drives the drawer line the way pressing <CR> on it would.
+vim.api.nvim_create_user_command("DBUIConnect", function(opts)
+  vim.cmd("DBUI")
+  for i, line in ipairs(vim.api.nvim_buf_get_lines(0, 0, -1, false)) do
+    local trimmed = vim.trim(line)
+    if trimmed == opts.args or vim.endswith(trimmed, " " .. opts.args) then
+      vim.api.nvim_win_set_cursor(0, { i, 0 })
+      vim.cmd([[execute "normal \<Plug>(DBUI_SelectLine)"]])
+      return
+    end
+  end
+  vim.notify("DBUIConnect: no connection named " .. opts.args, vim.log.levels.WARN)
+end, {
+  nargs = 1,
+  complete = function()
+    return vim.tbl_map(function(db) return db.name end, vim.g.dbs or {})
+  end,
+})
+
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup("dadbod_result"),
   pattern = { "dbout", "json" },

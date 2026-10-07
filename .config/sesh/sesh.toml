@@ -8,7 +8,12 @@
 
 "$schema" = "https://raw.githubusercontent.com/joshmedeski/sesh/main/sesh.schema.json"
 
-# Merge order in the picker. Configured sessions first so `cs`/`ae` are always on top.
+# Project workspaces owned by prefix+P (tmux/scripts/project-picker.sh). They
+# live on prefix+P only, so keep them out of `prefix s`. Keep in sync with
+# PROJECTS in that script.
+blacklist = ["^vidopix$", "^medlink$", "^coverstar$", "^alfa$", "^emoney$"]
+
+# Merge order in the picker. Configured sessions first so `ae` is always on top.
 sort_order = ["config", "tmux", "zoxide"]
 
 [default_session]
@@ -27,33 +32,6 @@ placeholder = "session…"
 # Type `/` to filter to aliased sessions only.
 alias_filter_prefix = "/"
 alias_auto_connect_delay = "300ms"
-
-
-#------------------------------------------------------------------------------
-# coverstar-workspace.sh  ->  prefix Y  becomes  alias `cs`
-#------------------------------------------------------------------------------
-[[session]]
-name = "coverstar"
-path = "~/Projects/coverstar/code/spotlight-backend"
-alias = "cs"
-icon = "★"
-windows = ["aws", "db-dev", "db-prod"]
-startup_command = "nvim ."
-
-[[window]]
-name = "aws"
-path = "~/Projects/coverstar/code/spotlight-backend"
-startup_script = "export AWS_PROFILE=coverstar-dev && aws sso login"
-
-[[window]]
-name = "db-dev"
-path = "~/Projects/coverstar/code/spotlight-backend"
-startup_script = "nvim -c DBUI"
-
-[[window]]
-name = "db-prod"
-path = "~/Projects/coverstar/code/spotlight-backend"
-startup_script = "nvim -c DBUI"
 
 
 #------------------------------------------------------------------------------
