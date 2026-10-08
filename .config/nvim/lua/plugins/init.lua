@@ -1,4 +1,5 @@
 require("plugins.theme")
+require("plugins.dim")
 require("plugins.treesitter")
 require("plugins.dadbod")
 require("plugins.oil")
