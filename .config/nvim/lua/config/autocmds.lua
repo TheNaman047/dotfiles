@@ -65,6 +65,17 @@ vim.api.nvim_create_autocmd("TermOpen", {
     if exe ~= "claude" and exe ~= "lazygit" then
       map("<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
     end
+    if exe == "claude" then
+      vim.api.nvim_create_autocmd("BufEnter", {
+        buffer = ev.buf,
+        -- Scheduled + rechecked: a window hop that passes through would otherwise land insert mode elsewhere
+        callback = function()
+          vim.schedule(function()
+            if vim.api.nvim_get_current_buf() == ev.buf then vim.cmd.startinsert() end
+          end)
+        end,
+      })
+    end
     map("<C-h>", "<cmd>TmuxNavigateLeft<cr>", { desc = "Go to Left Window/Pane" })
     map("<C-j>", "<cmd>TmuxNavigateDown<cr>", { desc = "Go to Lower Window/Pane" })
     map("<C-k>", "<cmd>TmuxNavigateUp<cr>", { desc = "Go to Upper Window/Pane" })
