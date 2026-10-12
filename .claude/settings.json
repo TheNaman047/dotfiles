@@ -4,7 +4,9 @@
     "DISABLE_AUTOUPDATER": "1"
   },
   "attribution": {
-    "sessionUrl": false
+    "sessionUrl": false,
+    "commit": "",
+    "pr": ""
   },
   "permissions": {
     "defaultMode": "auto",
@@ -44,6 +46,12 @@
       "source": {
         "source": "github",
         "repo": "typesafe-ai/skills"
+      }
+    },
+    "cloudflare": {
+      "source": {
+        "source": "github",
+        "repo": "cloudflare/skills"
       }
     }
   },

@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 RESPONSE=$(git -C . diff --staged --no-color | jq -Rs '{
-  "model": "gemma-4-31b",
+  "model": "qwen-3.8-27b",
   "stream": false,
   "temperature": 0.5,
   "max_completion_tokens": 400,
