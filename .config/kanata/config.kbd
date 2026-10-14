@@ -46,6 +46,17 @@
   _ _ _ _ _ _ _ _ _
 )
 
+;; Dictation on physical Right Alt. On Linux it toggles voxtype; binding it here
+;; rather than in Hyprland is the only layer that can tell the physical key
+;; apart from the `ralt` that @l emits on hold. `cmd` fires on press only.
+;; On macOS it passes through as plain Right Option so Spokenly can own it.
+(platform (linux)
+  (defalias dictate (cmd bash -c "exec ~thenaman047/.config/kanata/dictate.sh"))
+)
+(platform (macos)
+  (defalias dictate ralt)
+)
+
 (defalias
   escctrl (tap-hold-press 0 10000 esc lctrl)
   motion (tap-hold-release-keys 0 1000 lalt (layer-toggle motion) (tab spc))
@@ -53,14 +64,6 @@
   apps-e (layer-while-held apps-e)
   window-w (layer-while-held window-w)
 
-  ;; Dictation: physical Right Alt toggles voxtype, matching the Right Option
-  ;; default on macOS. Binding it here rather than in the compositor keeps one
-  ;; source of truth across both machines -- and it is the only layer that can
-  ;; tell the physical key apart from the `ralt` that @l emits on hold, which
-  ;; a Hyprland bind on ALT_R could not do.
-  ;; Tap, not hold: kanata's `cmd` fires on press only, with no release action.
-  dictate (cmd bash -c "exec ~thenaman047/.config/kanata/dictate.sh")
-  
   ;; Application launchers
   vivaldi (cmd open -a "Vivaldi")
   ghostty (cmd open -a "Ghostty")
