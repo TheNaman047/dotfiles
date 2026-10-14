@@ -9,9 +9,10 @@ set -euo pipefail
 
 PROJECTS=(vidopix medlink coverstar alfa emoney)
 P="$HOME/Projects"
-# No agent view on open: each one costs ~100MB and keeps the claude daemon
-# alive. Open it on demand with <leader>aa (nvim/lua/plugins/ai.lua).
+# Agent view (same as <leader>aa in nvim/lua/plugins/ai.lua) auto-opens only
+# for coverstar: each one costs ~100MB and keeps the claude daemon alive.
 NVIM="nvim ."
+CLAUDE_NVIM="nvim . -c \"execute 'ClaudeCode agents --cwd ' . shellescape(getcwd())\""
 
 # First window comes with the session; the rest are appended. Each pane gets a
 # shell first so quitting nvim drops back to a prompt instead of closing it.
@@ -44,10 +45,10 @@ build() {
             ;;
         coverstar)
             local cs="$P/coverstar/code"
-            win "$s" backend "$cs/spotlight-backend" "$NVIM"
+            win "$s" backend "$cs/spotlight-backend" "$CLAUDE_NVIM"
             win "$s" db-dev "$cs/spotlight-backend" "nvim -c 'DBUIConnect spotlight1-pgcat-dev'"
             win "$s" db-prod "$cs/spotlight-backend" "nvim -c 'DBUIConnect spotlight2-pgcat-prod'"
-            win "$s" agents "$cs/coverstar-agents" "$NVIM"
+            win "$s" agents "$cs/coverstar-agents" "$CLAUDE_NVIM"
             ;;
         alfa)
             win "$s" iac "$P/alfa/code/alfa-iac" "$NVIM"
