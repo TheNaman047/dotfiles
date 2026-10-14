@@ -192,7 +192,6 @@ mouse_capture = true
 
 agent_panel_sort = "spaces"
 [session]
-# Resumed agents linger as background sessions (~200MB each plus their MCPs)
 resume_agents_on_restore = false
 
 [advanced]
