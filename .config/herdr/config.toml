@@ -192,7 +192,7 @@ mouse_capture = true
 
 agent_panel_sort = "spaces"
 [session]
-resume_agents_on_restore = true
+resume_agents_on_restore = false
 
 [advanced]
 # tmux: set -g history-limit 100001
