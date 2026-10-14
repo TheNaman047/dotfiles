@@ -10,6 +10,7 @@ require("plugins.terminal")
 require("plugins.ai") -- as uses terminal
 require("plugins.lazydev") -- before blink so its completion source registers
 require("plugins.blink")
+require("plugins.format")
 require("plugins.gitsigns")
 require("plugins.diffview")
 require("plugins.octo")
