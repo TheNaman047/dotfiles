@@ -192,7 +192,8 @@ mouse_capture = true
 
 agent_panel_sort = "spaces"
 [session]
-resume_agents_on_restore = true
+# Resumed agents linger as background sessions (~200MB each plus their MCPs)
+resume_agents_on_restore = false
 
 [advanced]
 # tmux: set -g history-limit 100001

@@ -9,8 +9,9 @@ set -euo pipefail
 
 PROJECTS=(vidopix medlink coverstar alfa emoney)
 P="$HOME/Projects"
-# Same as <leader>aa in nvim/lua/plugins/ai.lua: agent view scoped to the cwd.
-CLAUDE_NVIM="nvim . -c \"execute 'ClaudeCode agents --cwd ' . shellescape(getcwd())\""
+# No agent view on open: each one costs ~100MB and keeps the claude daemon
+# alive. Open it on demand with <leader>aa (nvim/lua/plugins/ai.lua).
+NVIM="nvim ."
 
 # First window comes with the session; the rest are appended. Each pane gets a
 # shell first so quitting nvim drops back to a prompt instead of closing it.
@@ -28,8 +29,8 @@ build() {
     local s=$1 name=${1#"${PP_PREFIX:-}"}
     case $name in
         vidopix)
-            win "$s" backend "$P/ai-emotion/code/ai-emotion-backend" "$CLAUDE_NVIM"
-            win "$s" infra "$P/ai-emotion/code/ai-emotion-infra" "$CLAUDE_NVIM"
+            win "$s" backend "$P/ai-emotion/code/ai-emotion-backend" "$NVIM"
+            win "$s" infra "$P/ai-emotion/code/ai-emotion-infra" "$NVIM"
             ;;
         medlink)
             # Every alfa-medlink-* repo except git worktrees (-wt-), window
@@ -38,21 +39,21 @@ build() {
             for dir in "$P"/alfa/code/alfa-medlink-*/; do
                 dir=${dir%/}
                 [[ $dir == *-wt-* ]] && continue
-                win "$s" "${dir##*/alfa-medlink-}" "$dir" "$CLAUDE_NVIM"
+                win "$s" "${dir##*/alfa-medlink-}" "$dir" "$NVIM"
             done
             ;;
         coverstar)
             local cs="$P/coverstar/code"
-            win "$s" backend "$cs/spotlight-backend" "$CLAUDE_NVIM"
+            win "$s" backend "$cs/spotlight-backend" "$NVIM"
             win "$s" db-dev "$cs/spotlight-backend" "nvim -c 'DBUIConnect spotlight1-pgcat-dev'"
             win "$s" db-prod "$cs/spotlight-backend" "nvim -c 'DBUIConnect spotlight2-pgcat-prod'"
-            win "$s" agents "$cs/coverstar-agents" "$CLAUDE_NVIM"
+            win "$s" agents "$cs/coverstar-agents" "$NVIM"
             ;;
         alfa)
-            win "$s" iac "$P/alfa/code/alfa-iac" "$CLAUDE_NVIM"
+            win "$s" iac "$P/alfa/code/alfa-iac" "$NVIM"
             ;;
         emoney)
-            win "$s" code "$P/emoney/code" "$CLAUDE_NVIM"
+            win "$s" code "$P/emoney/code" "$NVIM"
             ;;
         *)
             tmux display-message "project-picker: unknown project '$name'"
