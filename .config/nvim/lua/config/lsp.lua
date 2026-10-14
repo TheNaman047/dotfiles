@@ -7,7 +7,6 @@ local default_keymaps = {
   { keys = "<leader>k",  func = vim.lsp.buf.hover,       desc = "Hover Documentation", has = "hoverProvider" },
   { keys = "K",          func = vim.lsp.buf.hover,       desc = "Hover (alt)",         has = "hoverProvider" },
   { keys = "gd",         func = vim.lsp.buf.definition,  desc = "Goto Definition",     has = "definitionProvider" },
-  { keys = "<leader>fd", mode = { "n", "v" }, func = function() vim.lsp.buf.format({ async = true }) end, desc = "Format Code" },
 }
 
 vim.api.nvim_create_autocmd("LspAttach", {
