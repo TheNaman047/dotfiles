@@ -49,12 +49,12 @@
 ;; Dictation on physical Right Alt. On Linux it toggles voxtype; binding it here
 ;; rather than in Hyprland is the only layer that can tell the physical key
 ;; apart from the `ralt` that @l emits on hold. `cmd` fires on press only.
-;; On macOS it passes through as plain Right Option so Spokenly can own it.
+;; On macOS it sends F18 for Spokenly, so holding @l (ralt) never triggers it.
 (platform (linux)
   (defalias dictate (cmd bash -c "exec ~thenaman047/.config/kanata/dictate.sh"))
 )
 (platform (macos)
-  (defalias dictate ralt)
+  (defalias dictate f18)
 )
 
 (defalias
