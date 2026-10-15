@@ -84,3 +84,23 @@ vim.api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
+-- The agents daemon outlives nvim, so background sessions (and their MCP node servers) linger.
+-- Exact cwd match, not `--cwd` alone: that is a prefix filter and would catch nested projects.
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  group = augroup("claude_stop_cwd_agents"),
+  callback = function()
+    if vim.fn.executable("claude") == 0 then return end
+    local cwd = vim.fn.getcwd()
+    local res = vim.system({ "claude", "agents", "--json", "--cwd", cwd }, { text = true }):wait(3000)
+    if res.code ~= 0 then return end
+    local ok, sessions = pcall(vim.json.decode, res.stdout)
+    if not ok or type(sessions) ~= "table" then return end
+    local worktrees = cwd .. "/.claude/worktrees/"
+    for _, s in ipairs(sessions) do
+      if s.kind == "background" and type(s.id) == "string"
+        and (s.cwd == cwd or vim.startswith(s.cwd or "", worktrees)) then
+        vim.system({ "claude", "stop", s.id }, { detach = true })
+      end
+    end
+  end,
+})
