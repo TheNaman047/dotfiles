@@ -14,6 +14,7 @@
       "$HOME"
     ]
   },
+  "model": "opus",
   "disableBundledSkills": false,
   "worktree": {
     "baseRef": "fresh"
@@ -26,7 +27,8 @@
   },
   "enabledPlugins": {
     "last30days@last30days-skill": true,
-    "typesafe@typesafe-ai": true
+    "typesafe@typesafe-ai": true,
+    "vidopix-mcp@vidopix-marketplace": true
   },
   "extraKnownMarketplaces": {
     "coverstar-agents": {
@@ -52,6 +54,12 @@
         "source": "github",
         "repo": "cloudflare/skills"
       }
+    },
+    "vidopix-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "vidopix/claude-marketplace"
+      }
     }
   },
   "outputStyle": "Concise",
@@ -75,6 +83,7 @@
   "editorMode": "vim",
   "preferredNotifChannel": "auto",
   "autoCompactEnabled": false,
+  "switchModelsOnFlag": true,
   "fileCheckpointingEnabled": true,
   "remoteControlAtStartup": true,
   "inputNeededNotifEnabled": true,
