@@ -43,9 +43,24 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+-- Nvim never stops a server on its own, so closed projects kept theirs running
+-- for the life of the instance. The delay rides out `:e` re-attaches.
+vim.api.nvim_create_autocmd("LspDetach", {
+  group = augroup("lsp_stop_unused"),
+  callback = function(args)
+    local id = args.data.client_id
+    vim.defer_fn(function()
+      local client = vim.lsp.get_client_by_id(id)
+      if client and vim.tbl_isempty(client.attached_buffers) then
+        client:stop()
+      end
+    end, 10000)
+  end,
+})
+
 -- Enable LSP servers for Neovim 0.11+
 vim.lsp.enable({
-  "ts_go_ls",
+  "tsc",
   "vtsls",
   "lua_ls",
   "vue_ls",
