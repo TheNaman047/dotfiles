@@ -60,7 +60,7 @@ vim.api.nvim_create_autocmd("LspDetach", {
 
 -- Enable LSP servers for Neovim 0.11+
 vim.lsp.enable({
-  "ts_go_ls",
+  "tsc",
   "vtsls",
   "lua_ls",
   "vue_ls",
