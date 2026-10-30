@@ -5,6 +5,8 @@
 .config/ghostty/theme.conf
 .config/tuicr/config.toml
 .config/vicinae/settings.json
+.config/.android
+.config/glow/glow.yml
 .wrangler/
 1Password/
 gcloud/
