@@ -16,6 +16,97 @@
   },
   "model": "opus",
   "disableBundledSkills": false,
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/tmux/scripts/claude-status.sh clear",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/tmux/scripts/claude-status.sh working",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "AskUserQuestion|ExitPlanMode",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/tmux/scripts/claude-status.sh waiting",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/tmux/scripts/claude-status.sh working",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt|elicitation_dialog",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/tmux/scripts/claude-status.sh waiting",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/tmux/scripts/claude-status.sh idle",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/tmux/scripts/claude-status.sh done",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/tmux/scripts/claude-status.sh clear",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
   "worktree": {
     "baseRef": "fresh"
   },
@@ -70,13 +161,13 @@
   "maxEffortLevel": "xhigh",
   "modelSettings": {
     "claude-opus-5-5": {
-      "effortLevel": "medium"
+      "effortLevel": "high"
     },
     "claude-sonnet-5-5": {
       "effortLevel": "high"
     }
   },
-  "advisorModel": "opus",
+  "advisorModel": "fable",
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "theme": "custom:kanagawa-wave",
@@ -88,38 +179,5 @@
   "remoteControlAtStartup": true,
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
-  "bgIsolation": "none",
-  "hooks": {
-    "SessionStart": [
-      { "hooks": [{ "type": "command", "command": "$HOME/.config/tmux/scripts/claude-status.sh clear", "timeout": 5 }] }
-    ],
-    "UserPromptSubmit": [
-      { "hooks": [{ "type": "command", "command": "$HOME/.config/tmux/scripts/claude-status.sh working", "timeout": 5 }] }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "AskUserQuestion|ExitPlanMode",
-        "hooks": [{ "type": "command", "command": "$HOME/.config/tmux/scripts/claude-status.sh waiting", "timeout": 5 }]
-      }
-    ],
-    "PostToolUse": [
-      { "hooks": [{ "type": "command", "command": "$HOME/.config/tmux/scripts/claude-status.sh working", "timeout": 5 }] }
-    ],
-    "Notification": [
-      {
-        "matcher": "permission_prompt|elicitation_dialog",
-        "hooks": [{ "type": "command", "command": "$HOME/.config/tmux/scripts/claude-status.sh waiting", "timeout": 5 }]
-      },
-      {
-        "matcher": "idle_prompt",
-        "hooks": [{ "type": "command", "command": "$HOME/.config/tmux/scripts/claude-status.sh idle", "timeout": 5 }]
-      }
-    ],
-    "Stop": [
-      { "hooks": [{ "type": "command", "command": "$HOME/.config/tmux/scripts/claude-status.sh done", "timeout": 5 }] }
-    ],
-    "SessionEnd": [
-      { "hooks": [{ "type": "command", "command": "$HOME/.config/tmux/scripts/claude-status.sh clear", "timeout": 5 }] }
-    ]
-  }
+  "bgIsolation": "none"
 }
