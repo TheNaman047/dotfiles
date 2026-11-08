@@ -3,6 +3,9 @@ vim.pack.add({
   "https://github.com/nvim-tree/nvim-web-devicons",
 })
 
+-- prefix: Dockerfile.dev, Makefile.local etc. fall back to the base name's icon
+require("nvim-web-devicons").setup({ prefix = true })
+
 local Snacks = require("snacks")
 
 Snacks.setup({
