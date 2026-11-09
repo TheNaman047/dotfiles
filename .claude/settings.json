@@ -10,6 +10,11 @@
   },
   "permissions": {
     "defaultMode": "auto",
+    "allow": [
+      "Read",
+      "Write",
+      "Edit"
+    ],
     "additionalDirectories": [
       "$HOME"
     ]
