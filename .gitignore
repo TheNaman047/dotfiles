@@ -10,3 +10,8 @@
 .wrangler/
 1Password/
 gcloud/
+.config/gopass/
+.config/last30days/
+.config/openui/
+.config/swiftpm/
+.config/tanstack/
