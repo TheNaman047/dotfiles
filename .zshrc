@@ -97,10 +97,8 @@ eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
 # fnm
-FNM_PATH="/home/naman47/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="/home/naman47/.local/share/fnm:$PATH"
-  eval "`fnm env`"
+if type fnm &>/dev/null; then
+  eval "$(fnm env --use-on-cd --shell zsh)"
 fi
 
 myip() {
@@ -136,3 +134,23 @@ case ":$PATH:" in
 esac
 # oMLX: CLI shim path end
 # zprof
+
+# opencode
+export PATH=/Users/thenaman047/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/Users/thenaman047/.bun/_bun" ] && source "/Users/thenaman047/.bun/_bun"
+
+# pnpm
+export PNPM_HOME="/Users/thenaman047/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
+
+# Added by Kiri: its docker and kiri commands (kiri setup --uninstall removes this)
+case ":$PATH:" in *":$HOME/.kiri/bin:"*) ;; *) export PATH="$PATH:$HOME/.kiri/bin" ;; esac
+
+# Hermes Agent command
+case ":$PATH:" in *":$HOME/.local/bin:"*) ;; *) export PATH="$HOME/.local/bin:$PATH" ;; esac
