@@ -22,8 +22,7 @@ zinit light starship/starship
 zinit wait lucid for \
   zsh-users/zsh-syntax-highlighting \
   zsh-users/zsh-autosuggestions \
-  Aloxaf/fzf-tab \
-  dominik-schwabe/zsh-fnm
+  Aloxaf/fzf-tab
 
 # zsh-completions needs special handling to update FPATH
 zinit wait lucid atpull'zinit creinstall -q .' for \
@@ -96,10 +95,8 @@ eval "$(fzf --zsh)"
 [[ -n "$CLAUDECODE" ]] && export _ZO_DOCTOR=0
 eval "$(zoxide init --cmd cd zsh)"
 
-# fnm
-if type fnm &>/dev/null; then
-  eval "$(fnm env --use-on-cd --shell zsh)"
-fi
+# mise (node, etc.)
+eval "$(mise activate zsh)"
 
 myip() {
     local ip=$(curl -s -4 ifconfig.me)
