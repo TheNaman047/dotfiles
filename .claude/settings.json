@@ -9,17 +9,17 @@
     "sessionUrl": false
   },
   "permissions": {
-    "defaultMode": "auto",
     "allow": [
       "Read",
       "Write",
       "Edit"
     ],
+    "defaultMode": "auto",
     "additionalDirectories": [
       "$HOME"
     ]
   },
-  "model": "opus",
+  "model": "sonnet",
   "disableBundledSkills": false,
   "hooks": {
     "SessionStart": [
@@ -124,7 +124,8 @@
   "enabledPlugins": {
     "last30days@last30days-skill": true,
     "typesafe@typesafe-ai": true,
-    "vidopix-mcp@vidopix-marketplace": true
+    "vidopix-mcp@vidopix-marketplace": true,
+    "tokeneconomizer@tokeneconomizer": true
   },
   "extraKnownMarketplaces": {
     "coverstar-agents": {
@@ -156,6 +157,12 @@
         "source": "github",
         "repo": "vidopix/claude-marketplace"
       }
+    },
+    "tokeneconomizer": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/thenaman047/Projects/personal/code/TokenEconomizer"
+      }
     }
   },
   "outputStyle": "Concise",
@@ -172,7 +179,7 @@
       "effortLevel": "high"
     }
   },
-  "advisorModel": "fable",
+  "advisorModel": "opus",
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "theme": "custom:kanagawa-wave",
