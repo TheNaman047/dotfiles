@@ -9,12 +9,109 @@
     "sessionUrl": false
   },
   "permissions": {
+    "allow": [
+      "Read",
+      "Write",
+      "Edit"
+    ],
     "defaultMode": "auto",
     "additionalDirectories": [
       "$HOME"
     ]
   },
+  "model": "sonnet",
   "disableBundledSkills": false,
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/tmux/scripts/claude-status.sh clear",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/tmux/scripts/claude-status.sh working",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "AskUserQuestion|ExitPlanMode",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/tmux/scripts/claude-status.sh waiting",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/tmux/scripts/claude-status.sh working",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt|elicitation_dialog",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/tmux/scripts/claude-status.sh waiting",
+            "timeout": 5
+          }
+        ]
+      },
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/tmux/scripts/claude-status.sh idle",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/tmux/scripts/claude-status.sh done",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.config/tmux/scripts/claude-status.sh clear",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
   "worktree": {
     "baseRef": "fresh"
   },
@@ -26,7 +123,9 @@
   },
   "enabledPlugins": {
     "last30days@last30days-skill": true,
-    "typesafe@typesafe-ai": true
+    "typesafe@typesafe-ai": true,
+    "vidopix-mcp@vidopix-marketplace": true,
+    "tokeneconomizer@tokeneconomizer": true
   },
   "extraKnownMarketplaces": {
     "coverstar-agents": {
@@ -52,6 +151,18 @@
         "source": "github",
         "repo": "cloudflare/skills"
       }
+    },
+    "vidopix-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "vidopix/claude-marketplace"
+      }
+    },
+    "tokeneconomizer": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/thenaman047/Projects/personal/code/TokenEconomizer"
+      }
     }
   },
   "outputStyle": "Concise",
@@ -62,7 +173,7 @@
   "maxEffortLevel": "xhigh",
   "modelSettings": {
     "claude-opus-5-5": {
-      "effortLevel": "medium"
+      "effortLevel": "high"
     },
     "claude-sonnet-5-5": {
       "effortLevel": "high"
@@ -75,6 +186,7 @@
   "editorMode": "vim",
   "preferredNotifChannel": "auto",
   "autoCompactEnabled": false,
+  "switchModelsOnFlag": true,
   "fileCheckpointingEnabled": true,
   "remoteControlAtStartup": true,
   "inputNeededNotifEnabled": true,

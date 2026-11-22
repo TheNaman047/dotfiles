@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.naman.claude-reap-idle</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/thenaman047/.config/launchd/claude-reap-idle.sh</string>
+  </array>
+  <key>StartInterval</key>
+  <integer>1800</integer>
+  <key>StandardOutPath</key>
+  <string>/Users/thenaman047/.local/state/claude-reap-idle.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/thenaman047/.local/state/claude-reap-idle.log</string>
+</dict>
+</plist>

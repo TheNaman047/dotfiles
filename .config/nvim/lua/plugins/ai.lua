@@ -12,12 +12,23 @@ require("claudecode").setup({
     provider = "native",
     split_side = "right",
     split_width_percentage = 0.4,
-    auto_close = true,
   },
   diff_opts = {
     layout = "vertical",
     open_in_new_tab = false,
   },
+})
+
+-- auto_close only closes the window; it leaves the dead terminal buffer listed,
+-- and on screen when Claude was the last window.
+vim.api.nvim_create_autocmd("TermClose", {
+  group = vim.api.nvim_create_augroup("claudecode_term_close", { clear = true }),
+  pattern = "term://*",
+  callback = function(args)
+    -- term://<cwd>//<pid>:<cmd>; match the command, not a cwd under .claude/
+    if not args.match:match("//%d+:%S*claude") then return end
+    vim.schedule(function() pcall(vim.api.nvim_buf_delete, args.buf, { force = true }) end)
+  end,
 })
 
 local function cc(desc) return { noremap = true, silent = true, desc = desc } end

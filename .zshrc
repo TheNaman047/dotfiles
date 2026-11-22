@@ -22,8 +22,7 @@ zinit light starship/starship
 zinit wait lucid for \
   zsh-users/zsh-syntax-highlighting \
   zsh-users/zsh-autosuggestions \
-  Aloxaf/fzf-tab \
-  dominik-schwabe/zsh-fnm
+  Aloxaf/fzf-tab
 
 # zsh-completions needs special handling to update FPATH
 zinit wait lucid atpull'zinit creinstall -q .' for \
@@ -96,12 +95,8 @@ eval "$(fzf --zsh)"
 [[ -n "$CLAUDECODE" ]] && export _ZO_DOCTOR=0
 eval "$(zoxide init --cmd cd zsh)"
 
-# fnm
-FNM_PATH="/home/naman47/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="/home/naman47/.local/share/fnm:$PATH"
-  eval "`fnm env`"
-fi
+# mise (node, etc.)
+eval "$(mise activate zsh)"
 
 myip() {
     local ip=$(curl -s -4 ifconfig.me)
@@ -137,5 +132,21 @@ esac
 # oMLX: CLI shim path end
 # zprof
 
+# opencode
+export PATH=/Users/thenaman047/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/Users/thenaman047/.bun/_bun" ] && source "/Users/thenaman047/.bun/_bun"
+
+# pnpm
+export PNPM_HOME="/Users/thenaman047/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
+
 # Added by Kiri: its docker and kiri commands (kiri setup --uninstall removes this)
 case ":$PATH:" in *":$HOME/.kiri/bin:"*) ;; *) export PATH="$PATH:$HOME/.kiri/bin" ;; esac
+
+case ":$PATH:" in *":$HOME/.local/bin:"*) ;; *) export PATH="$HOME/.local/bin:$PATH" ;; esac

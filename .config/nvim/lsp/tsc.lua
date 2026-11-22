@@ -1,13 +1,18 @@
+-- TypeScript 7 native language server (`bun add -g typescript@7`).
 return {
-  cmd = { 'tsgo', '--lsp', '-stdio' },
+  cmd = { 'tsc', '--lsp', '--stdio' },
   filetypes = {
     "javascript",
     "javascriptreact",
     "typescript",
     "typescriptreact",
   },
-  format = { enable = true },
-  root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
+  -- One server per repo: it finds each package's tsconfig itself, whereas
+  -- package-level markers spawned a server per lambda in monorepos.
+  root_markers = {
+    '.git',
+    { 'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'bun.lock', 'bun.lockb', 'tsconfig.json', 'jsconfig.json', 'package.json' },
+  },
   handlers = {
     -- handle rename request for certain code actions like extracting functions / types
     ['_typescript.rename'] = function(_, result, ctx)
