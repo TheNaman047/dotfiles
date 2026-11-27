@@ -127,7 +127,7 @@ fmt_reset() {
   elif [ "$h" -gt 0 ]; then t="${h}h${m}m"
   else                      t="${m}m"
   fi
-  printf " %s↻%s%s" "$(fg 245)" "$t" "$reset"
+  printf " %s↻ %s%s" "$(fg 245)" "$t" "$reset"
 }
 if [ -n "$rl_5h" ]; then
   p5=$(printf "%.0f" "$rl_5h")
