@@ -18,6 +18,8 @@ wt_name=$(echo "$input"    | jq -r '.worktree.name // .workspace.git_worktree //
 effort=$(echo "$input"     | jq -r '.effort.level // empty')
 rl_5h=$(echo "$input"      | jq -r '.rate_limits.five_hour.used_percentage // empty')
 rl_7d=$(echo "$input"      | jq -r '.rate_limits.seven_day.used_percentage // empty')
+rl_5h_reset=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
+rl_7d_reset=$(echo "$input" | jq -r '.rate_limits.seven_day.resets_at // empty')
 ctx_pct=$(echo "$input"    | jq -r '.context_window.used_percentage // empty')
 ctx_used=$(echo "$input"   | jq -r '.context_window.total_input_tokens // empty')
 ctx_size=$(echo "$input"   | jq -r '.context_window.context_window_size // empty')
@@ -116,12 +118,25 @@ color_pct() {
   else                       echo 71
   fi
 }
+# Time left until a window resets (epoch seconds) → " ↻2h13m", dimmed.
+fmt_reset() {
+  local left=$(( ${1%.*} - $(date +%s) ))
+  [ "$left" -gt 0 ] || return 0
+  local d=$(( left / 86400 )) h=$(( left % 86400 / 3600 )) m=$(( left % 3600 / 60 )) t
+  if   [ "$d" -gt 0 ]; then t="${d}d${h}h"
+  elif [ "$h" -gt 0 ]; then t="${h}h${m}m"
+  else                      t="${m}m"
+  fi
+  printf " %s↻%s%s" "$(fg 245)" "$t" "$reset"
+}
 if [ -n "$rl_5h" ]; then
   p5=$(printf "%.0f" "$rl_5h")
   quota_seg="$(fg "$(color_pct "$p5")")${I_QUOTA} 5h ${p5}%${reset}"
+  [ -n "$rl_5h_reset" ] && quota_seg="${quota_seg}$(fmt_reset "$rl_5h_reset")"
   if [ -n "$rl_7d" ]; then
     p7=$(printf "%.0f" "$rl_7d")
-    quota_seg="${quota_seg}$(fg 240)/${reset}$(fg "$(color_pct "$p7")")7d ${p7}%${reset}"
+    quota_seg="${quota_seg} $(fg 240)/${reset} $(fg "$(color_pct "$p7")")7d ${p7}%${reset}"
+    [ -n "$rl_7d_reset" ] && quota_seg="${quota_seg}$(fmt_reset "$rl_7d_reset")"
   fi
   parts+=("$quota_seg")
 fi
